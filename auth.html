@@ -305,6 +305,33 @@
         <a href="index.html" class="back-link">← Volver al inicio</a>
     </div>
 
+    <!-- Tab switching script (no dependencies) -->
+    <script>
+        // Tab switching - runs immediately, no dependencies
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    const target = this.getAttribute('data-tab');
+
+                    // Remove active from all tabs and forms
+                    tabs.forEach(function(t) { t.classList.remove('active'); });
+                    forms.forEach(function(f) { f.classList.remove('active'); });
+
+                    // Add active to clicked tab and corresponding form
+                    this.classList.add('active');
+                    document.getElementById(target + '-form').classList.add('active');
+
+                    // Hide messages
+                    document.getElementById('error-message').classList.remove('show');
+                    document.getElementById('success-message').classList.remove('show');
+                });
+            });
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://qhtykipawsulyejtvvkm.supabase.co';
@@ -317,24 +344,6 @@
             if (session) {
                 window.location.href = 'dashboard.html';
             }
-        });
-
-        // Tab switching
-        const tabs = document.querySelectorAll('.auth-tab');
-        const forms = document.querySelectorAll('.auth-form');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.tab;
-
-                tabs.forEach(t => t.classList.remove('active'));
-                forms.forEach(f => f.classList.remove('active'));
-
-                tab.classList.add('active');
-                document.getElementById(`${target}-form`).classList.add('active');
-
-                hideMessages();
-            });
         });
 
         function showError(message) {
