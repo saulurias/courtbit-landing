@@ -387,22 +387,29 @@
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email,
-                password
-            });
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
+                });
 
-            if (error) {
-                setLoading(btn, false);
-                if (error.message.includes('Invalid login credentials')) {
-                    showError('Correo o contraseña incorrectos');
-                } else {
-                    showError(error.message);
+                if (error) {
+                    setLoading(btn, false);
+                    if (error.message.includes('Invalid login credentials')) {
+                        showError('Correo o contraseña incorrectos');
+                    } else if (error.message.includes('Email not confirmed')) {
+                        showError('Debes confirmar tu correo antes de iniciar sesión. Revisa tu bandeja de entrada.');
+                    } else {
+                        showError(error.message);
+                    }
+                    return;
                 }
-                return;
-            }
 
-            window.location.href = 'dashboard.html';
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                setLoading(btn, false);
+                showError('Error de conexión: ' + err.message);
+            }
         });
 
         // Signup
@@ -419,32 +426,41 @@
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
 
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    data: {
-                        first_name: firstName,
-                        last_name: lastName
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            first_name: firstName,
+                            last_name: lastName
+                        }
                     }
+                });
+
+                setLoading(btn, false);
+
+                if (error) {
+                    if (error.message.includes('already registered')) {
+                        showError('Este correo ya está registrado');
+                    } else {
+                        showError(error.message);
+                    }
+                    return;
                 }
-            });
 
-            setLoading(btn, false);
-
-            if (error) {
-                if (error.message.includes('already registered')) {
-                    showError('Este correo ya está registrado');
+                // If email confirmation is required
+                if (data.user && !data.session) {
+                    showSuccess('¡Cuenta creada! Revisa tu correo para confirmar tu cuenta.');
+                } else if (data.session) {
+                    // Email confirmation disabled - go directly to dashboard
+                    window.location.href = 'dashboard.html';
                 } else {
-                    showError(error.message);
+                    showSuccess('¡Cuenta creada! Ya puedes iniciar sesión.');
                 }
-                return;
-            }
-
-            if (data.user && !data.session) {
-                showSuccess('¡Cuenta creada! Revisa tu correo para confirmar tu cuenta.');
-            } else {
-                window.location.href = 'dashboard.html';
+            } catch (err) {
+                setLoading(btn, false);
+                showError('Error de conexión: ' + err.message);
             }
         });
     </script>
