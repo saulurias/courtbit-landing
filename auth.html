@@ -332,19 +332,13 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://qhtykipawsulyejtvvkm.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFodHlraXBhd3N1bHllanR2dmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxMzk3NDYsImV4cCI6MjA4MjcxNTc0Nn0.8DzCm04o4q_H8TKriUsD3ajqR7QuzZH3Bgs1z993eHI';
-
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const API_URL = 'https://courtbit-api-production.up.railway.app/api';
 
         // Check if already logged in
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                window.location.href = 'dashboard.html';
-            }
-        });
+        if (localStorage.getItem('courtbit_token')) {
+            window.location.href = 'dashboard.html';
+        }
 
         function showError(message) {
             const el = document.getElementById('error-message');
@@ -384,31 +378,34 @@
             btn.dataset.originalText = btn.textContent;
             setLoading(btn, true);
 
-            const email = document.getElementById('login-email').value;
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
             const password = document.getElementById('login-password').value;
 
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email,
-                    password
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
                 });
 
-                if (error) {
+                const data = await response.json();
+
+                if (!response.ok) {
                     setLoading(btn, false);
-                    if (error.message.includes('Invalid login credentials')) {
-                        showError('Correo o contraseña incorrectos');
-                    } else if (error.message.includes('Email not confirmed')) {
-                        showError('Debes confirmar tu correo antes de iniciar sesión. Revisa tu bandeja de entrada.');
-                    } else {
-                        showError(error.message);
-                    }
+                    showError(data.error || 'Correo o contraseña incorrectos');
                     return;
                 }
+
+                // Store token and user data
+                localStorage.setItem('courtbit_token', data.token);
+                localStorage.setItem('courtbit_user', JSON.stringify(data.user));
 
                 window.location.href = 'dashboard.html';
             } catch (err) {
                 setLoading(btn, false);
-                showError('Error de conexión: ' + err.message);
+                showError('Error de conexión. Intenta de nuevo.');
             }
         });
 
@@ -421,46 +418,47 @@
             btn.dataset.originalText = btn.textContent;
             setLoading(btn, true);
 
-            const firstName = document.getElementById('signup-firstname').value;
-            const lastName = document.getElementById('signup-lastname').value;
-            const email = document.getElementById('signup-email').value;
+            const firstName = document.getElementById('signup-firstname').value.trim();
+            const lastName = document.getElementById('signup-lastname').value.trim();
+            const email = document.getElementById('signup-email').value.trim().toLowerCase();
             const password = document.getElementById('signup-password').value;
 
             try {
-                const { data, error } = await supabase.auth.signUp({
-                    email,
-                    password,
-                    options: {
-                        data: {
-                            first_name: firstName,
-                            last_name: lastName
-                        }
-                    }
+                const response = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        first_name: firstName,
+                        last_name: lastName,
+                        phone: null,
+                        gender: null
+                    })
                 });
 
-                setLoading(btn, false);
+                const data = await response.json();
 
-                if (error) {
-                    if (error.message.includes('already registered')) {
-                        showError('Este correo ya está registrado');
+                if (!response.ok) {
+                    setLoading(btn, false);
+                    if (data.errors && Array.isArray(data.errors)) {
+                        showError(data.errors.join(' '));
                     } else {
-                        showError(error.message);
+                        showError(data.error || 'Error al crear la cuenta');
                     }
                     return;
                 }
 
-                // If email confirmation is required
-                if (data.user && !data.session) {
-                    showSuccess('¡Cuenta creada! Revisa tu correo para confirmar tu cuenta.');
-                } else if (data.session) {
-                    // Email confirmation disabled - go directly to dashboard
-                    window.location.href = 'dashboard.html';
-                } else {
-                    showSuccess('¡Cuenta creada! Ya puedes iniciar sesión.');
-                }
+                // Store token and user data
+                localStorage.setItem('courtbit_token', data.token);
+                localStorage.setItem('courtbit_user', JSON.stringify(data.user));
+
+                window.location.href = 'dashboard.html';
             } catch (err) {
                 setLoading(btn, false);
-                showError('Error de conexión: ' + err.message);
+                showError('Error de conexión. Intenta de nuevo.');
             }
         });
     </script>

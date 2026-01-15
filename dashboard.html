@@ -356,35 +356,36 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://qhtykipawsulyejtvvkm.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFodHlraXBhd3N1bHllanR2dmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxMzk3NDYsImV4cCI6MjA4MjcxNTc0Nn0.8DzCm04o4q_H8TKriUsD3ajqR7QuzZH3Bgs1z993eHI';
+        function init() {
+            const token = localStorage.getItem('courtbit_token');
+            const userJson = localStorage.getItem('courtbit_user');
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        async function init() {
-            const { data: { session } } = await supabase.auth.getSession();
-
-            if (!session) {
+            if (!token || !userJson) {
                 window.location.href = 'auth.html';
                 return;
             }
 
-            const user = session.user;
-            const firstName = user.user_metadata?.first_name || '';
-            const lastName = user.user_metadata?.last_name || '';
-            const fullName = `${firstName} ${lastName}`.trim() || 'Usuario';
+            try {
+                const user = JSON.parse(userJson);
+                const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Usuario';
 
-            document.getElementById('user-name').textContent = fullName;
-            document.getElementById('user-email').textContent = user.email;
+                document.getElementById('user-name').textContent = fullName;
+                document.getElementById('user-email').textContent = user.email || '';
 
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } catch (e) {
+                // Invalid user data, redirect to login
+                localStorage.removeItem('courtbit_token');
+                localStorage.removeItem('courtbit_user');
+                window.location.href = 'auth.html';
+            }
         }
 
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('courtbit_token');
+            localStorage.removeItem('courtbit_user');
             window.location.href = 'index.html';
         });
 
