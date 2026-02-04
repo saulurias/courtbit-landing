@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Cuenta | CourtBit</title>
+    <meta name="description" content="Elimina tu cuenta de CourtBit de forma permanente.">
+    <link rel="icon" type="image/png" href="../Assets/courtbit-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-primary: #00D26A;
+            --green-dark: #00A855;
+            --bg-white: #FFFFFF;
+            --bg-gray-50: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-gray: #4B5563;
+            --border-light: #E5E7EB;
+            --red: #EF4444;
+            --red-dark: #DC2626;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+        nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .logo span { color: var(--green-primary); }
+        .back-link {
+            color: var(--green-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .content {
+            padding: 60px 0 100px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .subtitle {
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+        p, li {
+            color: var(--text-gray);
+            margin-bottom: 16px;
+        }
+        ul {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+        li { margin-bottom: 8px; }
+        strong { color: var(--text-dark); }
+        a { color: var(--green-primary); }
+
+        /* Steps */
+        .step { display: none; }
+        .step.active { display: block; }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: var(--green-primary);
+        }
+        .btn {
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-primary {
+            background: var(--green-primary);
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: var(--green-dark);
+        }
+        .btn-delete {
+            background: var(--red);
+            color: white;
+        }
+        .btn-delete:hover:not(:disabled) {
+            background: var(--red-dark);
+        }
+        .warning-box {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+        }
+        .warning-box p {
+            color: var(--red);
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        .info-box {
+            background: var(--bg-gray-50);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        .info-box p {
+            margin-bottom: 0;
+        }
+        .success-box {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 8px;
+            padding: 20px 24px;
+        }
+        .success-box p {
+            color: var(--green-dark);
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        .error-message {
+            color: var(--red);
+            font-weight: 500;
+            margin-top: 12px;
+            display: none;
+        }
+        .user-info {
+            background: var(--bg-gray-50);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        .user-info p {
+            margin-bottom: 4px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        footer {
+            background: var(--bg-gray-50);
+            border-top: 1px solid var(--border-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .footer-logo span { color: var(--green-primary); }
+        .footer-text {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">Court<span>Bit</span></a>
+            <a href="/" class="back-link">&larr; Volver al inicio</a>
+        </div>
+    </nav>
+
+    <main class="content">
+        <div class="container">
+            <h1>Eliminar mi cuenta</h1>
+            <p class="subtitle">Elimina tu cuenta y datos personales de CourtBit de forma permanente.</p>
+
+            <!-- STEP 1: Info + Login -->
+            <div id="step1" class="step active">
+                <h2>Antes de continuar</h2>
+                <p>Al eliminar tu cuenta se borrar&aacute;n de forma permanente:</p>
+                <ul>
+                    <li>Tu perfil y datos personales (nombre, correo, tel&eacute;fono).</li>
+                    <li>Tu historial de partidos, estad&iacute;sticas y rankings.</li>
+                    <li>Tus inscripciones a ligas y torneos.</li>
+                    <li>Tu foto de perfil.</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p>Esta acci&oacute;n es irreversible. No podr&aacute;s recuperar tu cuenta ni tus datos.</p>
+                </div>
+
+                <h2>Inicia sesi&oacute;n para continuar</h2>
+                <p>Por seguridad, necesitas verificar tu identidad.</p>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Correo electr&oacute;nico</label>
+                        <input type="email" id="email" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contrase&ntilde;a</label>
+                        <input type="password" id="password" placeholder="Tu contrase&ntilde;a" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="loginBtn">Iniciar sesi&oacute;n</button>
+                    <p class="error-message" id="loginError"></p>
+                </form>
+            </div>
+
+            <!-- STEP 2: Confirm with ELIMINAR -->
+            <div id="step2" class="step">
+                <div class="info-box">
+                    <p><strong>Sesi&oacute;n iniciada como:</strong></p>
+                    <p id="userName"></p>
+                    <p id="userEmail"></p>
+                </div>
+
+                <h2>Confirma la eliminaci&oacute;n</h2>
+                <p>Escribe <strong>ELIMINAR</strong> en el campo de abajo para confirmar que deseas eliminar tu cuenta.</p>
+
+                <form id="confirmForm">
+                    <div class="form-group">
+                        <label for="confirmText">Escribe ELIMINAR</label>
+                        <input type="text" id="confirmText" placeholder="ELIMINAR" autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="btn btn-delete" id="confirmBtn" disabled>Eliminar mi cuenta</button>
+                    <p class="error-message" id="confirmError"></p>
+                </form>
+            </div>
+
+            <!-- STEP 3: Final confirmation -->
+            <div id="step3" class="step">
+                <div class="warning-box">
+                    <p>Est&aacute;s a punto de eliminar tu cuenta permanentemente. Esta acci&oacute;n no se puede deshacer.</p>
+                </div>
+
+                <h2>&iquest;Est&aacute;s completamente seguro?</h2>
+                <p>Al hacer clic en el bot&oacute;n, tu cuenta y todos tus datos ser&aacute;n eliminados de forma permanente.</p>
+
+                <button class="btn btn-delete" id="finalDeleteBtn">S&iacute;, eliminar mi cuenta permanentemente</button>
+                <span style="display:inline-block; width:16px;"></span>
+                <button class="btn btn-primary" id="cancelBtn">Cancelar</button>
+                <p class="error-message" id="deleteError"></p>
+            </div>
+
+            <!-- STEP 4: Success -->
+            <div id="step4" class="step">
+                <div class="success-box">
+                    <p>Tu cuenta ha sido eliminada exitosamente. Tus datos ser&aacute;n eliminados por completo en un plazo m&aacute;ximo de 30 d&iacute;as.</p>
+                </div>
+            </div>
+
+            <!-- Always visible -->
+            <h2>Otras opciones</h2>
+            <p>Tambi&eacute;n puedes eliminar tu cuenta directamente desde la app en <strong>Perfil &gt; Eliminar cuenta</strong>, o contactarnos:</p>
+            <ul>
+                <li><strong>WhatsApp:</strong> <a href="https://wa.me/526221464310">+52 622 146 4310</a></li>
+                <li><strong>Correo:</strong> <a href="mailto:privacidad@courtbit.com.mx">privacidad@courtbit.com.mx</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Court<span>Bit</span></div>
+            <p class="footer-text">&copy; 2025 CourtBit. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        var API = 'https://courtbit-api-production.up.railway.app/api';
+        var token = null;
+
+        function showStep(n) {
+            document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+            document.getElementById('step' + n).classList.add('active');
+        }
+
+        function showError(id, msg) {
+            var el = document.getElementById(id);
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function hideError(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function setLoading(btn, loading) {
+            if (loading) {
+                btn.disabled = true;
+                btn.dataset.original = btn.innerHTML;
+                btn.innerHTML = '<span class="spinner"></span>Procesando...';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = btn.dataset.original;
+            }
+        }
+
+        // Step 1: Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideError('loginError');
+            var btn = document.getElementById('loginBtn');
+            setLoading(btn, true);
+
+            fetch(API + '/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: document.getElementById('email').value.trim(),
+                    password: document.getElementById('password').value
+                })
+            })
+            .then(function(res) {
+                if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Credenciales incorrectas'); });
+                return res.json();
+            })
+            .then(function(data) {
+                token = data.token;
+                var user = data.user;
+                document.getElementById('userName').textContent = (user.firstName || '') + ' ' + (user.lastName || '');
+                document.getElementById('userEmail').textContent = user.email || '';
+                setLoading(btn, false);
+                showStep(2);
+            })
+            .catch(function(err) {
+                setLoading(btn, false);
+                showError('loginError', err.message);
+            });
+        });
+
+        // Step 2: Type ELIMINAR
+        document.getElementById('confirmText').addEventListener('input', function() {
+            document.getElementById('confirmBtn').disabled = this.value.trim() !== 'ELIMINAR';
+        });
+
+        document.getElementById('confirmForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('confirmText').value.trim() !== 'ELIMINAR') return;
+            showStep(3);
+        });
+
+        // Step 3: Final confirmation
+        document.getElementById('finalDeleteBtn').addEventListener('click', function() {
+            hideError('deleteError');
+            var btn = this;
+            setLoading(btn, true);
+
+            fetch(API + '/auth/me', {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(function(res) {
+                if (!res.ok) return res.json().then(function(d) { throw new Error(d.error || 'Error al eliminar la cuenta'); });
+                return res.json();
+            })
+            .then(function() {
+                token = null;
+                showStep(4);
+            })
+            .catch(function(err) {
+                setLoading(btn, false);
+                showError('deleteError', err.message);
+            });
+        });
+
+        // Cancel
+        document.getElementById('cancelBtn').addEventListener('click', function() {
+            token = null;
+            document.getElementById('loginForm').reset();
+            document.getElementById('confirmForm').reset();
+            document.getElementById('confirmBtn').disabled = true;
+            showStep(1);
+        });
+    </script>
+</body>
+</html>
