@@ -62,7 +62,6 @@
         .chart .bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 160px; position: relative; }
         .chart .bar-val { font-family: var(--mono); font-size: 0.9rem; font-weight: 700; color: var(--dark); white-space: nowrap; }
         .chart .bar { width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--green), var(--green-dark)); min-height: 4px; }
-        .chart .bar-col.loss .bar { background: linear-gradient(180deg, var(--red), #DC2626); }
         .chart .bar-label { position: absolute; bottom: -32px; font-size: 0.75rem; color: var(--gray-400); font-weight: 600; }
         .section-dark .chart { border-bottom-color: #374151; }
         .section-dark .chart .bar-val { color: #fff; }
@@ -85,16 +84,6 @@
         .qtable td { border-bottom: 1px solid var(--gray-100); color: var(--gray-600); }
         .qtable td.mono { font-family: var(--mono); font-weight: 600; color: var(--dark); }
         .qtable .total td { font-weight: 700; color: var(--dark); background: var(--gray-50); border-top: 2px solid var(--gray-300); }
-        .qtable .hl { background: rgba(0,210,106,0.06); color: var(--green-dark); font-weight: 700; }
-        .qtable .hl.neg { background: rgba(239,68,68,0.06); color: var(--red); }
-
-        /* Profit strip */
-        .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-100); border-radius: 14px; overflow: hidden; margin-top: 40px; }
-        .strip-item { background: #fff; padding: 24px 16px; text-align: center; }
-        .strip-item .v { font-family: var(--mono); font-size: 1.5rem; font-weight: 800; }
-        .strip-item .v.green { color: var(--green); }
-        .strip-item .v.red { color: var(--red); }
-        .strip-item .l { font-size: 0.75rem; color: var(--gray-600); margin-top: 2px; }
 
         /* Scenarios */
         .scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -133,7 +122,6 @@
         /* Responsive */
         @media (max-width: 768px) {
             .kpis { grid-template-columns: repeat(2, 1fr); }
-            .strip { grid-template-columns: repeat(2, 1fr); }
             .scenarios { grid-template-columns: 1fr; }
             .clients-row { grid-template-columns: repeat(2, 1fr); }
             .y3-grid { grid-template-columns: 1fr; }
@@ -161,8 +149,8 @@
     <!-- Hero: 4 KPIs -->
     <section class="hero">
         <div class="w">
-            <h1>Year 1: <em>$105K</em> revenue, <em>15%</em> margen</h1>
-            <p>Q1 inversi&oacute;n pura. Primeros clientes en Q2. Crecimiento conservador.</p>
+            <h1>Year 1: <em>$105K</em> en revenue</h1>
+            <p>Q1 desarrollo. Primeros clientes en Q2. Crecimiento conservador.</p>
             <div class="kpis">
                 <div class="kpi">
                     <div class="v">$105K</div>
@@ -170,15 +158,15 @@
                 </div>
                 <div class="kpi">
                     <div class="v">$16.2K</div>
-                    <div class="l">Profit Year 1</div>
-                </div>
-                <div class="kpi">
-                    <div class="v">Mes 4</div>
-                    <div class="l">Break-even</div>
-                </div>
-                <div class="kpi">
-                    <div class="v">$16.2K</div>
                     <div class="l">MRR Mes 12</div>
+                </div>
+                <div class="kpi">
+                    <div class="v">74</div>
+                    <div class="l">Clientes Year 1</div>
+                </div>
+                <div class="kpi">
+                    <div class="v">$650K</div>
+                    <div class="l">Revenue Year 3</div>
                 </div>
             </div>
         </div>
@@ -192,7 +180,7 @@
             <div class="sd">Q1 sin clientes (desarrollo + preparaci&oacute;n). Revenue arranca en Q2.</div>
 
             <div class="chart">
-                <div class="bar-col loss">
+                <div class="bar-col">
                     <div class="bar-val">$0</div>
                     <div class="bar" style="height: 3%;"></div>
                     <span class="bar-label">Q1</span>
@@ -222,7 +210,6 @@
                         <th>Revenue</th>
                         <th>Avg/mes</th>
                         <th>Clientes</th>
-                        <th class="hl">Profit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -231,35 +218,30 @@
                         <td class="mono">$0</td>
                         <td class="mono">$0</td>
                         <td>0</td>
-                        <td class="mono hl neg">-$22,100</td>
                     </tr>
                     <tr>
                         <td><strong>Q2</strong> (M4-6)</td>
                         <td class="mono">$25,516</td>
                         <td class="mono">$8,505</td>
                         <td>17</td>
-                        <td class="mono hl">+$3,416</td>
                     </tr>
                     <tr>
                         <td><strong>Q3</strong> (M7-9)</td>
                         <td class="mono">$34,584</td>
                         <td class="mono">$11,528</td>
                         <td>50</td>
-                        <td class="mono hl">+$12,484</td>
                     </tr>
                     <tr>
                         <td><strong>Q4</strong> (M10-12)</td>
                         <td class="mono">$44,500</td>
                         <td class="mono">$14,833</td>
                         <td>74</td>
-                        <td class="mono hl">+$22,400</td>
                     </tr>
                     <tr class="total">
                         <td><strong>Year 1</strong></td>
                         <td class="mono">$104,600</td>
                         <td class="mono">$8,717</td>
                         <td>74</td>
-                        <td class="mono hl">$16,200</td>
                     </tr>
                 </tbody>
             </table>
@@ -287,26 +269,6 @@
                     <div class="cr-detail">2 Ent &middot; 10 Pro &middot; 12 Exp &middot; 50 Free</div>
                 </div>
             </div>
-
-            <!-- Profit strip -->
-            <div class="strip">
-                <div class="strip-item">
-                    <div class="v">$104.6K</div>
-                    <div class="l">Revenue</div>
-                </div>
-                <div class="strip-item">
-                    <div class="v red">$88.4K</div>
-                    <div class="l">Costos</div>
-                </div>
-                <div class="strip-item">
-                    <div class="v green">$16.2K</div>
-                    <div class="l">Profit</div>
-                </div>
-                <div class="strip-item">
-                    <div class="v green">15%</div>
-                    <div class="l">Margen</div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -320,19 +282,19 @@
             <div class="chart-y3">
                 <div class="bar-col">
                     <div class="bar-val">$105K</div>
-                    <div class="bar-sub">Profit $16.2K</div>
+                    <div class="bar-sub">74 clientes</div>
                     <div class="bar" style="height: 16%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
                     <span class="bar-label">Year 1</span>
                 </div>
                 <div class="bar-col">
                     <div class="bar-val">$350K</div>
-                    <div class="bar-sub">Profit $165K</div>
+                    <div class="bar-sub">180+ clientes</div>
                     <div class="bar" style="height: 54%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
                     <span class="bar-label">Year 2</span>
                 </div>
                 <div class="bar-col">
                     <div class="bar-val">$650K</div>
-                    <div class="bar-sub">Profit $355K</div>
+                    <div class="bar-sub">350+ clientes</div>
                     <div class="bar" style="height: 100%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
                     <span class="bar-label">Year 3</span>
                 </div>
@@ -342,20 +304,20 @@
                 <div class="y3-card">
                     <div class="y3-year">Year 1</div>
                     <div class="y3-rev">$105K</div>
-                    <div class="y3-profit">Profit $16.2K &middot; 15% margen</div>
-                    <div class="y3-clients">74 clientes &middot; $16.2K MRR</div>
+                    <div class="y3-profit">74 clientes</div>
+                    <div class="y3-clients">$16.2K MRR</div>
                 </div>
                 <div class="y3-card">
                     <div class="y3-year">Year 2</div>
                     <div class="y3-rev">$350K</div>
-                    <div class="y3-profit">Profit $165K &middot; 47% margen</div>
-                    <div class="y3-clients">180+ clientes &middot; $35K MRR</div>
+                    <div class="y3-profit">180+ clientes</div>
+                    <div class="y3-clients">$35K MRR</div>
                 </div>
                 <div class="y3-card">
                     <div class="y3-year">Year 3</div>
                     <div class="y3-rev">$650K</div>
-                    <div class="y3-profit">Profit $355K &middot; 55% margen</div>
-                    <div class="y3-clients">350+ clientes &middot; $65K MRR</div>
+                    <div class="y3-profit">350+ clientes</div>
+                    <div class="y3-clients">$65K MRR</div>
                 </div>
             </div>
         </div>
@@ -372,17 +334,17 @@
                 <div class="sc pessimistic">
                     <span class="sc-tag">Pesimista</span>
                     <div class="sc-rev">$70K</div>
-                    <div class="sc-profit">Profit: -$18K</div>
+                    <div class="sc-profit">Adopci&oacute;n app lenta</div>
                 </div>
                 <div class="sc base">
                     <span class="sc-tag">Base</span>
                     <div class="sc-rev">$105K</div>
-                    <div class="sc-profit">Profit: $16.2K</div>
+                    <div class="sc-profit">Crecimiento conservador</div>
                 </div>
                 <div class="sc optimistic">
                     <span class="sc-tag">Optimista</span>
                     <div class="sc-rev">$145K</div>
-                    <div class="sc-profit">Profit: $57K</div>
+                    <div class="sc-profit">3 Enterprise + alta adopci&oacute;n</div>
                 </div>
             </div>
         </div>
