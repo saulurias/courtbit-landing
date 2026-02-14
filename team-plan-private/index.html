@@ -3,1300 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CourtBit — Proyecciones Year 1 | Interno</title>
+    <title>CourtBit — Proyecciones Financieras | Interno</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="../Assets/courtbit-logo.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --green-primary: #00D26A;
-            --green-light: #4ADE80;
+            --green: #00D26A;
             --green-dark: #00A855;
-            --blue-accent: #0066FF;
-            --red-accent: #EF4444;
-            --amber-accent: #F59E0B;
-            --bg-white: #FFFFFF;
-            --bg-gray-50: #F9FAFB;
-            --bg-gray-100: #F3F4F6;
-            --bg-dark: #111827;
-            --bg-dark-card: #1F2937;
-            --text-dark: #1F2937;
-            --text-gray: #4B5563;
-            --text-light: #6B7280;
-            --border-light: #E5E7EB;
-            --border-gray: #D1D5DB;
-            --font-display: 'Outfit', sans-serif;
-            --font-mono: 'Space Mono', monospace;
+            --red: #EF4444;
+            --blue: #3B82F6;
+            --amber: #F59E0B;
+            --dark: #111827;
+            --dark-card: #1F2937;
+            --gray-600: #4B5563;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --gray-100: #F3F4F6;
+            --gray-50: #F9FAFB;
+            --mono: 'Space Mono', monospace;
+            --sans: 'Outfit', sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-display);
-            background: var(--bg-gray-50);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+        body { font-family: var(--sans); background: #fff; color: var(--dark); line-height: 1.5; }
 
         /* Nav */
-        nav {
-            background: var(--bg-dark);
-            padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .nav-logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-        .nav-logo span { color: var(--green-primary); }
-        .nav-badge {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            background: rgba(239, 68, 68, 0.2);
-            color: #FCA5A5;
-            padding: 4px 10px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 700;
-        }
-        .nav-date {
-            font-size: 0.8rem;
-            color: #9CA3AF;
-        }
+        nav { background: var(--dark); padding: 14px 0; }
+        .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.2rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo span { color: var(--green); }
+        .badge { font-family: var(--mono); font-size: 0.6rem; background: rgba(239,68,68,0.15); color: #FCA5A5; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
 
         /* Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .w { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* Hero */
-        .hero {
-            background: var(--bg-dark);
-            padding: 80px 0 100px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, var(--bg-gray-50));
-        }
-        .hero-tag {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--green-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.25rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-            line-height: 1.15;
-        }
-        .hero h1 em {
-            font-style: normal;
-            color: var(--green-primary);
-        }
-        .hero-sub {
-            font-size: 1.15rem;
-            color: #9CA3AF;
-            max-width: 600px;
-            margin: 0 auto 48px;
-        }
-        .hero-kpis {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .kpi-card {
-            background: var(--bg-dark-card);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 24px 16px;
-            text-align: center;
-        }
-        .kpi-value {
-            font-size: 2rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            color: var(--green-primary);
-            margin-bottom: 4px;
-        }
-        .kpi-label {
-            font-size: 0.8rem;
-            color: #9CA3AF;
-        }
+        .hero { background: var(--dark); padding: 64px 0 80px; color: #fff; text-align: center; }
+        .hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 em { font-style: normal; color: var(--green); }
+        .hero p { color: var(--gray-400); font-size: 1rem; margin-bottom: 48px; }
+        .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .kpi { background: var(--dark-card); border: 1px solid #374151; border-radius: 14px; padding: 20px 12px; text-align: center; }
+        .kpi .v { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--green); }
+        .kpi .l { font-size: 0.75rem; color: var(--gray-400); margin-top: 2px; }
 
         /* Section */
-        .section {
-            padding: 80px 0;
-        }
-        .section-dark {
-            background: var(--bg-dark);
-            color: white;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        .section-tag {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--green-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-        .section-title {
-            font-size: clamp(1.5rem, 3vw, 2.25rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-        .section-desc {
-            font-size: 1rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .section-dark .section-desc {
-            color: #9CA3AF;
-        }
+        .section { padding: 64px 0; }
+        .section-dark { background: var(--dark); color: #fff; }
+        .st { font-family: var(--mono); font-size: 0.65rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 8px; }
+        .sh { font-size: clamp(1.3rem, 3vw, 1.85rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+        .sd { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 40px; }
+        .section-dark .sd { color: var(--gray-400); }
 
-        /* Revenue Model Cards */
-        .model-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        .model-card {
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: 32px;
-        }
-        .model-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .model-pct {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            background: rgba(0, 210, 106, 0.1);
-            color: var(--green-dark);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: 700;
-        }
-        .model-card p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        .model-items {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .model-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: var(--bg-gray-50);
-            border-radius: 10px;
-            font-size: 0.875rem;
-        }
-        .model-item-name {
-            color: var(--text-gray);
-        }
-        .model-item-value {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            color: var(--text-dark);
-        }
+        /* Year 1 Quarterly Chart */
+        .chart { display: flex; align-items: flex-end; gap: 32px; height: 280px; padding: 0 0 40px; justify-content: center; border-bottom: 2px solid var(--gray-100); margin-bottom: 16px; }
+        .chart .bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 160px; position: relative; }
+        .chart .bar-val { font-family: var(--mono); font-size: 0.9rem; font-weight: 700; color: var(--dark); white-space: nowrap; }
+        .chart .bar { width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--green), var(--green-dark)); min-height: 4px; }
+        .chart .bar-col.loss .bar { background: linear-gradient(180deg, var(--red), #DC2626); }
+        .chart .bar-label { position: absolute; bottom: -32px; font-size: 0.75rem; color: var(--gray-400); font-weight: 600; }
+        .section-dark .chart { border-bottom-color: #374151; }
+        .section-dark .chart .bar-val { color: #fff; }
+        .section-dark .chart .bar-label { color: var(--gray-400); }
 
-        /* Quarter Table */
-        .q-table-wrapper {
-            overflow-x: auto;
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            background: white;
-        }
-        .q-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 500px;
-        }
-        .q-table thead th {
-            padding: 16px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-align: center;
-            border-bottom: 2px solid var(--border-light);
-            background: var(--bg-gray-50);
-            color: var(--text-dark);
-        }
-        .q-table thead th:first-child {
-            text-align: left;
-            border-radius: 16px 0 0 0;
-        }
-        .q-table thead th:last-child {
-            border-radius: 0 16px 0 0;
-        }
-        .q-table thead th.highlight {
-            background: rgba(0, 210, 106, 0.08);
-            color: var(--green-dark);
-        }
-        .q-table tbody td {
-            padding: 14px 16px;
-            font-size: 0.875rem;
-            text-align: center;
-            color: var(--text-gray);
-            border-bottom: 1px solid var(--border-light);
-        }
-        .q-table tbody td:first-child {
-            text-align: left;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .q-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        .q-table tbody tr:hover td {
-            background: var(--bg-gray-50);
-        }
-        .q-table .total-row td {
-            font-weight: 700;
-            color: var(--text-dark);
-            background: var(--bg-gray-50);
-            border-top: 2px solid var(--border-light);
-        }
-        .q-table .mono {
-            font-family: var(--font-mono);
-            font-weight: 600;
-        }
+        /* Year 3 Chart */
+        .chart-y3 { display: flex; align-items: flex-end; gap: 32px; height: 300px; padding: 0 0 40px; justify-content: center; border-bottom: 2px solid #374151; margin-bottom: 16px; }
+        .chart-y3 .bar-col { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 180px; }
+        .chart-y3 .bar-val { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: #fff; }
+        .chart-y3 .bar-sub { font-size: 0.7rem; color: var(--gray-400); }
+        .chart-y3 .bar { width: 100%; border-radius: 8px 8px 0 0; min-height: 4px; }
+        .chart-y3 .bar-label { position: absolute; bottom: -32px; font-size: 0.75rem; color: var(--gray-400); font-weight: 600; }
+        .chart-y3 .bar-col { position: relative; }
 
-        /* Year summary */
-        .year-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .year-card {
-            background: var(--bg-dark-card);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 28px 20px;
-        }
-        .year-card-q {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--green-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        .year-card-revenue {
-            font-size: 1.75rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            color: white;
-            margin-bottom: 4px;
-        }
-        .year-card-avg {
-            font-size: 0.8rem;
-            color: #9CA3AF;
-        }
-        .year-card-clients {
-            display: flex;
-            gap: 6px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .client-chip {
-            font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-family: var(--font-mono);
-        }
-        .chip-free { background: rgba(107, 114, 128, 0.2); color: #9CA3AF; }
-        .chip-express { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
-        .chip-pro { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
-        .chip-enterprise { background: rgba(0, 210, 106, 0.2); color: var(--green-light); }
+        /* Quarterly table */
+        .qtable { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        .qtable th, .qtable td { padding: 12px 16px; font-size: 0.85rem; text-align: center; }
+        .qtable th { font-weight: 700; border-bottom: 2px solid var(--gray-100); color: var(--dark); background: var(--gray-50); }
+        .qtable th:first-child, .qtable td:first-child { text-align: left; }
+        .qtable td { border-bottom: 1px solid var(--gray-100); color: var(--gray-600); }
+        .qtable td.mono { font-family: var(--mono); font-weight: 600; color: var(--dark); }
+        .qtable .total td { font-weight: 700; color: var(--dark); background: var(--gray-50); border-top: 2px solid var(--gray-300); }
+        .qtable .hl { background: rgba(0,210,106,0.06); color: var(--green-dark); font-weight: 700; }
 
-        /* Year Total Banner */
-        .year-total {
-            background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
-            border-radius: 20px;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
-            text-align: center;
-            color: white;
-        }
-        .year-total-item h3 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            margin-bottom: 4px;
-        }
-        .year-total-item p {
-            font-size: 0.85rem;
-            opacity: 0.85;
-        }
-
-        /* Costs */
-        .costs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .cost-card {
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 28px 24px;
-        }
-        .cost-card-icon {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-        }
-        .cost-card h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .cost-card-amount {
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-        .cost-card-per {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        /* Profit Banner */
-        .profit-banner {
-            background: white;
-            border: 2px solid var(--green-primary);
-            border-radius: 20px;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 24px;
-            text-align: center;
-        }
-        .profit-item-value {
-            font-size: 1.75rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            margin-bottom: 4px;
-        }
-        .profit-item-value.green { color: var(--green-primary); }
-        .profit-item-value.dark { color: var(--text-dark); }
-        .profit-item-value.red { color: var(--red-accent); }
-        .profit-item-label {
-            font-size: 0.8rem;
-            color: var(--text-gray);
-        }
+        /* Profit strip */
+        .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-100); border-radius: 14px; overflow: hidden; margin-top: 40px; }
+        .strip-item { background: #fff; padding: 24px 16px; text-align: center; }
+        .strip-item .v { font-family: var(--mono); font-size: 1.5rem; font-weight: 800; }
+        .strip-item .v.green { color: var(--green); }
+        .strip-item .v.red { color: var(--red); }
+        .strip-item .l { font-size: 0.75rem; color: var(--gray-600); margin-top: 2px; }
 
         /* Scenarios */
-        .scenarios-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .scenario-card {
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-        }
-        .scenario-card.pessimistic { border-color: rgba(239, 68, 68, 0.3); }
-        .scenario-card.base { border-color: rgba(59, 130, 246, 0.3); }
-        .scenario-card.optimistic { border-color: rgba(0, 210, 106, 0.3); }
-        .scenario-tag {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .pessimistic .scenario-tag { background: rgba(239, 68, 68, 0.1); color: var(--red-accent); }
-        .base .scenario-tag { background: rgba(59, 130, 246, 0.1); color: var(--blue-accent); }
-        .optimistic .scenario-tag { background: rgba(0, 210, 106, 0.1); color: var(--green-dark); }
-        .scenario-revenue {
-            font-size: 2rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            margin-bottom: 4px;
-        }
-        .pessimistic .scenario-revenue { color: var(--red-accent); }
-        .base .scenario-revenue { color: var(--blue-accent); }
-        .optimistic .scenario-revenue { color: var(--green-primary); }
-        .scenario-profit {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            margin-bottom: 16px;
-        }
-        .scenario-detail {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
+        .scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .sc { border: 1px solid var(--gray-100); border-radius: 14px; padding: 28px 20px; text-align: center; }
+        .sc.pessimistic { border-color: rgba(239,68,68,0.25); }
+        .sc.base { border-color: rgba(59,130,246,0.25); background: rgba(59,130,246,0.02); }
+        .sc.optimistic { border-color: rgba(0,210,106,0.25); }
+        .sc .sc-tag { font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 14px; }
+        .pessimistic .sc-tag { background: rgba(239,68,68,0.08); color: var(--red); }
+        .base .sc-tag { background: rgba(59,130,246,0.08); color: var(--blue); }
+        .optimistic .sc-tag { background: rgba(0,210,106,0.08); color: var(--green-dark); }
+        .sc .sc-rev { font-family: var(--mono); font-size: 1.75rem; font-weight: 800; margin-bottom: 4px; }
+        .pessimistic .sc-rev { color: var(--red); }
+        .base .sc-rev { color: var(--blue); }
+        .optimistic .sc-rev { color: var(--green); }
+        .sc .sc-profit { font-size: 0.85rem; color: var(--gray-600); }
 
-        /* Timeline */
-        .timeline {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 28px;
-            left: 40px;
-            right: 40px;
-            height: 3px;
-            background: var(--border-light);
-        }
-        .timeline-item {
-            text-align: center;
-            position: relative;
-        }
-        .timeline-dot {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 1.25rem;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            position: relative;
-            z-index: 2;
-        }
-        .timeline-dot.loss {
-            background: rgba(239, 68, 68, 0.1);
-            border: 3px solid var(--red-accent);
-            color: var(--red-accent);
-        }
-        .timeline-dot.even {
-            background: rgba(245, 158, 11, 0.1);
-            border: 3px solid var(--amber-accent);
-            color: var(--amber-accent);
-        }
-        .timeline-dot.profit {
-            background: rgba(0, 210, 106, 0.1);
-            border: 3px solid var(--green-primary);
-            color: var(--green-primary);
-        }
-        .timeline-label {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .timeline-amount {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-        .timeline-amount.red { color: var(--red-accent); }
-        .timeline-amount.amber { color: var(--amber-accent); }
-        .timeline-amount.green { color: var(--green-primary); }
-        .timeline-note {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
+        /* Clients table */
+        .clients-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+        .cr { background: var(--gray-50); border-radius: 10px; padding: 16px; text-align: center; }
+        .cr .cr-q { font-family: var(--mono); font-size: 0.6rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 6px; }
+        .cr .cr-total { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .cr .cr-detail { font-size: 0.7rem; color: var(--gray-600); line-height: 1.6; }
 
-        /* Actions */
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-        .action-card {
-            background: var(--bg-dark-card);
-            border: 1px solid #374151;
-            border-radius: 20px;
-            padding: 32px;
-        }
-        .action-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .action-card h3 span {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            background: rgba(0, 210, 106, 0.2);
-            color: var(--green-light);
-            padding: 3px 8px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .action-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .action-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.875rem;
-            color: #D1D5DB;
-            line-height: 1.5;
-        }
-        .action-list li::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--green-primary);
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 7px;
-        }
-
-        /* Validation */
-        .validation-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .val-card {
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .val-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-        .val-icon.yes { background: rgba(0, 210, 106, 0.1); }
-        .val-icon.maybe { background: rgba(245, 158, 11, 0.1); }
-        .val-text strong {
-            display: block;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
-        .val-text span {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        /* Bar Chart */
-        .bar-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 20px;
-            height: 240px;
-            padding: 20px 0;
-            margin-bottom: 20px;
-        }
-        .bar-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            max-width: 160px;
-        }
-        .bar-value {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-        .bar {
-            width: 100%;
-            border-radius: 8px 8px 0 0;
-            transition: height 0.5s ease;
-        }
-        .bar-label {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            font-weight: 600;
-        }
+        /* Year 3 detail */
+        .y3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .y3-card { background: var(--dark-card); border: 1px solid #374151; border-radius: 14px; padding: 24px 20px; text-align: center; }
+        .y3-card .y3-year { font-family: var(--mono); font-size: 0.65rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 8px; }
+        .y3-card .y3-rev { font-family: var(--mono); font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+        .y3-card .y3-profit { font-size: 0.8rem; color: var(--gray-400); margin-bottom: 10px; }
+        .y3-card .y3-clients { font-family: var(--mono); font-size: 0.7rem; color: var(--gray-400); }
 
         /* Footer */
-        footer {
-            background: var(--bg-dark);
-            padding: 40px 0;
-            text-align: center;
-            color: #6B7280;
-            font-size: 0.8rem;
-        }
-        footer strong { color: #9CA3AF; }
+        footer { background: var(--gray-50); border-top: 1px solid var(--gray-100); padding: 32px 0; text-align: center; color: var(--gray-400); font-size: 0.8rem; }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-kpis { grid-template-columns: repeat(2, 1fr); }
-            .year-grid { grid-template-columns: repeat(2, 1fr); }
-            .year-total { grid-template-columns: 1fr; gap: 24px; }
-            .costs-grid { grid-template-columns: 1fr; }
-            .scenarios-grid { grid-template-columns: 1fr; }
-            .profit-banner { grid-template-columns: repeat(2, 1fr); }
-            .actions-grid { grid-template-columns: 1fr; }
-            .validation-grid { grid-template-columns: 1fr; }
-            .timeline { grid-template-columns: repeat(2, 1fr); }
-            .timeline::before { display: none; }
-            .bar-chart { height: 180px; }
-        }
         @media (max-width: 768px) {
-            .hero-kpis { grid-template-columns: 1fr 1fr; }
-            .model-grid { grid-template-columns: 1fr; }
-            .hero { padding: 60px 0 80px; }
-            .section { padding: 60px 0; }
-            .bar-chart { gap: 10px; height: 160px; }
+            .kpis { grid-template-columns: repeat(2, 1fr); }
+            .strip { grid-template-columns: repeat(2, 1fr); }
+            .scenarios { grid-template-columns: 1fr; }
+            .clients-row { grid-template-columns: repeat(2, 1fr); }
+            .y3-grid { grid-template-columns: 1fr; }
+            .chart { height: 200px; gap: 16px; }
+            .chart .bar-col { width: 120px; }
+            .chart .bar-val { font-size: 0.75rem; }
+            .chart-y3 { gap: 16px; height: 240px; }
+            .chart-y3 .bar-col { width: 120px; }
         }
         @media (max-width: 480px) {
-            .hero-kpis { grid-template-columns: 1fr; }
-            .timeline { grid-template-columns: 1fr; }
-        }
-
-        /* Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .kpis { grid-template-columns: 1fr 1fr; }
+            .strip { grid-template-columns: 1fr 1fr; }
+            .clients-row { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-inner">
-            <div class="nav-brand">
-                <a href="/" class="nav-logo">Court<span>Bit</span></a>
-                <span class="nav-badge">Confidencial</span>
-            </div>
-            <span class="nav-date">Febrero 2026</span>
+            <a href="/" class="logo">Court<span>Bit</span></a>
+            <span class="badge">Confidencial</span>
         </div>
     </nav>
 
+    <!-- Hero: 4 KPIs -->
     <section class="hero">
-        <div class="container">
-            <span class="hero-tag">Proyecciones Year 1</span>
-            <h1>Revenue <em>$163K</em> con <em>46%</em> de margen</h1>
-            <p class="hero-sub">Proyecciones realistas basadas en 2 Enterprise confirmados, adopción gradual de app, y crecimiento conservador de clientes.</p>
-            <div class="hero-kpis">
-                <div class="kpi-card">
-                    <div class="kpi-value">$163K</div>
-                    <div class="kpi-label">Revenue Year 1</div>
+        <div class="w">
+            <h1>Year 1: <em>$163K</em> revenue, <em>46%</em> margen</h1>
+            <p>Basado en 2 Enterprise confirmados y crecimiento conservador.</p>
+            <div class="kpis">
+                <div class="kpi">
+                    <div class="v">$163K</div>
+                    <div class="l">Revenue Year 1</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="kpi-value">$74.7K</div>
-                    <div class="kpi-label">Profit Year 1</div>
+                <div class="kpi">
+                    <div class="v">$74.7K</div>
+                    <div class="l">Profit Year 1</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="kpi-value">Mes 4</div>
-                    <div class="kpi-label">Break-even</div>
+                <div class="kpi">
+                    <div class="v">Mes 4</div>
+                    <div class="l">Break-even</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="kpi-value">$234K</div>
-                    <div class="kpi-label">Run-Rate Mes 12</div>
+                <div class="kpi">
+                    <div class="v">$21K</div>
+                    <div class="l">MRR Mes 12</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Revenue Model -->
+    <!-- Year 1: Monthly Revenue Chart -->
     <section class="section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Modelo de Ingresos</span>
-                <h2 class="section-title">Dos fuentes de revenue</h2>
-                <p class="section-desc">Planes fijos (suscripción mensual) + comisiones variables sobre pagos procesados en la app.</p>
+        <div class="w">
+            <div class="st">Year 1 &mdash; Revenue trimestral</div>
+            <div class="sh">$25.5K a $58.5K por trimestre</div>
+            <div class="sd">Q1 con p&eacute;rdida neta (inversi&oacute;n inicial). Profitable a partir de Q2.</div>
+
+            <div class="chart">
+                <div class="bar-col loss">
+                    <div class="bar-val">$25.5K</div>
+                    <div class="bar" style="height: 44%;"></div>
+                    <span class="bar-label">Q1</span>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-val">$34.6K</div>
+                    <div class="bar" style="height: 59%;"></div>
+                    <span class="bar-label">Q2</span>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-val">$44.5K</div>
+                    <div class="bar" style="height: 76%;"></div>
+                    <span class="bar-label">Q3</span>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-val">$58.5K</div>
+                    <div class="bar" style="height: 100%;"></div>
+                    <span class="bar-label">Q4</span>
+                </div>
             </div>
 
-            <div class="model-grid reveal">
-                <div class="model-card">
-                    <h3>Planes Fijos <span class="model-pct">46%</span></h3>
-                    <p>Suscripción mensual por tier. Revenue predecible y recurrente.</p>
-                    <div class="model-items">
-                        <div class="model-item">
-                            <span class="model-item-name">Enterprise</span>
-                            <span class="model-item-value">$1,499/mes</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Professional</span>
-                            <span class="model-item-value">$499/mes</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Express</span>
-                            <span class="model-item-value">$99/mes</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Free</span>
-                            <span class="model-item-value">$0/mes</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Quarterly summary table -->
+            <table class="qtable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Revenue</th>
+                        <th>Avg/mes</th>
+                        <th>Clientes</th>
+                        <th class="hl">Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Q1</strong> (M1-3)</td>
+                        <td class="mono">$25,516</td>
+                        <td class="mono">$8,505</td>
+                        <td>17</td>
+                        <td class="mono hl">-$7,284</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q2</strong> (M4-6)</td>
+                        <td class="mono">$34,584</td>
+                        <td class="mono">$11,528</td>
+                        <td>50</td>
+                        <td class="mono hl">+$12,484</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q3</strong> (M7-9)</td>
+                        <td class="mono">$44,500</td>
+                        <td class="mono">$14,833</td>
+                        <td>74</td>
+                        <td class="mono hl">+$22,400</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q4</strong> (M10-12)</td>
+                        <td class="mono">$58,500</td>
+                        <td class="mono">$19,500</td>
+                        <td>90</td>
+                        <td class="mono hl">+$36,400</td>
+                    </tr>
+                    <tr class="total">
+                        <td><strong>Year 1</strong></td>
+                        <td class="mono">$163,100</td>
+                        <td class="mono">$13,592</td>
+                        <td>90</td>
+                        <td class="mono hl">$74,700</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                <div class="model-card">
-                    <h3>Comisiones <span class="model-pct">54%</span></h3>
-                    <p>Porcentaje sobre pagos de inscripción procesados por la app. Escala con volumen.</p>
-                    <div class="model-items">
-                        <div class="model-item">
-                            <span class="model-item-name">Free</span>
-                            <span class="model-item-value">3% comisión</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Express</span>
-                            <span class="model-item-value">2.5% comisión</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Professional</span>
-                            <span class="model-item-value">2% comisión</span>
-                        </div>
-                        <div class="model-item">
-                            <span class="model-item-name">Enterprise</span>
-                            <span class="model-item-value">1% comisión</span>
-                        </div>
-                    </div>
+            <!-- Clients per quarter -->
+            <div class="clients-row">
+                <div class="cr">
+                    <div class="cr-q">Q1</div>
+                    <div class="cr-total">17 clientes</div>
+                    <div class="cr-detail">2 Ent &middot; 2 Pro &middot; 3 Exp &middot; 10 Free</div>
+                </div>
+                <div class="cr">
+                    <div class="cr-q">Q2</div>
+                    <div class="cr-total">50 clientes</div>
+                    <div class="cr-detail">2 Ent &middot; 8 Pro &middot; 10 Exp &middot; 30 Free</div>
+                </div>
+                <div class="cr">
+                    <div class="cr-q">Q3</div>
+                    <div class="cr-total">74 clientes</div>
+                    <div class="cr-detail">2 Ent &middot; 10 Pro &middot; 12 Exp &middot; 50 Free</div>
+                </div>
+                <div class="cr">
+                    <div class="cr-q">Q4</div>
+                    <div class="cr-total">90 clientes</div>
+                    <div class="cr-detail">3 Ent &middot; 12 Pro &middot; 15 Exp &middot; 60 Free</div>
+                </div>
+            </div>
+
+            <!-- Profit strip -->
+            <div class="strip">
+                <div class="strip-item">
+                    <div class="v">$163.1K</div>
+                    <div class="l">Revenue</div>
+                </div>
+                <div class="strip-item">
+                    <div class="v red">$88.4K</div>
+                    <div class="l">Costos</div>
+                </div>
+                <div class="strip-item">
+                    <div class="v green">$74.7K</div>
+                    <div class="l">Profit</div>
+                </div>
+                <div class="strip-item">
+                    <div class="v green">46%</div>
+                    <div class="l">Margen</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Q1 Detail -->
-    <section class="section" style="padding-top: 0;">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Q1 — Meses 1-3</span>
-                <h2 class="section-title">Arranque con $25.5K en revenue</h2>
-                <p class="section-desc">2 Enterprise confirmados generan el 54% del revenue Q1. Free y paid escalan gradualmente.</p>
-            </div>
-
-            <div class="q-table-wrapper reveal">
-                <table class="q-table">
-                    <thead>
-                        <tr>
-                            <th>Plan</th>
-                            <th>Mes 1</th>
-                            <th>Mes 2</th>
-                            <th>Mes 3</th>
-                            <th class="highlight">Total Q1</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Enterprise (2)</td>
-                            <td class="mono">$5,004</td>
-                            <td class="mono">$4,290</td>
-                            <td class="mono">$4,528</td>
-                            <td class="mono highlight">$13,822</td>
-                        </tr>
-                        <tr>
-                            <td>Professional (2→5)</td>
-                            <td class="mono">$1,298</td>
-                            <td class="mono">$2,396</td>
-                            <td class="mono">$3,155</td>
-                            <td class="mono highlight">$6,849</td>
-                        </tr>
-                        <tr>
-                            <td>Express (3→6)</td>
-                            <td class="mono">$799</td>
-                            <td class="mono">$1,057</td>
-                            <td class="mono">$1,406</td>
-                            <td class="mono highlight">$3,262</td>
-                        </tr>
-                        <tr>
-                            <td>Free (10→20)</td>
-                            <td class="mono">$788</td>
-                            <td class="mono">$354</td>
-                            <td class="mono">$441</td>
-                            <td class="mono highlight">$1,583</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>Total</td>
-                            <td class="mono">$7,889</td>
-                            <td class="mono">$8,097</td>
-                            <td class="mono">$9,530</td>
-                            <td class="mono highlight">$25,516</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Year Projection -->
+    <!-- Year 1-3 Projection -->
     <section class="section section-dark">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Proyección Anual</span>
-                <h2 class="section-title" style="color: white;">De $8.5K a $19.5K MRR en 12 meses</h2>
-                <p class="section-desc">Crecimiento impulsado por nuevos clientes, upgrades y mayor adopción de pago por app.</p>
-            </div>
+        <div class="w">
+            <div class="st">Proyecci&oacute;n 3 a&ntilde;os</div>
+            <div class="sh" style="color:#fff;">De $163K a $780K en 3 a&ntilde;os</div>
+            <div class="sd">Year 2 basado en run-rate mes 12 ($234K) + 30% growth. Year 3 con consolidaci&oacute;n.</div>
 
-            <!-- Bar Chart -->
-            <div class="bar-chart reveal">
-                <div class="bar-group">
-                    <div class="bar-value">$25.5K</div>
-                    <div class="bar" style="height: 40%; background: linear-gradient(180deg, var(--green-primary), var(--green-dark));"></div>
-                    <div class="bar-label">Q1</div>
+            <div class="chart-y3">
+                <div class="bar-col">
+                    <div class="bar-val">$163K</div>
+                    <div class="bar-sub">Profit $74.7K</div>
+                    <div class="bar" style="height: 21%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
+                    <span class="bar-label">Year 1</span>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-value">$34.6K</div>
-                    <div class="bar" style="height: 55%; background: linear-gradient(180deg, var(--green-primary), var(--green-dark));"></div>
-                    <div class="bar-label">Q2</div>
+                <div class="bar-col">
+                    <div class="bar-val">$420K</div>
+                    <div class="bar-sub">Profit $210K</div>
+                    <div class="bar" style="height: 54%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
+                    <span class="bar-label">Year 2</span>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-value">$44.5K</div>
-                    <div class="bar" style="height: 72%; background: linear-gradient(180deg, var(--green-primary), var(--green-dark));"></div>
-                    <div class="bar-label">Q3</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar-value">$58.5K</div>
-                    <div class="bar" style="height: 95%; background: linear-gradient(180deg, var(--green-primary), var(--green-dark));"></div>
-                    <div class="bar-label">Q4</div>
+                <div class="bar-col">
+                    <div class="bar-val">$780K</div>
+                    <div class="bar-sub">Profit $430K</div>
+                    <div class="bar" style="height: 100%; background: linear-gradient(180deg, var(--green), var(--green-dark)); border-radius: 8px 8px 0 0;"></div>
+                    <span class="bar-label">Year 3</span>
                 </div>
             </div>
 
-            <div class="year-grid reveal">
-                <div class="year-card">
-                    <div class="year-card-q">Q1</div>
-                    <div class="year-card-revenue">$25,516</div>
-                    <div class="year-card-avg">Avg $8,505/mes</div>
-                    <div class="year-card-clients">
-                        <span class="client-chip chip-enterprise">2 ENT</span>
-                        <span class="client-chip chip-pro">2 PRO</span>
-                        <span class="client-chip chip-express">3 EXP</span>
-                        <span class="client-chip chip-free">10 FREE</span>
-                    </div>
+            <div class="y3-grid">
+                <div class="y3-card">
+                    <div class="y3-year">Year 1</div>
+                    <div class="y3-rev">$163K</div>
+                    <div class="y3-profit">Profit $74.7K &middot; 46% margen</div>
+                    <div class="y3-clients">90 clientes &middot; $21K MRR</div>
                 </div>
-                <div class="year-card">
-                    <div class="year-card-q">Q2</div>
-                    <div class="year-card-revenue">$34,584</div>
-                    <div class="year-card-avg">Avg $11,528/mes</div>
-                    <div class="year-card-clients">
-                        <span class="client-chip chip-enterprise">2 ENT</span>
-                        <span class="client-chip chip-pro">8 PRO</span>
-                        <span class="client-chip chip-express">10 EXP</span>
-                        <span class="client-chip chip-free">30 FREE</span>
-                    </div>
+                <div class="y3-card">
+                    <div class="y3-year">Year 2</div>
+                    <div class="y3-rev">$420K</div>
+                    <div class="y3-profit">Profit $210K &middot; 50% margen</div>
+                    <div class="y3-clients">200+ clientes &middot; $45K MRR</div>
                 </div>
-                <div class="year-card">
-                    <div class="year-card-q">Q3</div>
-                    <div class="year-card-revenue">$44,500</div>
-                    <div class="year-card-avg">Avg $14,833/mes</div>
-                    <div class="year-card-clients">
-                        <span class="client-chip chip-enterprise">2 ENT</span>
-                        <span class="client-chip chip-pro">10 PRO</span>
-                        <span class="client-chip chip-express">12 EXP</span>
-                        <span class="client-chip chip-free">50 FREE</span>
-                    </div>
-                </div>
-                <div class="year-card">
-                    <div class="year-card-q">Q4</div>
-                    <div class="year-card-revenue">$58,500</div>
-                    <div class="year-card-avg">Avg $19,500/mes</div>
-                    <div class="year-card-clients">
-                        <span class="client-chip chip-enterprise">3 ENT</span>
-                        <span class="client-chip chip-pro">12 PRO</span>
-                        <span class="client-chip chip-express">15 EXP</span>
-                        <span class="client-chip chip-free">60 FREE</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="year-total reveal">
-                <div class="year-total-item">
-                    <h3>$163K</h3>
-                    <p>Revenue Total Year 1</p>
-                </div>
-                <div class="year-total-item">
-                    <h3>$13.6K</h3>
-                    <p>Promedio Mensual</p>
-                </div>
-                <div class="year-total-item">
-                    <h3>$234K</h3>
-                    <p>Run-Rate Mes 12</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Costs & Profit -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Costos y Profitabilidad</span>
-                <h2 class="section-title">$88.4K en costos, 46% de margen</h2>
-                <p class="section-desc">Estructura lean. Break-even en mes 4. Profitable a partir de mes 5.</p>
-            </div>
-
-            <div class="costs-grid reveal">
-                <div class="cost-card">
-                    <div class="cost-card-icon">👨‍💻</div>
-                    <h4>Team</h4>
-                    <div class="cost-card-amount">$60,000</div>
-                    <div class="cost-card-per">$5,000/mes &middot; Dev + Marketing</div>
-                </div>
-                <div class="cost-card">
-                    <div class="cost-card-icon">📢</div>
-                    <h4>Marketing</h4>
-                    <div class="cost-card-amount">$18,000</div>
-                    <div class="cost-card-per">$1,500/mes &middot; Ads + Contenido</div>
-                </div>
-                <div class="cost-card">
-                    <div class="cost-card-icon">🖥️</div>
-                    <h4>Infraestructura + Otros</h4>
-                    <div class="cost-card-amount">$10,400</div>
-                    <div class="cost-card-per">$867/mes &middot; Hosting + APIs + Misc</div>
-                </div>
-            </div>
-
-            <div class="profit-banner reveal">
-                <div>
-                    <div class="profit-item-value dark">$163.1K</div>
-                    <div class="profit-item-label">Revenue</div>
-                </div>
-                <div>
-                    <div class="profit-item-value red">$88.4K</div>
-                    <div class="profit-item-label">Costos</div>
-                </div>
-                <div>
-                    <div class="profit-item-value green">$74.7K</div>
-                    <div class="profit-item-label">Profit</div>
-                </div>
-                <div>
-                    <div class="profit-item-value green">46%</div>
-                    <div class="profit-item-label">Margen</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Break-even Timeline -->
-    <section class="section" style="padding-top: 0;">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Camino a Profitabilidad</span>
-                <h2 class="section-title">Break-even en Mes 4</h2>
-            </div>
-            <div class="timeline reveal">
-                <div class="timeline-item">
-                    <div class="timeline-dot loss">1-3</div>
-                    <div class="timeline-label">Mes 1-3</div>
-                    <div class="timeline-amount red">-$3K a -$1.4K</div>
-                    <div class="timeline-note">Inversión inicial offset por revenue</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot even">4</div>
-                    <div class="timeline-label">Mes 4</div>
-                    <div class="timeline-amount amber">+$3K</div>
-                    <div class="timeline-note">Break-even alcanzado</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot profit">5-8</div>
-                    <div class="timeline-label">Mes 5-8</div>
-                    <div class="timeline-amount green">+$4K-$8K</div>
-                    <div class="timeline-note">Profit creciendo mes a mes</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot profit">12</div>
-                    <div class="timeline-label">Mes 12</div>
-                    <div class="timeline-amount green">+$15K</div>
-                    <div class="timeline-note">Run-rate $234K anual</div>
+                <div class="y3-card">
+                    <div class="y3-year">Year 3</div>
+                    <div class="y3-rev">$780K</div>
+                    <div class="y3-profit">Profit $430K &middot; 55% margen</div>
+                    <div class="y3-clients">400+ clientes &middot; $75K MRR</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Scenarios -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Análisis de Sensibilidad</span>
-                <h2 class="section-title">Tres escenarios posibles</h2>
-                <p class="section-desc">Realidad probablemente entre base y optimista.</p>
-            </div>
-
-            <div class="scenarios-grid reveal">
-                <div class="scenario-card pessimistic">
-                    <span class="scenario-tag">Pesimista</span>
-                    <div class="scenario-revenue">$108K</div>
-                    <div class="scenario-profit">Profit: $30K</div>
-                    <div class="scenario-detail">
-                        Adopción app 20% (en lugar de 40%).<br>
-                        Conversión FREE→PAID 5%.<br>
-                        Aún profitable Year 1.
-                    </div>
-                </div>
-                <div class="scenario-card base">
-                    <span class="scenario-tag">Base</span>
-                    <div class="scenario-revenue">$163K</div>
-                    <div class="scenario-profit">Profit: $74.7K</div>
-                    <div class="scenario-detail">
-                        2 Enterprise confirmados.<br>
-                        Adopción app 30-50%.<br>
-                        Crecimiento orgánico conservador.
-                    </div>
-                </div>
-                <div class="scenario-card optimistic">
-                    <span class="scenario-tag">Optimista</span>
-                    <div class="scenario-revenue">$224K</div>
-                    <div class="scenario-profit">Profit: $120K+</div>
-                    <div class="scenario-detail">
-                        3 Enterprise (1 referral).<br>
-                        Adopción app 50%+.<br>
-                        Year 2 proyecta $400K+.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Validation -->
     <section class="section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Validación</span>
-                <h2 class="section-title">¿Por qué son realistas estos números?</h2>
-            </div>
+        <div class="w">
+            <div class="st">Escenarios Year 1</div>
+            <div class="sh">Tres escenarios posibles</div>
+            <div class="sd">El resultado real probablemente cae entre base y optimista.</div>
 
-            <div class="validation-grid reveal">
-                <div class="val-card">
-                    <div class="val-icon yes">✅</div>
-                    <div class="val-text">
-                        <strong>2 Enterprise confirmados</strong>
-                        <span>BigTorneo existe y ya está en proceso</span>
-                    </div>
+            <div class="scenarios">
+                <div class="sc pessimistic">
+                    <span class="sc-tag">Pesimista</span>
+                    <div class="sc-rev">$108K</div>
+                    <div class="sc-profit">Profit: $30K</div>
                 </div>
-                <div class="val-card">
-                    <div class="val-icon yes">✅</div>
-                    <div class="val-text">
-                        <strong>10 Free en 3 meses</strong>
-                        <span>Meta conservadora con marketing push</span>
-                    </div>
+                <div class="sc base">
+                    <span class="sc-tag">Base</span>
+                    <div class="sc-rev">$163K</div>
+                    <div class="sc-profit">Profit: $74.7K</div>
                 </div>
-                <div class="val-card">
-                    <div class="val-icon yes">✅</div>
-                    <div class="val-text">
-                        <strong>30-50% adopción app</strong>
-                        <span>Organizadores usan cash + app en paralelo</span>
-                    </div>
-                </div>
-                <div class="val-card">
-                    <div class="val-icon yes">✅</div>
-                    <div class="val-text">
-                        <strong>5 Paid en Q1 es conservador</strong>
-                        <span>Podrían ser 10 con sales directo</span>
-                    </div>
-                </div>
-                <div class="val-card">
-                    <div class="val-icon yes">✅</div>
-                    <div class="val-text">
-                        <strong>Precios de torneos validados</strong>
-                        <span>Express $350, KOC $250, Regular $850</span>
-                    </div>
-                </div>
-                <div class="val-card">
-                    <div class="val-icon maybe">❓</div>
-                    <div class="val-text">
-                        <strong>Churn estimado 5%/mes</strong>
-                        <span>Bajo por escalera natural de planes</span>
-                    </div>
-                </div>
-                <div class="val-card">
-                    <div class="val-icon maybe">❓</div>
-                    <div class="val-text">
-                        <strong>Nuevos Enterprise por validar</strong>
-                        <span>Potencial +1-2 por semestre vía referrals</span>
-                    </div>
-                </div>
-                <div class="val-card">
-                    <div class="val-icon maybe">❓</div>
-                    <div class="val-text">
-                        <strong>Expansion revenue +20%/año</strong>
-                        <span>Clientes existentes que upgraden plan</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Actions -->
-    <section class="section section-dark">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Plan de Acción</span>
-                <h2 class="section-title" style="color: white;">Qué hacer para lograr estos números</h2>
-            </div>
-
-            <div class="actions-grid reveal">
-                <div class="action-card">
-                    <h3>Q1 — Próximos 3 meses <span>Prioridad</span></h3>
-                    <ul class="action-list">
-                        <li>Cerrar BigTorneo en plan Enterprise (ya casi hecho)</li>
-                        <li>Cerrar Cliente 2 Enterprise (direct sales)</li>
-                        <li>Atraer 10 Free con ads + outreach</li>
-                        <li>Atraer 3 Express con sales calls</li>
-                        <li>Atraer 2 Professional con direct sales</li>
-                    </ul>
-                </div>
-                <div class="action-card">
-                    <h3>Q2 — Meses 4-6 <span>Growth</span></h3>
-                    <ul class="action-list">
-                        <li>Retención 100% de Enterprise</li>
-                        <li>Crecer a 30 Free (50% más ads)</li>
-                        <li>Crecer a 10 Express (upgrades + nuevos)</li>
-                        <li>Crecer a 8 Professional (upgrades + nuevos)</li>
-                        <li>Buscar 3er Enterprise vía referral</li>
-                    </ul>
-                </div>
-                <div class="action-card">
-                    <h3>Q3 — Meses 7-9 <span>Scale</span></h3>
-                    <ul class="action-list">
-                        <li>Marketing campaign en vivo (50K budget)</li>
-                        <li>50+ free sign-ups esperados</li>
-                        <li>Conversión natural FREE→EXPRESS 15%</li>
-                        <li>Conversión EXPRESS→PROFESSIONAL 20%</li>
-                        <li>Adopción app 65-70%</li>
-                    </ul>
-                </div>
-                <div class="action-card">
-                    <h3>Q4 — Meses 10-12 <span>Consolidar</span></h3>
-                    <ul class="action-list">
-                        <li>Sales focus en Professional (mayor margen)</li>
-                        <li>Retener 90%+ de clientes</li>
-                        <li>1-2 Enterprise adicionales</li>
-                        <li>Preparar Year 2 con run-rate $234K</li>
-                        <li>Evaluar expansión a otros deportes</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Conclusion -->
-    <section class="section" style="background: white; text-align: center;">
-        <div class="container reveal">
-            <span class="section-tag">Conclusión</span>
-            <h2 class="section-title" style="max-width: 700px; margin: 0 auto 32px;">Break-even Mes 4. Profitable Year 1. Year 2 proyecta $400K+.</h2>
-            <p class="section-desc" style="margin-bottom: 48px;">Los números son conservadores. La realidad probablemente cae entre el escenario base y el optimista. La clave es ejecutar Q1 y Q2 correctamente.</p>
-            <div class="scenarios-grid" style="max-width: 800px; margin: 0 auto;">
-                <div class="scenario-card pessimistic">
-                    <span class="scenario-tag">Pesimista</span>
-                    <div class="scenario-revenue">$108K</div>
-                    <div class="scenario-profit">Profit $30K</div>
-                </div>
-                <div class="scenario-card base">
-                    <span class="scenario-tag">Base</span>
-                    <div class="scenario-revenue">$163K</div>
-                    <div class="scenario-profit">Profit $74.7K</div>
-                </div>
-                <div class="scenario-card optimistic">
-                    <span class="scenario-tag">Optimista</span>
-                    <div class="scenario-revenue">$224K</div>
-                    <div class="scenario-profit">Profit $120K+</div>
+                <div class="sc optimistic">
+                    <span class="sc-tag">Optimista</span>
+                    <div class="sc-rev">$224K</div>
+                    <div class="sc-profit">Profit: $120K+</div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
+        <div class="w">
             <p><strong>CourtBit</strong> &middot; Documento interno &middot; Febrero 2026</p>
-            <p style="margin-top: 8px;">Proyecciones basadas en datos reales y suposiciones conservadoras.</p>
         </div>
     </footer>
-
-    <script>
-        function revealOnScroll() {
-            var elements = document.querySelectorAll('.reveal');
-            var windowHeight = window.innerHeight;
-            elements.forEach(function(el) {
-                var elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) {
-                    el.classList.add('visible');
-                }
-            });
-        }
-        window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
-    </script>
 </body>
 </html>
