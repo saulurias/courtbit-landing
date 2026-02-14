@@ -192,14 +192,30 @@
 
         /* Pricing Section */
         .pricing {
-            padding: 40px 0 120px;
+            padding: 40px 0 80px;
+        }
+
+        .pricing-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .pricing-section-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .pricing-section-header p {
+            font-size: 1rem;
+            color: var(--text-gray);
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
             align-items: start;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .pricing-card {
@@ -380,29 +396,22 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            .pricing {
+                padding: 40px 0 60px;
+            }
+            .hero {
+                padding: 60px 0 20px;
             }
             .pricing-card.highlighted {
                 transform: scale(1);
             }
             .pricing-card.highlighted:hover {
                 transform: translateY(-8px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            .pricing {
-                padding: 40px 0 80px;
-            }
-            .hero {
-                padding: 60px 0 20px;
             }
         }
 
@@ -429,7 +438,7 @@
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 640px;
+            min-width: 480px;
         }
         .comparison-table thead th {
             padding: 20px 16px;
@@ -591,8 +600,13 @@
             </div>
         </section>
 
-        <section class="pricing">
+        <section class="pricing" id="torneos">
             <div class="container">
+                <div class="pricing-section-header reveal">
+                    <span class="section-tag">Torneos</span>
+                    <h3>Organiza torneos de cualquier formato</h3>
+                    <p>Express, King of Court, fase de grupos y eliminatorias.</p>
+                </div>
                 <div class="pricing-grid">
                     <!-- Start Plan -->
                     <div class="pricing-card reveal">
@@ -673,7 +687,18 @@
                         </ul>
                         <a href="/#contact" class="pricing-cta secondary">Empezar</a>
                     </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="pricing" id="ligas">
+            <div class="container">
+                <div class="pricing-section-header reveal">
+                    <span class="section-tag">Ligas individuales</span>
+                    <h3>Opera ligas completas con temporadas</h3>
+                    <p>Jornadas automáticas, rankings, rotaciones y gestión de jugadores.</p>
+                </div>
+                <div class="pricing-grid">
                     <!-- Liga Plan -->
                     <div class="pricing-card reveal">
                         <div class="pricing-icon" style="background: linear-gradient(135deg, #FEF9C3, #FDE047);">
@@ -762,7 +787,7 @@
             <div class="container">
                 <div class="comparison-header reveal">
                     <span class="section-tag">Detalle</span>
-                    <h3>Comparativa de Planes</h3>
+                    <h3>Comparativa — Torneos</h3>
                 </div>
                 <div class="comparison-wrapper reveal">
                     <table class="comparison-table">
@@ -770,107 +795,123 @@
                             <tr>
                                 <th></th>
                                 <th>Start</th>
-                                <th>Pro</th>
-                                <th>Liga</th>
-                                <th class="highlighted-col">Elite</th>
+                                <th class="highlighted-col">Pro</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tipo de producto</td>
-                                <td>Torneos Express</td>
-                                <td>Torneos avanzados</td>
-                                <td>Ligas</td>
-                                <td class="highlighted-col">Circuito completo</td>
-                            </tr>
                             <tr class="price-row">
                                 <td>Precio mensual</td>
                                 <td>$399</td>
-                                <td>$749</td>
-                                <td>$1,499</td>
-                                <td class="highlighted-col">$2,999</td>
+                                <td class="highlighted-col">$749</td>
                             </tr>
                             <tr>
                                 <td>Categorías múltiples</td>
                                 <td><span class="dash">—</span></td>
-                                <td><span class="check">&#10003;</span></td>
-                                <td><span class="check">&#10003;</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Fase de grupos</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="check">&#10003;</span></td>
                                 <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Brackets eliminatorios</td>
                                 <td><span class="check">&#10003;</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                            <tr>
+                                <td>Registro desde la app</td>
                                 <td><span class="check">&#10003;</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                            <tr>
+                                <td>Resultados en tiempo real</td>
                                 <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Historial de torneos</td>
                                 <td><span class="dash">—</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="comparison">
+            <div class="container">
+                <div class="comparison-header reveal">
+                    <h3>Comparativa — Ligas individuales</h3>
+                </div>
+                <div class="comparison-wrapper reveal">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Liga</th>
+                                <th class="highlighted-col">Elite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="price-row">
+                                <td>Precio mensual</td>
+                                <td>$1,499</td>
+                                <td class="highlighted-col">$2,999</td>
+                            </tr>
+                            <tr>
+                                <td>Temporadas completas</td>
                                 <td><span class="check">&#10003;</span></td>
-                                <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
-                                <td>Temporadas</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="check">&#10003;</span></td>
-                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
-                            </tr>
-                            <tr>
-                                <td>Calendario automático</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
+                                <td>Jornadas automáticas</td>
                                 <td><span class="check">&#10003;</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Solicitudes de jugadores</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
+                                <td><span class="check">&#10003;</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                            <tr>
+                                <td>Calendario y rotaciones</td>
                                 <td><span class="check">&#10003;</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Ranking en tiempo real</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
                                 <td><span class="check">&#10003;</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
-                                <td>Ranking acumulado circuito</td>
+                                <td>Tabla de posiciones</td>
+                                <td><span class="check">&#10003;</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                            <tr>
+                                <td>Torneos (Start + Pro incluidos)</td>
                                 <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
+                                <td class="highlighted-col"><span class="check">&#10003;</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ranking acumulado de circuito</td>
                                 <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Calendarización inteligente</td>
                                 <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
-                                <td>Reportes financieros</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
+                                <td>Reportes financieros y operativos</td>
                                 <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
                             <tr>
                                 <td>Soporte prioritario</td>
-                                <td><span class="dash">—</span></td>
-                                <td><span class="dash">—</span></td>
                                 <td><span class="dash">—</span></td>
                                 <td class="highlighted-col"><span class="check">&#10003;</span></td>
                             </tr>
