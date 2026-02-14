@@ -615,13 +615,13 @@
                 <p class="section-description">Desde torneos express hasta circuitos con ranking. Escala cuando lo necesites.</p>
 
                 <div class="billing-toggle">
-                    <span class="billing-label active" id="label-monthly">Mensual</span>
+                    <span class="billing-label" id="label-monthly">Mensual</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="billing-toggle">
+                        <input type="checkbox" id="billing-toggle" checked>
                         <span class="toggle-track"></span>
                         <span class="toggle-knob"></span>
                     </label>
-                    <span class="billing-label" id="label-annual">Anual</span>
+                    <span class="billing-label active" id="label-annual">Anual</span>
                     <span class="save-badge">-30%</span>
                 </div>
 
@@ -963,6 +963,18 @@
             labelMonthly.classList.toggle('active', !isAnnual);
             labelAnnual.classList.toggle('active', isAnnual);
         }
+
+        // Initialize annual prices on load (no animation)
+        amounts.forEach(function(el) {
+            el.textContent = el.dataset.annual;
+        });
+        notes.forEach(function(el) {
+            el.textContent = 'Facturado anualmente + IVA';
+        });
+        originals.forEach(function(el) {
+            var amount = el.closest('.pricing-card').querySelector('.amount');
+            el.textContent = '$' + amount.dataset.monthly + '/mes';
+        });
 
         toggle.addEventListener('change', function() {
             updatePrices(this.checked);
