@@ -404,6 +404,7 @@
             background: var(--navy); color: var(--lime); padding: 1px 6px;
             border-radius: var(--radius-full); margin-left: auto; flex-shrink: 0;
         }
+        .pricing-card:last-child .pricing-feature.highlight::after { content: none; }
         .pricing-btn {
             display: block; text-align: center; padding: 12px;
             border-radius: var(--radius-full); font-weight: 600; font-size: 0.875rem;
@@ -727,9 +728,8 @@
                 <div class="pricing-card reveal d3">
                     <div class="pricing-name">Enterprise</div><div class="pricing-price">$1,499 <span>MXN / mo</span></div><div class="pricing-desc">For associations and federations</div>
                     <div class="pricing-features">
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Unlimited everything</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Unlimited members</div>
-                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Auto-scheduling</div>
+                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Everything in Professional</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Unlimited tournaments, pairs & members</div>
                         <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 1% platform fee*</div>
                         <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Priority support</div>
                         <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Custom plans available</div>
