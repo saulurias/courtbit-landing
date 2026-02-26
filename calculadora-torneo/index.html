@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Torneos de Padel | CourtBit</title>
+    <meta name="description" content="Calcula costos, precio por pareja y margenes de ganancia para tu torneo de padel. Herramienta gratuita para organizadores.">
+    <meta property="og:title" content="Calculadora de Torneos de Padel | CourtBit">
+    <meta property="og:description" content="Calcula costos, precio por pareja y margenes de ganancia para tu torneo de padel.">
+    <meta property="og:image" content="https://courtbit.com.mx/Assets/courtbit-logo.svg">
+    <link rel="icon" type="image/png" href="../Assets/courtbit-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-primary: #00D26A;
+            --green-light: #4ADE80;
+            --green-dark: #00A855;
+            --blue-accent: #0066FF;
+            --bg-white: #FFFFFF;
+            --bg-gray-50: #F9FAFB;
+            --bg-gray-100: #F3F4F6;
+            --text-dark: #1F2937;
+            --text-gray: #4B5563;
+            --text-light: #6B7280;
+            --border-light: #E5E7EB;
+            --border-gray: #D1D5DB;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .logo span { color: var(--green-primary); }
+        .back-link {
+            color: var(--green-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .section-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--green-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Calculator Section */
+        .calculator {
+            padding: 40px 0 80px;
+        }
+
+        /* Input Cards Grid */
+        .calc-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .input-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s ease;
+        }
+        .input-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .input-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .input-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        .input-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Form fields */
+        .field {
+            margin-bottom: 20px;
+        }
+        .field:last-child {
+            margin-bottom: 0;
+        }
+        .field-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .field-hint {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        .calc-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -moz-appearance: textfield;
+        }
+        .calc-input::-webkit-outer-spin-button,
+        .calc-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.1);
+        }
+        .input-prefix {
+            position: relative;
+        }
+        .input-prefix .calc-input {
+            padding-left: 32px;
+        }
+        .input-prefix::before {
+            content: '$';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        /* Segmented control */
+        .segment-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .segment-option {
+            flex: 1;
+            min-width: 0;
+        }
+        .segment-option input { display: none; }
+        .segment-option label {
+            display: block;
+            text-align: center;
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .segment-option label:hover {
+            border-color: var(--green-primary);
+            color: var(--text-dark);
+        }
+        .segment-option input:checked + label {
+            background: var(--green-primary);
+            color: white;
+            border-color: var(--green-primary);
+            font-weight: 600;
+        }
+
+        /* Custom balls inputs */
+        .custom-balls {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+            margin-top: 0;
+        }
+        .custom-balls.visible {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+        .custom-balls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Validation warning */
+        .validation-warning {
+            display: none;
+            padding: 10px 14px;
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+            border-radius: 10px;
+            font-size: 0.8125rem;
+            color: #92400E;
+            margin-top: 8px;
+        }
+        .validation-warning.visible {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .validation-warning svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Results Section */
+        .results-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .results-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .summary-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .summary-card.highlight {
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            border-color: var(--green-primary);
+        }
+        .summary-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .summary-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+        .summary-card.highlight .summary-value {
+            color: var(--green-dark);
+        }
+        .summary-label {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Breakdown Table */
+        .breakdown-wrapper {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 32px;
+        }
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .breakdown-table thead th {
+            padding: 16px 20px;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-align: left;
+            background: var(--bg-gray-50);
+            border-bottom: 2px solid var(--border-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .breakdown-table thead th:last-child {
+            text-align: right;
+        }
+        .breakdown-table tbody td {
+            padding: 14px 20px;
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .breakdown-table tbody td:last-child {
+            text-align: right;
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+        }
+        .breakdown-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .breakdown-table tbody tr.subtotal td {
+            font-weight: 700;
+            color: var(--text-dark);
+            background: var(--bg-gray-50);
+        }
+        .breakdown-table tbody tr.total td {
+            font-weight: 800;
+            color: var(--green-dark);
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            font-size: 0.9375rem;
+        }
+        .breakdown-table tbody tr.total td:last-child {
+            font-size: 0.875rem;
+        }
+        .breakdown-section-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            padding: 10px 20px 6px;
+            background: var(--bg-gray-50);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        /* Margin Calculator */
+        .margin-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 32px;
+        }
+        .margin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .margin-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        .margin-badge {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            background: #DCFCE7;
+            padding: 6px 16px;
+            border-radius: 100px;
+        }
+
+        .margin-slider-container {
+            margin-bottom: 28px;
+        }
+        .margin-slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .margin-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--bg-gray-100);
+            outline: none;
+            cursor: pointer;
+        }
+        .margin-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--green-primary);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 210, 106, 0.4);
+            border: 3px solid white;
+            transition: transform 0.2s;
+        }
+        .margin-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .margin-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--green-primary);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 210, 106, 0.4);
+            border: 3px solid white;
+        }
+
+        .margin-results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .margin-result-item {
+            text-align: center;
+            padding: 20px 16px;
+            background: var(--bg-gray-50);
+            border-radius: 14px;
+        }
+        .margin-result-item.primary {
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+        }
+        .margin-result-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        .margin-result-item.primary .margin-result-value {
+            color: var(--green-dark);
+        }
+        .margin-result-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Example Tables Section */
+        .examples {
+            padding: 0 0 80px;
+        }
+        .examples-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .examples-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .examples-header p {
+            color: var(--text-gray);
+            font-size: 0.9375rem;
+            margin-top: 8px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .example-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .example-card-header {
+            padding: 20px 24px;
+            background: var(--bg-gray-50);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .example-card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--green-primary);
+            margin-bottom: 4px;
+        }
+        .example-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .example-card-subtitle {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .example-table td {
+            padding: 12px 24px;
+            font-size: 0.8125rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .example-table td:first-child {
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+        .example-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+        }
+        .example-table tr:last-child td {
+            border-bottom: none;
+        }
+        .example-table tr.ex-total td {
+            font-weight: 800;
+            color: var(--green-dark);
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 0 0 80px;
+        }
+        .cta-card {
+            background: var(--bg-gray-50);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .cta-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .cta-card p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin-bottom: 28px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--green-primary);
+            color: white;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 210, 106, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-gray-50);
+            border-top: 1px solid var(--border-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .footer-logo span { color: var(--green-primary); }
+        .footer-text {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: help;
+        }
+        .tooltip .tooltip-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-gray-100);
+            color: var(--text-light);
+            font-size: 0.625rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 6px;
+            flex-shrink: 0;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 220px;
+            text-align: center;
+            transition: opacity 0.2s;
+            z-index: 10;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+        .tooltip .tooltip-text::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--text-dark);
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .calc-inputs {
+                grid-template-columns: 1fr 1fr;
+            }
+            .calc-inputs .input-card:last-child {
+                grid-column: 1 / -1;
+            }
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .margin-results {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0 20px;
+            }
+            .calculator {
+                padding: 24px 0 60px;
+            }
+            .calc-inputs {
+                grid-template-columns: 1fr;
+            }
+            .calc-inputs .input-card:last-child {
+                grid-column: auto;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .summary-value {
+                font-size: 1.375rem;
+            }
+            .margin-results {
+                grid-template-columns: 1fr;
+            }
+            .margin-card {
+                padding: 24px 20px;
+            }
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-card {
+                padding: 32px 24px;
+            }
+            .breakdown-table thead th,
+            .breakdown-table tbody td {
+                padding: 12px 14px;
+            }
+            .segment-option label {
+                padding: 10px 8px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .custom-balls-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">Court<span>Bit</span></a>
+            <a href="/" class="back-link">&larr; Volver al inicio</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container reveal">
+                <span class="section-tag">Herramienta Gratuita</span>
+                <h2 class="section-title">Calculadora de Torneos</h2>
+                <p class="section-description">Calcula costos, precio por pareja y margen de ganancia para tu torneo de padel en segundos.</p>
+            </div>
+        </section>
+
+        <section class="calculator">
+            <div class="container">
+                <!-- Input Cards -->
+                <div class="calc-inputs">
+                    <!-- Card 1: Costos Base -->
+                    <div class="input-card reveal">
+                        <div class="input-card-header">
+                            <div class="input-card-icon" style="background: linear-gradient(135deg, #F0FDF4, #BBF7D0);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <div class="input-card-title">Costos Base</div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">
+                                Precio por hora de cancha
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Precio que cobra el club por hora de renta de cancha de padel.</span>
+                                </span>
+                            </label>
+                            <div class="input-prefix">
+                                <input type="number" id="precioCancha" class="calc-input" min="0" step="50" value="350">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">
+                                Precio por bote de pelotas
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Costo de un bote de 3 pelotas de padel.</span>
+                                </span>
+                            </label>
+                            <div class="input-prefix">
+                                <input type="number" id="precioPelotas" class="calc-input" min="0" step="10" value="150">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Formato del Torneo -->
+                    <div class="input-card reveal">
+                        <div class="input-card-header">
+                            <div class="input-card-icon" style="background: linear-gradient(135deg, #FEF3C7, #FDE68A);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div class="input-card-title">Formato del Torneo</div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">Cantidad de parejas</label>
+                            <input type="number" id="cantidadParejas" class="calc-input" min="6" max="128" step="1" value="16">
+                            <div class="validation-warning" id="parejasWarning">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                <span id="parejasWarningText"></span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">
+                                Tamano de grupos
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Grupos de 3: cada pareja juega 3 partidos. Grupos de 4: cada pareja juega 6 partidos.</span>
+                                </span>
+                            </label>
+                            <div class="segment-group">
+                                <div class="segment-option">
+                                    <input type="radio" name="tamanoGrupo" id="grupo3" value="3">
+                                    <label for="grupo3">Grupos de 3</label>
+                                </div>
+                                <div class="segment-option">
+                                    <input type="radio" name="tamanoGrupo" id="grupo4" value="4" checked>
+                                    <label for="grupo4">Grupos de 4</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">
+                                Tipo de torneo
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Regular: 3 sets (1.5h). Express 6: 1 set a 6 juegos (30 min). Express 8: 1 set a 8 juegos (45 min).</span>
+                                </span>
+                            </label>
+                            <div class="segment-group">
+                                <div class="segment-option">
+                                    <input type="radio" name="tipoTorneo" id="regular" value="regular" checked>
+                                    <label for="regular">Regular</label>
+                                </div>
+                                <div class="segment-option">
+                                    <input type="radio" name="tipoTorneo" id="express6" value="express6">
+                                    <label for="express6">Express 6</label>
+                                </div>
+                                <div class="segment-option">
+                                    <input type="radio" name="tipoTorneo" id="express8" value="express8">
+                                    <label for="express8">Express 8</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Configuracion de Pelotas -->
+                    <div class="input-card reveal">
+                        <div class="input-card-header">
+                            <div class="input-card-icon" style="background: linear-gradient(135deg, #E0E7FF, #C7D2FE);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            </div>
+                            <div class="input-card-title">Pelotas</div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label">
+                                Modo de pelotas
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Define cuantos botes de pelotas se usan durante el torneo.</span>
+                                </span>
+                            </label>
+                            <div class="segment-group">
+                                <div class="segment-option">
+                                    <input type="radio" name="modoPelotas" id="porPartido" value="porPartido" checked>
+                                    <label for="porPartido">1 por partido</label>
+                                </div>
+                                <div class="segment-option">
+                                    <input type="radio" name="modoPelotas" id="porFase" value="porFase">
+                                    <label for="porFase">1 por fase</label>
+                                </div>
+                                <div class="segment-option">
+                                    <input type="radio" name="modoPelotas" id="personalizado" value="personalizado">
+                                    <label for="personalizado">Personalizado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-balls" id="customBalls">
+                            <div class="custom-balls-grid">
+                                <div class="field">
+                                    <label class="field-label">Botes fase grupos</label>
+                                    <input type="number" id="botesGrupos" class="calc-input" min="1" value="4">
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">Botes eliminatorias</label>
+                                    <input type="number" id="botesEliminatorias" class="calc-input" min="1" value="3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field" style="margin-top: 20px;">
+                            <label class="field-label" style="font-size: 0.75rem; color: var(--text-light); font-weight: 400;">
+                                <strong>1 por partido:</strong> Un bote nuevo para cada partido.<br>
+                                <strong>1 por fase:</strong> Un bote para grupos, otro para eliminatorias.<br>
+                                <strong>Personalizado:</strong> Define la cantidad exacta.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="results-header reveal">
+                    <span class="section-tag">Resultados</span>
+                    <h3>Desglose del Torneo</h3>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-grid reveal">
+                    <div class="summary-card">
+                        <div class="summary-icon">&#127934;</div>
+                        <div class="summary-value" id="resPartidos">--</div>
+                        <div class="summary-label">Total Partidos</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">&#9201;</div>
+                        <div class="summary-value" id="resHoras">--</div>
+                        <div class="summary-label">Horas de Cancha</div>
+                    </div>
+                    <div class="summary-card highlight">
+                        <div class="summary-icon">&#128176;</div>
+                        <div class="summary-value" id="resCostoTotal">--</div>
+                        <div class="summary-label">Costo Total</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">&#128101;</div>
+                        <div class="summary-value" id="resCostoPareja">--</div>
+                        <div class="summary-label">Costo por Pareja</div>
+                    </div>
+                </div>
+
+                <!-- Breakdown Table -->
+                <div class="breakdown-wrapper reveal">
+                    <table class="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Detalle</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdownBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Margin Calculator -->
+                <div class="margin-card reveal">
+                    <div class="margin-header">
+                        <div class="margin-title">Precio Sugerido con Margen</div>
+                        <div class="margin-badge" id="marginBadge">Margen: 20%</div>
+                    </div>
+                    <div class="margin-slider-container">
+                        <div class="margin-slider-labels">
+                            <span>0%</span>
+                            <span>50%</span>
+                            <span>100%</span>
+                        </div>
+                        <input type="range" class="margin-slider" id="margenSlider" min="0" max="100" value="20">
+                    </div>
+                    <div class="margin-results">
+                        <div class="margin-result-item primary">
+                            <div class="margin-result-value" id="resPrecioSugerido">--</div>
+                            <div class="margin-result-label">Precio sugerido / pareja</div>
+                        </div>
+                        <div class="margin-result-item">
+                            <div class="margin-result-value" id="resIngresoTotal">--</div>
+                            <div class="margin-result-label">Ingreso total estimado</div>
+                        </div>
+                        <div class="margin-result-item">
+                            <div class="margin-result-value" id="resGanancia">--</div>
+                            <div class="margin-result-label">Ganancia estimada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Example Tables -->
+        <section class="examples">
+            <div class="container">
+                <div class="examples-header reveal">
+                    <span class="section-tag">Ejemplos</span>
+                    <h3>Escenarios Precargados</h3>
+                    <p>Se recalculan automaticamente con tus precios base.</p>
+                </div>
+                <div class="examples-grid">
+                    <!-- Example 1: Regular Groups of 3 -->
+                    <div class="example-card reveal">
+                        <div class="example-card-header">
+                            <div class="example-card-tag">Ejemplo 1</div>
+                            <div class="example-card-title">Torneo Regular &mdash; Grupos de 3</div>
+                            <div class="example-card-subtitle">12 parejas &middot; 3 sets &middot; 1 bote por partido</div>
+                        </div>
+                        <table class="example-table" id="example1Table">
+                        </table>
+                    </div>
+                    <!-- Example 2: Express Groups of 4 -->
+                    <div class="example-card reveal">
+                        <div class="example-card-header">
+                            <div class="example-card-tag">Ejemplo 2</div>
+                            <div class="example-card-title">Torneo Express 6 &mdash; Grupos de 4</div>
+                            <div class="example-card-subtitle">16 parejas &middot; 1 set a 6 juegos &middot; 1 bote por partido</div>
+                        </div>
+                        <table class="example-table" id="example2Table">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-card reveal">
+                    <h3>Organiza Tu Torneo con CourtBit</h3>
+                    <p>Brackets, pagos, resultados en vivo y mas. Todo desde una sola plataforma.</p>
+                    <a href="/#contact" class="cta-btn">Probar Gratis</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Court<span>Bit</span></div>
+            <p class="footer-text">&copy; 2026 CourtBit. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        /* ============================================================
+           STORAGE KEY
+        ============================================================ */
+        var STORAGE_KEY = 'courtbit_calc_torneo';
+
+        /* ============================================================
+           DOM REFERENCES
+        ============================================================ */
+        var dom = {
+            precioCancha:      document.getElementById('precioCancha'),
+            precioPelotas:     document.getElementById('precioPelotas'),
+            cantidadParejas:   document.getElementById('cantidadParejas'),
+            margenSlider:      document.getElementById('margenSlider'),
+            marginBadge:       document.getElementById('marginBadge'),
+            customBalls:       document.getElementById('customBalls'),
+            botesGrupos:       document.getElementById('botesGrupos'),
+            botesEliminatorias:document.getElementById('botesEliminatorias'),
+            parejasWarning:    document.getElementById('parejasWarning'),
+            parejasWarningText:document.getElementById('parejasWarningText'),
+            breakdownBody:     document.getElementById('breakdownBody'),
+            resPartidos:       document.getElementById('resPartidos'),
+            resHoras:          document.getElementById('resHoras'),
+            resCostoTotal:     document.getElementById('resCostoTotal'),
+            resCostoPareja:    document.getElementById('resCostoPareja'),
+            resPrecioSugerido: document.getElementById('resPrecioSugerido'),
+            resIngresoTotal:   document.getElementById('resIngresoTotal'),
+            resGanancia:       document.getElementById('resGanancia'),
+            example1Table:     document.getElementById('example1Table'),
+            example2Table:     document.getElementById('example2Table')
+        };
+
+        /* ============================================================
+           HELPERS
+        ============================================================ */
+        function formatCurrency(n) {
+            return '$' + Math.round(n).toLocaleString('es-MX');
+        }
+
+        function formatHours(n) {
+            if (n % 1 === 0) return n + ' hrs';
+            return n.toFixed(1) + ' hrs';
+        }
+
+        function getRadioValue(name) {
+            var el = document.querySelector('input[name="' + name + '"]:checked');
+            return el ? el.value : null;
+        }
+
+        function setRadioValue(name, value) {
+            var el = document.getElementById(value) || document.querySelector('input[name="' + name + '"][value="' + value + '"]');
+            if (el) el.checked = true;
+        }
+
+        /* ============================================================
+           CORE CALCULATION FUNCTIONS
+        ============================================================ */
+
+        /**
+         * Calcula datos de la fase de grupos.
+         * @param {number} parejas - Cantidad total de parejas
+         * @param {number} tamanoGrupo - Parejas por grupo (3 o 4)
+         * @returns {{ numGrupos: number, partidosPorGrupo: number, totalPartidosGrupos: number, clasificados: number, valido: boolean }}
+         */
+        function calcularGrupos(parejas, tamanoGrupo) {
+            var numGrupos = Math.floor(parejas / tamanoGrupo);
+            var partidosPorGrupo = tamanoGrupo === 3 ? 3 : 6;
+            var totalPartidosGrupos = numGrupos * partidosPorGrupo;
+            var clasificados = numGrupos * 2;
+            var valido = parejas % tamanoGrupo === 0 && numGrupos >= 2;
+
+            return {
+                numGrupos: numGrupos,
+                partidosPorGrupo: partidosPorGrupo,
+                totalPartidosGrupos: totalPartidosGrupos,
+                clasificados: clasificados,
+                valido: valido
+            };
+        }
+
+        /**
+         * Calcula partidos de eliminacion directa.
+         * @param {number} clasificados - Parejas que avanzan de grupos
+         * @returns {{ partidosEliminacion: number }}
+         */
+        function calcularEliminacion(clasificados) {
+            return {
+                partidosEliminacion: Math.max(clasificados - 1, 0)
+            };
+        }
+
+        /**
+         * Calcula costos de cancha.
+         * @param {number} totalPartidos - Total de partidos en el torneo
+         * @param {number} duracion - Duracion por partido en horas
+         * @param {number} precioHora - Precio por hora de cancha
+         * @returns {{ totalHoras: number, costoCancha: number }}
+         */
+        function calcularCostosCancha(totalPartidos, duracion, precioHora) {
+            var totalHoras = totalPartidos * duracion;
+            return {
+                totalHoras: totalHoras,
+                costoCancha: totalHoras * precioHora
+            };
+        }
+
+        /**
+         * Calcula costos de pelotas segun el modo seleccionado.
+         * @param {string} modo - 'porPartido', 'porFase', 'personalizado'
+         * @param {number} totalPartidos - Total partidos del torneo
+         * @param {number} precioBote - Precio por bote de pelotas
+         * @param {number} botesGrupos - Botes para fase grupos (modo personalizado)
+         * @param {number} botesEliminatorias - Botes para eliminatorias (modo personalizado)
+         * @returns {{ totalBotes: number, costoPelotas: number }}
+         */
+        function calcularCostosPelotas(modo, totalPartidos, precioBote, botesGrupos, botesEliminatorias) {
+            var totalBotes = 0;
+
+            if (modo === 'porPartido') {
+                totalBotes = totalPartidos;
+            } else if (modo === 'porFase') {
+                totalBotes = 2;
+            } else {
+                totalBotes = (botesGrupos || 0) + (botesEliminatorias || 0);
+            }
+
+            return {
+                totalBotes: totalBotes,
+                costoPelotas: totalBotes * precioBote
+            };
+        }
+
+        /**
+         * Calcula todos los totales del torneo.
+         * @param {object} config - Configuracion del torneo
+         * @returns {object} Todos los resultados calculados
+         */
+        function calcularTotales(config) {
+            var duraciones = { regular: 1.5, express6: 0.5, express8: 0.75 };
+            var duracion = duraciones[config.tipoTorneo] || 1.5;
+
+            var grupos = calcularGrupos(config.parejas, config.tamanoGrupo);
+            var elim = calcularEliminacion(grupos.clasificados);
+            var totalPartidos = grupos.totalPartidosGrupos + elim.partidosEliminacion;
+            var cancha = calcularCostosCancha(totalPartidos, duracion, config.precioCancha);
+            var pelotas = calcularCostosPelotas(
+                config.modoPelotas, totalPartidos, config.precioPelotas,
+                config.botesGrupos, config.botesEliminatorias
+            );
+
+            var costoTotal = cancha.costoCancha + pelotas.costoPelotas;
+            var costoPareja = config.parejas > 0 ? costoTotal / config.parejas : 0;
+            var precioSugerido = costoPareja * (1 + config.margen / 100);
+            var ingresoTotal = precioSugerido * config.parejas;
+            var ganancia = ingresoTotal - costoTotal;
+
+            return {
+                numGrupos: grupos.numGrupos,
+                partidosPorGrupo: grupos.partidosPorGrupo,
+                totalPartidosGrupos: grupos.totalPartidosGrupos,
+                clasificados: grupos.clasificados,
+                partidosEliminacion: elim.partidosEliminacion,
+                totalPartidos: totalPartidos,
+                duracion: duracion,
+                totalHoras: cancha.totalHoras,
+                costoCancha: cancha.costoCancha,
+                totalBotes: pelotas.totalBotes,
+                costoPelotas: pelotas.costoPelotas,
+                costoTotal: costoTotal,
+                costoPareja: costoPareja,
+                precioSugerido: precioSugerido,
+                ingresoTotal: ingresoTotal,
+                ganancia: ganancia,
+                valido: grupos.valido
+            };
+        }
+
+        /* ============================================================
+           UI UPDATE
+        ============================================================ */
+        function obtenerConfig() {
+            return {
+                precioCancha: parseFloat(dom.precioCancha.value) || 0,
+                precioPelotas: parseFloat(dom.precioPelotas.value) || 0,
+                parejas: parseInt(dom.cantidadParejas.value) || 0,
+                tamanoGrupo: parseInt(getRadioValue('tamanoGrupo')) || 4,
+                tipoTorneo: getRadioValue('tipoTorneo') || 'regular',
+                modoPelotas: getRadioValue('modoPelotas') || 'porPartido',
+                botesGrupos: parseInt(dom.botesGrupos.value) || 0,
+                botesEliminatorias: parseInt(dom.botesEliminatorias.value) || 0,
+                margen: parseInt(dom.margenSlider.value) || 0
+            };
+        }
+
+        function actualizarResultados() {
+            var config = obtenerConfig();
+            var r = calcularTotales(config);
+
+            // Validation
+            var sobrantes = config.parejas % config.tamanoGrupo;
+            if (sobrantes !== 0 || config.parejas < config.tamanoGrupo * 2) {
+                dom.parejasWarning.classList.add('visible');
+                if (config.parejas < config.tamanoGrupo * 2) {
+                    dom.parejasWarningText.textContent = 'Se necesitan al menos ' + (config.tamanoGrupo * 2) + ' parejas para grupos de ' + config.tamanoGrupo + '.';
+                } else {
+                    var menor = config.parejas - sobrantes;
+                    var mayor = config.parejas - sobrantes + config.tamanoGrupo;
+                    dom.parejasWarningText.textContent = config.parejas + ' no es divisible entre ' + config.tamanoGrupo + '. Prueba con ' + menor + ' o ' + mayor + ' parejas.';
+                }
+            } else {
+                dom.parejasWarning.classList.remove('visible');
+            }
+
+            // Summary cards
+            dom.resPartidos.textContent = r.totalPartidos;
+            dom.resHoras.textContent = formatHours(r.totalHoras);
+            dom.resCostoTotal.textContent = formatCurrency(r.costoTotal);
+            dom.resCostoPareja.textContent = formatCurrency(r.costoPareja);
+
+            // Margin
+            dom.marginBadge.textContent = 'Margen: ' + config.margen + '%';
+            dom.resPrecioSugerido.textContent = formatCurrency(r.precioSugerido);
+            dom.resIngresoTotal.textContent = formatCurrency(r.ingresoTotal);
+            dom.resGanancia.textContent = formatCurrency(r.ganancia);
+
+            // Breakdown table
+            var tipoLabels = { regular: 'Regular (3 sets)', express6: 'Express 6 juegos', express8: 'Express 8 juegos' };
+            var modoLabels = { porPartido: '1 bote por partido', porFase: '1 bote por fase', personalizado: 'Personalizado' };
+
+            var html = '';
+            // Fase de grupos
+            html += '<tr><td colspan="3" class="breakdown-section-label">Fase de Grupos</td></tr>';
+            html += '<tr><td>Grupos</td><td>' + r.numGrupos + ' grupos de ' + config.tamanoGrupo + '</td><td></td></tr>';
+            html += '<tr><td>Partidos por grupo</td><td>' + r.partidosPorGrupo + ' partidos</td><td></td></tr>';
+            html += '<tr><td>Total partidos grupos</td><td>' + r.totalPartidosGrupos + ' partidos</td><td></td></tr>';
+            html += '<tr><td>Clasificados</td><td>' + r.clasificados + ' parejas (2 por grupo)</td><td></td></tr>';
+            // Eliminacion
+            html += '<tr><td colspan="3" class="breakdown-section-label">Eliminacion Directa</td></tr>';
+            html += '<tr><td>Partidos eliminacion</td><td>' + r.partidosEliminacion + ' partidos</td><td></td></tr>';
+            // Resumen
+            html += '<tr><td colspan="3" class="breakdown-section-label">Resumen de Costos</td></tr>';
+            html += '<tr class="subtotal"><td>Total partidos</td><td>' + r.totalPartidos + ' partidos</td><td></td></tr>';
+            html += '<tr><td>Formato</td><td>' + (tipoLabels[config.tipoTorneo] || '') + ' (' + r.duracion + 'h/partido)</td><td></td></tr>';
+            html += '<tr><td>Horas de cancha</td><td>' + formatHours(r.totalHoras) + '</td><td></td></tr>';
+            html += '<tr><td>Costo canchas</td><td>' + formatHours(r.totalHoras) + ' x ' + formatCurrency(config.precioCancha) + '/hr</td><td>' + formatCurrency(r.costoCancha) + '</td></tr>';
+            html += '<tr><td>Costo pelotas</td><td>' + r.totalBotes + ' botes (' + (modoLabels[config.modoPelotas] || '') + ')</td><td>' + formatCurrency(r.costoPelotas) + '</td></tr>';
+            html += '<tr class="total"><td>Costo Total</td><td></td><td>' + formatCurrency(r.costoTotal) + '</td></tr>';
+            html += '<tr class="subtotal"><td>Costo por Pareja</td><td>' + config.parejas + ' parejas</td><td>' + formatCurrency(r.costoPareja) + '</td></tr>';
+
+            dom.breakdownBody.innerHTML = html;
+
+            // Example tables
+            actualizarEjemplos(config.precioCancha, config.precioPelotas);
+
+            // Save to localStorage
+            guardarConfig(config);
+        }
+
+        /* ============================================================
+           EXAMPLE TABLES
+        ============================================================ */
+        function generarEjemploHTML(resultado, parejas) {
+            var html = '';
+            html += '<tr><td>Grupos</td><td>' + resultado.numGrupos + ' grupos</td></tr>';
+            html += '<tr><td>Partidos fase grupos</td><td>' + resultado.totalPartidosGrupos + '</td></tr>';
+            html += '<tr><td>Clasificados</td><td>' + resultado.clasificados + '</td></tr>';
+            html += '<tr><td>Partidos eliminacion</td><td>' + resultado.partidosEliminacion + '</td></tr>';
+            html += '<tr><td>Total partidos</td><td>' + resultado.totalPartidos + '</td></tr>';
+            html += '<tr><td>Horas de cancha</td><td>' + formatHours(resultado.totalHoras) + '</td></tr>';
+            html += '<tr><td>Costo canchas</td><td>' + formatCurrency(resultado.costoCancha) + '</td></tr>';
+            html += '<tr><td>Costo pelotas</td><td>' + formatCurrency(resultado.costoPelotas) + '</td></tr>';
+            html += '<tr class="ex-total"><td>Costo total</td><td>' + formatCurrency(resultado.costoTotal) + '</td></tr>';
+            html += '<tr><td>Costo por pareja</td><td>' + formatCurrency(resultado.costoPareja) + '</td></tr>';
+            return html;
+        }
+
+        function actualizarEjemplos(precioCancha, precioPelotas) {
+            // Ejemplo 1: Regular, grupos de 3, 12 parejas, 1 bote/partido
+            var ej1 = calcularTotales({
+                precioCancha: precioCancha,
+                precioPelotas: precioPelotas,
+                parejas: 12,
+                tamanoGrupo: 3,
+                tipoTorneo: 'regular',
+                modoPelotas: 'porPartido',
+                botesGrupos: 0,
+                botesEliminatorias: 0,
+                margen: 0
+            });
+            dom.example1Table.innerHTML = generarEjemploHTML(ej1, 12);
+
+            // Ejemplo 2: Express 6, grupos de 4, 16 parejas, 1 bote/partido
+            var ej2 = calcularTotales({
+                precioCancha: precioCancha,
+                precioPelotas: precioPelotas,
+                parejas: 16,
+                tamanoGrupo: 4,
+                tipoTorneo: 'express6',
+                modoPelotas: 'porPartido',
+                botesGrupos: 0,
+                botesEliminatorias: 0,
+                margen: 0
+            });
+            dom.example2Table.innerHTML = generarEjemploHTML(ej2, 16);
+        }
+
+        /* ============================================================
+           LOCAL STORAGE
+        ============================================================ */
+        function guardarConfig(config) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+            } catch (e) { /* silently fail */ }
+        }
+
+        function cargarConfig() {
+            try {
+                var saved = localStorage.getItem(STORAGE_KEY);
+                if (!saved) return;
+                var config = JSON.parse(saved);
+
+                if (config.precioCancha != null) dom.precioCancha.value = config.precioCancha;
+                if (config.precioPelotas != null) dom.precioPelotas.value = config.precioPelotas;
+                if (config.parejas != null) dom.cantidadParejas.value = config.parejas;
+                if (config.tamanoGrupo) setRadioValue('tamanoGrupo', config.tamanoGrupo === 3 ? 'grupo3' : 'grupo4');
+                if (config.tipoTorneo) setRadioValue('tipoTorneo', config.tipoTorneo);
+                if (config.modoPelotas) setRadioValue('modoPelotas', config.modoPelotas);
+                if (config.botesGrupos != null) dom.botesGrupos.value = config.botesGrupos;
+                if (config.botesEliminatorias != null) dom.botesEliminatorias.value = config.botesEliminatorias;
+                if (config.margen != null) dom.margenSlider.value = config.margen;
+
+                // Show custom balls if needed
+                if (config.modoPelotas === 'personalizado') {
+                    dom.customBalls.classList.add('visible');
+                }
+            } catch (e) { /* silently fail */ }
+        }
+
+        /* ============================================================
+           EVENT LISTENERS
+        ============================================================ */
+        // All inputs trigger recalculation
+        var allInputs = document.querySelectorAll('.calc-input, input[type="radio"], input[type="range"]');
+        allInputs.forEach(function(input) {
+            input.addEventListener('input', actualizarResultados);
+            input.addEventListener('change', actualizarResultados);
+        });
+
+        // Show/hide custom balls inputs
+        document.querySelectorAll('input[name="modoPelotas"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                if (this.value === 'personalizado') {
+                    dom.customBalls.classList.add('visible');
+                } else {
+                    dom.customBalls.classList.remove('visible');
+                }
+            });
+        });
+
+        /* ============================================================
+           SCROLL REVEAL ANIMATION
+        ============================================================ */
+        function revealOnScroll() {
+            var elements = document.querySelectorAll('.reveal');
+            var windowHeight = window.innerHeight;
+            elements.forEach(function(el) {
+                var elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        /* ============================================================
+           INIT
+        ============================================================ */
+        cargarConfig();
+        actualizarResultados();
+    })();
+    </script>
+</body>
+</html>
