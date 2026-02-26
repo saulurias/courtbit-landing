@@ -764,6 +764,228 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Preview Section */
+        .preview-section {
+            padding: 60px 0 40px;
+        }
+        .preview-section .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #10B981, #0D9488);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+        .preview-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 8px;
+        }
+        .preview-sub-header {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 32px 0 16px;
+        }
+
+        /* Groups Preview */
+        .pv-groups-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .pv-group-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .pv-group-header {
+            background: linear-gradient(135deg, #10B981, #0D9488);
+            color: white;
+            padding: 10px 16px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .pv-group-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .pv-group-table th {
+            text-align: left;
+            padding: 6px 12px;
+            font-weight: 600;
+            color: var(--text-light);
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .pv-group-table td {
+            padding: 7px 12px;
+            color: var(--text-dark);
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .pv-group-table tr:last-child td {
+            border-bottom: none;
+        }
+        .pv-advancing td {
+            background: #F0FDF4;
+            border-left: 3px solid #10B981;
+        }
+        .pv-advancing td:first-child {
+            padding-left: 9px;
+        }
+
+        /* Bracket Preview */
+        .pv-bracket-scroll {
+            overflow-x: auto;
+            padding-bottom: 16px;
+        }
+        .pv-bracket {
+            display: flex;
+            align-items: stretch;
+            min-height: 300px;
+            gap: 0;
+        }
+        .bk-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 160px;
+            gap: 8px;
+            padding: 0 4px;
+        }
+        .bk-round-label {
+            text-align: center;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            padding-bottom: 8px;
+            flex-shrink: 0;
+        }
+        .bk-round-matches {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            gap: 8px;
+        }
+        .bk-match {
+            background: var(--bg-white);
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            min-width: 150px;
+        }
+        .bk-match::after {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            width: 12px;
+            height: 0;
+            border-top: 2px solid #CBD5E1;
+        }
+        .bk-match.bk-final {
+            border-color: #F59E0B;
+            border-width: 2px;
+            background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+        }
+        .bk-match.bk-final::after {
+            display: none;
+        }
+        .bk-team-row {
+            padding: 6px 12px;
+            font-size: 0.78rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bk-team-row:first-child {
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .bk-team-seed {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-light);
+            min-width: 16px;
+        }
+        .bk-team-name {
+            font-weight: 500;
+        }
+        .bk-team-bye {
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Bracket Connectors */
+        .bk-connectors {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 24px;
+            flex-shrink: 0;
+        }
+        .bk-conn-pair {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .bk-conn-top {
+            flex: 1;
+            border-right: 2px solid #CBD5E1;
+            border-top: 2px solid #CBD5E1;
+            margin-left: 0;
+        }
+        .bk-conn-bottom {
+            flex: 1;
+            border-right: 2px solid #CBD5E1;
+            border-bottom: 2px solid #CBD5E1;
+            margin-left: 0;
+        }
+
+        /* Champion Column */
+        .bk-champion {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 16px;
+            min-width: 80px;
+        }
+        .bk-trophy {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .bk-champion-label {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .calc-inputs {
@@ -777,6 +999,9 @@
             }
             .margin-results {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            .pv-groups-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -818,6 +1043,12 @@
             .segment-option label {
                 padding: 10px 8px;
                 font-size: 0.75rem;
+            }
+            .pv-groups-grid {
+                grid-template-columns: 1fr;
+            }
+            .preview-section h3 {
+                font-size: 1.35rem;
             }
         }
 
@@ -1084,6 +1315,22 @@
             </div>
         </section>
 
+        <!-- Tournament Structure Preview -->
+        <section class="preview-section">
+            <div class="container">
+                <div class="reveal">
+                    <span class="section-tag">Vista Previa</span>
+                    <h3>Estructura del Torneo</h3>
+                </div>
+                <h4 class="preview-sub-header reveal">Fase de Grupos</h4>
+                <div class="pv-groups-grid reveal" id="previewGroups"></div>
+                <h4 class="preview-sub-header reveal">Eliminacion Directa</h4>
+                <div class="pv-bracket-scroll reveal">
+                    <div class="pv-bracket" id="previewBracket"></div>
+                </div>
+            </div>
+        </section>
+
         <!-- Example Tables -->
         <section class="examples">
             <div class="container">
@@ -1171,7 +1418,9 @@
             example2Table:     document.getElementById('example2Table'),
             recalcBar:         document.getElementById('recalcBar'),
             recalcBtn:         document.getElementById('recalcBtn'),
-            calcSection:       document.querySelector('.calculator .container')
+            calcSection:       document.querySelector('.calculator .container'),
+            previewGroups:     document.getElementById('previewGroups'),
+            previewBracket:    document.getElementById('previewBracket')
         };
 
         /* ============================================================
@@ -1320,6 +1569,137 @@
         }
 
         /* ============================================================
+           PREVIEW FUNCTIONS
+        ============================================================ */
+
+        function generarGruposPreview(parejas, tamanoGrupo) {
+            var numGrupos = Math.floor(parejas / tamanoGrupo);
+            if (numGrupos < 1) return '<p style="color:var(--text-light);font-size:0.9rem;">Configura las parejas para ver la vista previa.</p>';
+
+            var html = '';
+            var parejaNum = 1;
+            var letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            for (var g = 0; g < numGrupos; g++) {
+                html += '<div class="pv-group-card">';
+                html += '<div class="pv-group-header">Grupo ' + letras[g % 26] + '</div>';
+                html += '<table class="pv-group-table"><thead><tr><th>#</th><th>Pareja</th><th>PJ</th><th>PG</th></tr></thead><tbody>';
+
+                for (var p = 0; p < tamanoGrupo; p++) {
+                    var isAdvancing = p < 2;
+                    html += '<tr class="' + (isAdvancing ? 'pv-advancing' : '') + '">';
+                    html += '<td>' + (p + 1) + '</td>';
+                    html += '<td>Pareja ' + parejaNum + '</td>';
+                    html += '<td>-</td><td>-</td>';
+                    html += '</tr>';
+                    parejaNum++;
+                }
+
+                html += '</tbody></table></div>';
+            }
+            return html;
+        }
+
+        function generarBracketPreview(clasificados, numGrupos) {
+            if (clasificados < 2) return '';
+
+            // Calculate bracket size (next power of 2)
+            var bracketSize = 1;
+            while (bracketSize < clasificados) bracketSize *= 2;
+
+            var byes = bracketSize - clasificados;
+            var numRounds = Math.log2(bracketSize);
+
+            // Build round names
+            var roundNames = [];
+            for (var i = 0; i < numRounds; i++) {
+                var matchesInRound = bracketSize / Math.pow(2, i + 1);
+                if (matchesInRound === 1) roundNames.push('Final');
+                else if (matchesInRound === 2) roundNames.push('Semifinal');
+                else if (matchesInRound === 4) roundNames.push('Cuartos');
+                else if (matchesInRound === 8) roundNames.push('Octavos');
+                else roundNames.push('Ronda ' + (i + 1));
+            }
+
+            // Build first round matchups with cross-seeding
+            var firstRoundMatches = bracketSize / 2;
+            var matchups = [];
+            var letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            for (var m = 0; m < firstRoundMatches; m++) {
+                var team1, team2;
+                var groupA = m % numGrupos;
+                var groupB = (numGrupos - 1 - m % numGrupos);
+                if (groupB === groupA) groupB = (groupA + 1) % numGrupos;
+
+                if (m < firstRoundMatches - byes) {
+                    // Seed: 1st from one group vs 2nd from another
+                    team1 = { name: '1\u00B0 ' + letras[groupA % 26], isBye: false };
+                    team2 = { name: '2\u00B0 ' + letras[groupB % 26], isBye: false };
+                } else {
+                    // BYE slots
+                    team1 = { name: '1\u00B0 ' + letras[groupA % 26], isBye: false };
+                    team2 = { name: 'BYE', isBye: true };
+                }
+                matchups.push({ team1: team1, team2: team2 });
+            }
+
+            // Generate HTML
+            var html = '';
+
+            for (var r = 0; r < numRounds; r++) {
+                var matchesInRound = bracketSize / Math.pow(2, r + 1);
+                var isFinal = matchesInRound === 1;
+
+                html += '<div class="bk-round">';
+                html += '<div class="bk-round-label">' + roundNames[r] + '</div>';
+                html += '<div class="bk-round-matches">';
+
+                for (var mi = 0; mi < matchesInRound; mi++) {
+                    var finalClass = isFinal ? ' bk-final' : '';
+                    html += '<div class="bk-match' + finalClass + '">';
+
+                    if (r === 0) {
+                        var match = matchups[mi];
+                        html += '<div class="bk-team-row">';
+                        html += '<span class="bk-team-seed">' + (mi * 2 + 1) + '</span>';
+                        html += '<span class="bk-team-name' + (match.team1.isBye ? ' bk-team-bye' : '') + '">' + match.team1.name + '</span>';
+                        html += '</div>';
+                        html += '<div class="bk-team-row">';
+                        html += '<span class="bk-team-seed">' + (mi * 2 + 2) + '</span>';
+                        html += '<span class="bk-team-name' + (match.team2.isBye ? ' bk-team-bye' : '') + '">' + (match.team2.isBye ? 'Pase directo' : match.team2.name) + '</span>';
+                        html += '</div>';
+                    } else {
+                        html += '<div class="bk-team-row"><span class="bk-team-name" style="color:var(--text-light)">Por definir</span></div>';
+                        html += '<div class="bk-team-row"><span class="bk-team-name" style="color:var(--text-light)">Por definir</span></div>';
+                    }
+
+                    html += '</div>';
+                }
+
+                html += '</div></div>';
+
+                // Add connectors between rounds (except after the last round)
+                if (r < numRounds - 1) {
+                    var pairs = matchesInRound / 2;
+                    html += '<div class="bk-connectors">';
+                    for (var cp = 0; cp < pairs; cp++) {
+                        html += '<div class="bk-conn-pair"><div class="bk-conn-top"></div><div class="bk-conn-bottom"></div></div>';
+                    }
+                    html += '</div>';
+                }
+            }
+
+            // Champion column
+            html += '<div class="bk-champion">';
+            html += '<div class="bk-trophy">\uD83C\uDFC6</div>';
+            html += '<div class="bk-champion-label">Campeon</div>';
+            html += '</div>';
+
+            return html;
+        }
+
+        /* ============================================================
            UI UPDATE
         ============================================================ */
         function obtenerConfig() {
@@ -1395,6 +1775,10 @@
 
             // Example tables
             actualizarEjemplos(config.precioCancha, config.precioPelotas);
+
+            // Preview
+            dom.previewGroups.innerHTML = generarGruposPreview(config.parejas, config.tamanoGrupo);
+            dom.previewBracket.innerHTML = generarBracketPreview(r.clasificados, r.numGrupos);
 
             // Save to localStorage
             guardarConfig(config);
