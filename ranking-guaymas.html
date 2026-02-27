@@ -725,6 +725,135 @@
             background: var(--lime);
         }
 
+        .category-card.gender-mismatch {
+            opacity: 0.5;
+            border-style: dashed;
+        }
+
+        .category-card.gender-mismatch:hover {
+            border-color: #e67e22;
+            background: #fef9f3;
+        }
+
+        .category-card.gender-mismatch.selected {
+            border-color: #e67e22;
+            background: #e67e22;
+            opacity: 1;
+        }
+
+        .gender-warning-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #e67e22;
+            background: rgba(230, 126, 34, 0.1);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 2px;
+        }
+
+        .category-card.selected .gender-warning-badge {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .gender-confirm-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .gender-confirm-overlay.show {
+            opacity: 1;
+        }
+
+        .gender-confirm-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(10px);
+            transition: transform 0.2s ease;
+        }
+
+        .gender-confirm-overlay.show .gender-confirm-card {
+            transform: translateY(0);
+        }
+
+        .gender-confirm-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(230, 126, 34, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5rem;
+        }
+
+        .gender-confirm-card h3 {
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .gender-confirm-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .gender-confirm-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .gender-confirm-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1.5px solid var(--border);
+        }
+
+        .gender-confirm-cancel {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .gender-confirm-cancel:hover {
+            background: var(--bg);
+        }
+
+        .gender-confirm-proceed {
+            background: #e67e22;
+            color: var(--white);
+            border-color: #e67e22;
+        }
+
+        .gender-confirm-proceed:hover {
+            background: #d35400;
+            border-color: #d35400;
+        }
+
         .category-card-check svg {
             display: none;
         }
@@ -1743,6 +1872,19 @@
         </div>
     </div>
 
+    <!-- Gender mismatch confirmation modal -->
+    <div class="gender-confirm-overlay" id="gender-confirm-modal">
+        <div class="gender-confirm-card">
+            <div class="gender-confirm-icon">&#9888;</div>
+            <h3>Categoria diferente a tu genero</h3>
+            <p id="gender-confirm-text">La categoria que seleccionaste es para un genero diferente al de tu perfil. ¿Deseas continuar de todos modos?</p>
+            <div class="gender-confirm-actions">
+                <button class="gender-confirm-cancel" id="gender-confirm-cancel">Cancelar</button>
+                <button class="gender-confirm-proceed" id="gender-confirm-proceed">Continuar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ════════ PLAYER DETAIL MODAL ════════ -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal-sheet">
@@ -2313,10 +2455,31 @@
             if (e.target === this) closePlayerModal();
         });
 
+        // ── Gender helpers ──
+        function getUserGender() {
+            try {
+                var user = JSON.parse(localStorage.getItem('courtbit_user'));
+                return user && user.gender ? user.gender : null;
+            } catch (e) { return null; }
+        }
+
+        function getExpectedGroup(gender) {
+            if (gender === 'male') return 'Varonil';
+            if (gender === 'female') return 'Femenil';
+            return null;
+        }
+
+        function isCategoryMismatch(cat, gender) {
+            var expected = getExpectedGroup(gender);
+            if (!expected) return false;
+            return cat.group !== expected;
+        }
+
         // ── Category Selection Cards ──
         function buildCategoryCards() {
             var container = document.getElementById('category-cards');
             container.innerHTML = '';
+            var userGender = getUserGender();
 
             var groups = {};
             CATEGORIES.forEach(function(cat) {
@@ -2325,21 +2488,41 @@
                 groups[g].push(cat);
             });
 
-            Object.keys(groups).forEach(function(groupName) {
+            // Show user's matching group first
+            var groupOrder = Object.keys(groups);
+            var expectedGroup = getExpectedGroup(userGender);
+            if (expectedGroup) {
+                groupOrder.sort(function(a, b) {
+                    if (a === expectedGroup) return -1;
+                    if (b === expectedGroup) return 1;
+                    return 0;
+                });
+            }
+
+            groupOrder.forEach(function(groupName) {
                 var label = document.createElement('div');
                 label.className = 'category-group-label';
                 label.textContent = groupName;
                 container.appendChild(label);
 
                 groups[groupName].forEach(function(cat) {
+                    var mismatch = isCategoryMismatch(cat, userGender);
                     var card = document.createElement('div');
-                    card.className = 'category-card';
+                    card.className = 'category-card' + (mismatch ? ' gender-mismatch' : '');
 
                     var labelDiv = document.createElement('div');
                     var labelText = document.createElement('div');
                     labelText.className = 'category-card-label';
                     labelText.textContent = 'Categoria ' + cat.name;
                     labelDiv.appendChild(labelText);
+
+                    if (mismatch) {
+                        var badge = document.createElement('div');
+                        badge.className = 'gender-warning-badge';
+                        badge.textContent = 'No corresponde a tu genero';
+                        labelDiv.appendChild(badge);
+                    }
+
                     card.appendChild(labelDiv);
 
                     var checkDiv = document.createElement('div');
@@ -2359,11 +2542,38 @@
             });
         }
 
-        // ── Self-Register ──
-        document.getElementById('register-btn').addEventListener('click', async function() {
-            if (!selectedRegistrationCategoryId) return;
+        // ── Gender confirmation modal ──
+        function showGenderConfirmModal(categoryName, onConfirm) {
+            var modal = document.getElementById('gender-confirm-modal');
+            var userGender = getUserGender();
+            var genderLabel = userGender === 'male' ? 'masculino' : 'femenino';
+            document.getElementById('gender-confirm-text').textContent =
+                'Tu genero registrado es ' + genderLabel + ', pero seleccionaste "' + categoryName + '". ¿Deseas continuar de todos modos?';
+            modal.style.display = 'flex';
+            requestAnimationFrame(function() { modal.classList.add('show'); });
 
-            var btn = this;
+            var cancelBtn = document.getElementById('gender-confirm-cancel');
+            var proceedBtn = document.getElementById('gender-confirm-proceed');
+
+            function cleanup() {
+                modal.classList.remove('show');
+                setTimeout(function() { modal.style.display = 'none'; }, 200);
+                cancelBtn.removeEventListener('click', handleCancel);
+                proceedBtn.removeEventListener('click', handleProceed);
+                modal.removeEventListener('click', handleBackdrop);
+            }
+            function handleCancel() { cleanup(); }
+            function handleProceed() { cleanup(); onConfirm(); }
+            function handleBackdrop(e) { if (e.target === modal) cleanup(); }
+
+            cancelBtn.addEventListener('click', handleCancel);
+            proceedBtn.addEventListener('click', handleProceed);
+            modal.addEventListener('click', handleBackdrop);
+        }
+
+        // ── Self-Register ──
+        function performRegistration() {
+            var btn = document.getElementById('register-btn');
             var errorEl = document.getElementById('selection-error');
             errorEl.classList.remove('show');
 
@@ -2376,45 +2586,54 @@
                 return;
             }
 
-            try {
-                var response = await fetch(API_URL + '/ranking/self-register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({
-                        category_id: selectedRegistrationCategoryId,
-                        organizer_id: ORGANIZER_ID
-                    })
-                });
-
+            fetch(API_URL + '/ranking/self-register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                    category_id: selectedRegistrationCategoryId,
+                    organizer_id: ORGANIZER_ID
+                })
+            }).then(function(response) {
                 if (response.status === 401) {
                     localStorage.removeItem('courtbit_token');
                     localStorage.removeItem('courtbit_user');
                     showAuthSection();
                     return;
                 }
-
-                var data = await response.json();
-
-                if (!response.ok) {
-                    errorEl.textContent = data.error || 'Error al registrarse';
-                    errorEl.classList.add('show');
-                    btn.disabled = false;
-                    btn.textContent = 'Unirme al Circuito';
-                    return;
-                }
-
-                currentCategoryId = data.category_id || selectedRegistrationCategoryId;
-                var userJson = localStorage.getItem('courtbit_user');
-                var user = JSON.parse(userJson);
-                showRankingSection(user);
-            } catch (err) {
+                return response.json().then(function(data) {
+                    if (!response.ok) {
+                        errorEl.textContent = data.error || 'Error al registrarse';
+                        errorEl.classList.add('show');
+                        btn.disabled = false;
+                        btn.textContent = 'Unirme al Circuito';
+                        return;
+                    }
+                    currentCategoryId = data.category_id || selectedRegistrationCategoryId;
+                    var userJson = localStorage.getItem('courtbit_user');
+                    var user = JSON.parse(userJson);
+                    showRankingSection(user);
+                });
+            }).catch(function() {
                 errorEl.textContent = 'Error de conexion. Intenta de nuevo.';
                 errorEl.classList.add('show');
                 btn.disabled = false;
                 btn.textContent = 'Unirme al Circuito';
+            });
+        }
+
+        document.getElementById('register-btn').addEventListener('click', function() {
+            if (!selectedRegistrationCategoryId) return;
+
+            var userGender = getUserGender();
+            var selectedCat = CATEGORIES.find(function(c) { return c.id === selectedRegistrationCategoryId; });
+
+            if (selectedCat && isCategoryMismatch(selectedCat, userGender)) {
+                showGenderConfirmModal('Categoria ' + selectedCat.name, performRegistration);
+            } else {
+                performRegistration();
             }
         });
 
