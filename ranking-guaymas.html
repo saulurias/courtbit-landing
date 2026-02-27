@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Guaymas - CourtBit</title>
+    <meta name="description" content="Ranking del circuito de padel en Guaymas">
+
+    <link rel="icon" type="image/png" href="Assets/courtbit-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lime: #B8F02B;
+            --lime-hover: #a5d827;
+            --lime-soft: #e8faa0;
+            --lime-bg: #f4fdd6;
+            --navy: #0f1d4d;
+            --navy-light: #1a2e6b;
+            --green-accent: #5a9e00;
+            --white: #ffffff;
+            --bg: #fafbfc;
+            --bg-warm: #f5f6f8;
+            --text: #1a1f36;
+            --text-secondary: #5a6178;
+            --text-muted: #8b92a8;
+            --border: #e4e7ec;
+            --border-light: #f0f1f4;
+            --red-500: #EF4444;
+            --shadow-sm: 0 1px 3px rgba(15,29,77,0.06);
+            --shadow-md: 0 4px 12px rgba(15,29,77,0.08);
+            --shadow-lg: 0 12px 32px rgba(15,29,77,0.1);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-full: 100px;
+            --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* ── Auth Section ── */
+        .auth-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(165deg, #f0fde4 0%, var(--white) 40%, #eef2ff 100%);
+            position: relative;
+        }
+
+        .auth-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(184,240,43,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(46,89,251,0.05) 0%, transparent 50%);
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-center {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-center img {
+            height: 52px;
+            width: auto;
+        }
+
+        .auth-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .auth-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .auth-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 28px;
+            background: var(--bg-warm);
+            padding: 4px;
+            border-radius: var(--radius-full);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: var(--font);
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .auth-tab.active {
+            background: var(--white);
+            color: var(--navy);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--text);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(15,29,77,0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b92a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--navy);
+            border: none;
+            border-radius: var(--radius-full);
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 0.9375rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            box-shadow: 0 2px 8px rgba(15,29,77,0.15);
+        }
+
+        .submit-btn:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15,29,77,0.2);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: var(--lime-bg);
+            border: 1px solid rgba(184,240,43,0.4);
+            color: var(--green-accent);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .loading-inline {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* ── Category Selection Section ── */
+        .selection-section {
+            min-height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(165deg, #f0fde4 0%, var(--white) 40%, #eef2ff 100%);
+            position: relative;
+        }
+
+        .selection-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(184,240,43,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(46,89,251,0.05) 0%, transparent 50%);
+        }
+
+        .selection-container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .selection-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .welcome-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .category-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 56px;
+        }
+
+        .category-card:hover {
+            border-color: var(--navy);
+            background: var(--bg);
+        }
+
+        .category-card.selected {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .category-card-label {
+            font-size: 0.9375rem;
+            font-weight: 700;
+        }
+
+        .category-card-desc {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .category-card.selected .category-card-desc {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .category-card-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .category-card.selected .category-card-check {
+            border-color: var(--lime);
+            background: var(--lime);
+        }
+
+        .category-card-check svg {
+            display: none;
+        }
+
+        .category-card.selected .category-card-check svg {
+            display: block;
+        }
+
+        .copg-notice {
+            background: var(--lime-bg);
+            border: 1px solid rgba(184,240,43,0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .copg-notice-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: var(--green-accent);
+            margin-top: 1px;
+        }
+
+        .copg-notice p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .copg-notice strong {
+            color: var(--text);
+        }
+
+        .selection-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .selection-error.show {
+            display: block;
+        }
+
+        /* ── Ranking Section ── */
+        .ranking-section {
+            display: none;
+        }
+
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 14px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--navy);
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .logout-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            border-color: var(--red-500);
+            color: var(--red-500);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-tag {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--green-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px;
+            background: var(--lime-bg);
+            padding: 4px 14px;
+            border-radius: var(--radius-full);
+        }
+
+        .page-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.025em;
+        }
+
+        /* ── Category Tabs ── */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tab {
+            padding: 9px 22px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-tab.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: var(--white);
+        }
+
+        .category-tab:hover:not(.active) {
+            border-color: var(--text-muted);
+            color: var(--text);
+        }
+
+        /* ── Ranking Table ── */
+        .ranking-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ranking-header-bar {
+            padding: 12px 24px;
+            background: var(--navy);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ranking-header-bar span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .ranking-header-bar .circuit-tag {
+            color: var(--lime);
+            background: rgba(184,240,43,0.15);
+            padding: 3px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.6875rem;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ranking-table thead th {
+            padding: 10px 24px;
+            text-align: left;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .ranking-table thead th:last-child {
+            text-align: right;
+        }
+
+        .ranking-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s ease;
+        }
+
+        .ranking-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-table tbody tr:hover {
+            background: var(--bg);
+        }
+
+        .ranking-table td {
+            padding: 13px 24px;
+            font-size: 0.9375rem;
+        }
+
+        .ranking-table td:last-child {
+            text-align: right;
+        }
+
+        .position-cell {
+            font-weight: 800;
+            color: var(--navy);
+            width: 50px;
+            font-size: 1rem;
+        }
+
+        .position-cell.top-1 { color: #D4A000; }
+        .position-cell.top-2 { color: #8B95A2; }
+        .position-cell.top-3 { color: #B87333; }
+
+        .player-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .player-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--lime-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--green-accent);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .player-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .points-cell {
+            font-weight: 800;
+            font-size: 0.9375rem;
+            color: var(--green-accent);
+        }
+
+        /* ── Loading & Empty ── */
+        .ranking-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--border);
+            border-top-color: var(--navy);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .ranking-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+
+        .ranking-empty-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--lime-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5rem;
+        }
+
+        .ranking-empty p {
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .ranking-error {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .ranking-error p {
+            color: var(--red-500);
+            margin-bottom: 16px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .retry-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .retry-btn:hover {
+            border-color: var(--navy);
+            color: var(--navy);
+        }
+
+        /* ── Footer ── */
+        .ranking-footer {
+            padding: 20px 0;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .ranking-footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .ranking-footer a {
+            color: var(--green-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .ranking-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .user-info {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 1.35rem;
+            }
+
+            .auth-card {
+                padding: 28px 20px;
+            }
+
+            .ranking-table td,
+            .ranking-table thead th {
+                padding: 11px 16px;
+                font-size: 0.8125rem;
+            }
+
+            .ranking-header-bar {
+                padding: 10px 16px;
+            }
+
+            .player-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.65rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .selection-card {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════ AUTH SECTION ════════ -->
+    <div class="auth-section" id="auth-section">
+        <div class="auth-container">
+            <div class="logo-center">
+                <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+            </div>
+
+            <div class="auth-card">
+                <h2 class="auth-title">Ranking Guaymas</h2>
+                <p class="auth-subtitle">Inicia sesion para consultar el ranking del circuito</p>
+
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Iniciar Sesion</button>
+                    <button class="auth-tab" data-tab="signup">Crear Cuenta</button>
+                </div>
+
+                <div id="error-message" class="error-message"></div>
+                <div id="success-message" class="success-message"></div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label">Correo electronico</label>
+                        <input type="email" class="form-input" id="login-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contrasena</label>
+                        <input type="password" class="form-input" id="login-password" placeholder="********" required>
+                    </div>
+                    <button type="submit" class="submit-btn" id="login-btn">Iniciar Sesion</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-input" id="signup-firstname" placeholder="Juan" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" class="form-input" id="signup-lastname" placeholder="Perez" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Correo electronico</label>
+                        <input type="email" class="form-input" id="signup-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefono</label>
+                        <input type="tel" class="form-input" id="signup-phone" placeholder="6221234567">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Genero</label>
+                        <select class="form-input" id="signup-gender">
+                            <option value="">Seleccionar</option>
+                            <option value="male">Masculino</option>
+                            <option value="female">Femenino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contrasena</label>
+                        <input type="password" class="form-input" id="signup-password" placeholder="Minimo 8 caracteres" minlength="8" required>
+                    </div>
+                    <button type="submit" class="submit-btn" id="signup-btn">Crear Cuenta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════ CATEGORY SELECTION SECTION ════════ -->
+    <div class="selection-section" id="selection-section">
+        <div class="selection-container">
+            <div class="logo-center">
+                <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+            </div>
+
+            <div class="selection-card">
+                <div class="welcome-text">
+                    <h2 id="welcome-name">Bienvenido</h2>
+                    <p>Selecciona tu categoria para unirte al circuito de ranking de padel en Guaymas.</p>
+                </div>
+
+                <div id="selection-error" class="selection-error"></div>
+
+                <div class="category-cards" id="category-cards"></div>
+
+                <div class="copg-notice">
+                    <svg class="copg-notice-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <p>El <strong>COPG</strong> (Comite de Organizadores de Padel en Guaymas) puede ajustar tu categoria en cualquier momento para mantener un circuito equilibrado y competitivo.</p>
+                </div>
+
+                <button class="submit-btn" id="register-btn" disabled>Unirme al Circuito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════ RANKING SECTION ════════ -->
+    <div class="ranking-section" id="ranking-section">
+        <header>
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+                </a>
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-name" id="user-name"></div>
+                        <div class="user-email" id="user-email"></div>
+                    </div>
+                    <button class="logout-btn" id="logout-btn">Cerrar sesion</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="page-header">
+                <span class="page-tag">Circuito</span>
+                <h1 class="page-title">Ranking Guaymas</h1>
+            </div>
+
+            <div class="category-tabs" id="category-tabs"></div>
+
+            <div id="ranking-content">
+                <div class="ranking-loading" id="ranking-loading">
+                    <div class="spinner"></div>
+                </div>
+
+                <div class="ranking-card" id="ranking-table-wrapper" style="display:none;">
+                    <div class="ranking-header-bar">
+                        <span>Clasificacion General</span>
+                        <span class="circuit-tag">Circuito</span>
+                    </div>
+                    <table class="ranking-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Jugador</th>
+                                <th>Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="ranking-empty" id="ranking-empty" style="display:none;">
+                    <div class="ranking-empty-icon">&#127934;</div>
+                    <p>No hay datos de ranking disponibles</p>
+                </div>
+
+                <div class="ranking-error" id="ranking-error" style="display:none;">
+                    <p id="ranking-error-text">Error al cargar el ranking</p>
+                    <button class="retry-btn" id="retry-btn">Reintentar</button>
+                </div>
+            </div>
+        </main>
+
+        <div class="ranking-footer">
+            <p>Desarrollado por <a href="index.html">CourtBit</a></p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://courtbit-api-production.up.railway.app/api';
+        const ORGANIZER_ID = '770b3dbf-5073-49d2-b4a1-64fbc34200c9';
+        const CATEGORIES = [
+            { id: 3, name: '3ra' },
+            { id: 4, name: '4ta' },
+            { id: 5, name: '5ta' },
+            { id: 6, name: '6ta' },
+            { id: 7, name: '7ma' }
+        ];
+
+        let currentCategoryId = CATEGORIES[0].id;
+        let selectedRegistrationCategoryId = null;
+
+        // ── DOM helpers ──
+        function showError(message) {
+            var el = document.getElementById('error-message');
+            el.textContent = message;
+            el.classList.add('show');
+            document.getElementById('success-message').classList.remove('show');
+        }
+
+        function showSuccess(message) {
+            var el = document.getElementById('success-message');
+            el.textContent = message;
+            el.classList.add('show');
+            document.getElementById('error-message').classList.remove('show');
+        }
+
+        function hideMessages() {
+            document.getElementById('error-message').classList.remove('show');
+            document.getElementById('success-message').classList.remove('show');
+        }
+
+        function setLoading(btn, loading) {
+            if (loading) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="loading-inline"></span>Cargando...';
+            } else {
+                btn.disabled = false;
+                btn.textContent = btn.dataset.originalText;
+            }
+        }
+
+        // ── Init ──
+        async function init() {
+            var token = localStorage.getItem('courtbit_token');
+            var userJson = localStorage.getItem('courtbit_user');
+
+            if (token && userJson) {
+                try {
+                    var user = JSON.parse(userJson);
+                    await checkRankingStatus(user);
+                    return;
+                } catch (e) {
+                    localStorage.removeItem('courtbit_token');
+                    localStorage.removeItem('courtbit_user');
+                }
+            }
+            showAuthSection();
+        }
+
+        async function checkRankingStatus(user) {
+            try {
+                var url = API_URL + '/ranking/status?user_id=' + encodeURIComponent(user.uid) + '&organizer_id=' + ORGANIZER_ID;
+                var response = await fetch(url);
+
+                if (!response.ok) {
+                    showRankingSection(user);
+                    return;
+                }
+
+                var data = await response.json();
+                if (data.registered) {
+                    if (data.category_id) {
+                        currentCategoryId = data.category_id;
+                    }
+                    showRankingSection(user);
+                } else {
+                    showSelectionSection(user);
+                }
+            } catch (err) {
+                showRankingSection(user);
+            }
+        }
+
+        function showAuthSection() {
+            document.getElementById('auth-section').style.display = 'flex';
+            document.getElementById('selection-section').style.display = 'none';
+            document.getElementById('ranking-section').style.display = 'none';
+            hideMessages();
+
+            var loginBtn = document.getElementById('login-btn');
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Iniciar Sesion';
+
+            var signupBtn = document.getElementById('signup-btn');
+            signupBtn.disabled = false;
+            signupBtn.textContent = 'Crear Cuenta';
+
+            document.getElementById('login-form').reset();
+            document.getElementById('signup-form').reset();
+        }
+
+        function showSelectionSection(user) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('selection-section').style.display = 'flex';
+            document.getElementById('ranking-section').style.display = 'none';
+
+            var fullName = ((user.first_name || '') + ' ' + (user.last_name || '')).trim() || 'Jugador';
+            document.getElementById('welcome-name').textContent = 'Bienvenido, ' + fullName;
+
+            selectedRegistrationCategoryId = null;
+            document.getElementById('register-btn').disabled = true;
+            document.getElementById('selection-error').classList.remove('show');
+
+            buildCategoryCards();
+        }
+
+        function showRankingSection(user) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('selection-section').style.display = 'none';
+            document.getElementById('ranking-section').style.display = 'block';
+
+            var fullName = ((user.first_name || '') + ' ' + (user.last_name || '')).trim() || 'Usuario';
+            document.getElementById('user-name').textContent = fullName;
+            document.getElementById('user-email').textContent = user.email || '';
+
+            buildCategoryTabs();
+            loadRanking();
+        }
+
+        // ── Auth tab switching ──
+        document.querySelectorAll('.auth-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var target = this.getAttribute('data-tab');
+                document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+                document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('active'); });
+                this.classList.add('active');
+                document.getElementById(target + '-form').classList.add('active');
+                hideMessages();
+            });
+        });
+
+        // ── Login ──
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideMessages();
+
+            var btn = document.getElementById('login-btn');
+            btn.dataset.originalText = btn.textContent;
+            setLoading(btn, true);
+
+            var email = document.getElementById('login-email').value.trim().toLowerCase();
+            var password = document.getElementById('login-password').value;
+
+            try {
+                var response = await fetch(API_URL + '/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, password: password })
+                });
+
+                var data = await response.json();
+
+                if (!response.ok) {
+                    setLoading(btn, false);
+                    showError(data.error || 'Correo o contrasena incorrectos');
+                    return;
+                }
+
+                localStorage.setItem('courtbit_token', data.token);
+                localStorage.setItem('courtbit_user', JSON.stringify(data.user));
+                init();
+            } catch (err) {
+                setLoading(btn, false);
+                showError('Error de conexion. Intenta de nuevo.');
+            }
+        });
+
+        // ── Signup ──
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideMessages();
+
+            var btn = document.getElementById('signup-btn');
+            btn.dataset.originalText = btn.textContent;
+            setLoading(btn, true);
+
+            var firstName = document.getElementById('signup-firstname').value.trim();
+            var lastName = document.getElementById('signup-lastname').value.trim();
+            var email = document.getElementById('signup-email').value.trim().toLowerCase();
+            var phone = document.getElementById('signup-phone').value.trim() || null;
+            var gender = document.getElementById('signup-gender').value || null;
+            var password = document.getElementById('signup-password').value;
+
+            try {
+                var response = await fetch(API_URL + '/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        first_name: firstName,
+                        last_name: lastName,
+                        phone: phone,
+                        gender: gender
+                    })
+                });
+
+                var data = await response.json();
+
+                if (!response.ok) {
+                    setLoading(btn, false);
+                    if (data.errors && Array.isArray(data.errors)) {
+                        showError(data.errors.join(' '));
+                    } else {
+                        showError(data.error || 'Error al crear la cuenta');
+                    }
+                    return;
+                }
+
+                localStorage.setItem('courtbit_token', data.token);
+                localStorage.setItem('courtbit_user', JSON.stringify(data.user));
+                init();
+            } catch (err) {
+                setLoading(btn, false);
+                showError('Error de conexion. Intenta de nuevo.');
+            }
+        });
+
+        // ── Logout ──
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('courtbit_token');
+            localStorage.removeItem('courtbit_user');
+            init();
+        });
+
+        // ── Category Tabs ──
+        function buildCategoryTabs() {
+            var container = document.getElementById('category-tabs');
+            container.innerHTML = '';
+
+            CATEGORIES.forEach(function(cat) {
+                var btn = document.createElement('button');
+                btn.className = 'category-tab' + (cat.id === currentCategoryId ? ' active' : '');
+                btn.textContent = cat.name;
+                btn.addEventListener('click', function() {
+                    if (cat.id === currentCategoryId) return;
+                    currentCategoryId = cat.id;
+                    container.querySelectorAll('.category-tab').forEach(function(t) { t.classList.remove('active'); });
+                    btn.classList.add('active');
+                    loadRanking();
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        // ── Load Ranking ──
+        async function loadRanking() {
+            var loading = document.getElementById('ranking-loading');
+            var tableWrapper = document.getElementById('ranking-table-wrapper');
+            var empty = document.getElementById('ranking-empty');
+            var error = document.getElementById('ranking-error');
+
+            loading.style.display = 'flex';
+            tableWrapper.style.display = 'none';
+            empty.style.display = 'none';
+            error.style.display = 'none';
+
+            try {
+                var url = API_URL + '/ranking?organizer_id=' + ORGANIZER_ID + '&category_id=' + currentCategoryId;
+                var response = await fetch(url);
+
+                if (response.status === 401) {
+                    localStorage.removeItem('courtbit_token');
+                    localStorage.removeItem('courtbit_user');
+                    init();
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+
+                var data = await response.json();
+                loading.style.display = 'none';
+                renderRanking(data);
+            } catch (err) {
+                loading.style.display = 'none';
+                error.style.display = 'block';
+                document.getElementById('ranking-error-text').textContent = 'Error al cargar el ranking';
+            }
+        }
+
+        // ── Render Ranking ──
+        function renderRanking(data) {
+            var tableWrapper = document.getElementById('ranking-table-wrapper');
+            var empty = document.getElementById('ranking-empty');
+            var body = document.getElementById('ranking-body');
+
+            if (!data || !Array.isArray(data) || data.length === 0) {
+                empty.style.display = 'block';
+                return;
+            }
+
+            body.innerHTML = '';
+
+            data.forEach(function(item, index) {
+                var pos = index + 1;
+                var name = getPlayerName(item);
+                var initials = getInitials(name);
+                var photoUrl = item.user ? item.user.photo_url : null;
+                var points = item.total_points || 0;
+
+                var tr = document.createElement('tr');
+
+                // Position
+                var tdPos = document.createElement('td');
+                tdPos.className = 'position-cell';
+                if (pos === 1) tdPos.className += ' top-1';
+                else if (pos === 2) tdPos.className += ' top-2';
+                else if (pos === 3) tdPos.className += ' top-3';
+                tdPos.textContent = pos;
+                tr.appendChild(tdPos);
+
+                // Player
+                var tdPlayer = document.createElement('td');
+                var playerDiv = document.createElement('div');
+                playerDiv.className = 'player-cell';
+
+                var avatarDiv = document.createElement('div');
+                avatarDiv.className = 'player-avatar';
+                if (photoUrl) {
+                    var img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = name;
+                    img.onerror = function() {
+                        this.parentNode.removeChild(this);
+                        avatarDiv.textContent = initials;
+                    };
+                    avatarDiv.appendChild(img);
+                } else {
+                    avatarDiv.textContent = initials;
+                }
+                playerDiv.appendChild(avatarDiv);
+
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'player-name';
+                nameSpan.textContent = name;
+                playerDiv.appendChild(nameSpan);
+
+                tdPlayer.appendChild(playerDiv);
+                tr.appendChild(tdPlayer);
+
+                // Points
+                var tdPoints = document.createElement('td');
+                tdPoints.className = 'points-cell';
+                tdPoints.textContent = points;
+                tr.appendChild(tdPoints);
+
+                body.appendChild(tr);
+            });
+
+            tableWrapper.style.display = 'block';
+        }
+
+        function getPlayerName(item) {
+            if (item.user && (item.user.first_name || item.user.last_name)) {
+                return ((item.user.first_name || '') + ' ' + (item.user.last_name || '')).trim();
+            }
+            return item.player_name || 'Jugador';
+        }
+
+        function getInitials(name) {
+            var parts = name.split(' ').filter(Boolean);
+            if (parts.length >= 2) {
+                return (parts[0][0] + parts[1][0]).toUpperCase();
+            }
+            return name.substring(0, 2).toUpperCase();
+        }
+
+        // ── Category Selection Cards ──
+        function buildCategoryCards() {
+            var container = document.getElementById('category-cards');
+            container.innerHTML = '';
+
+            CATEGORIES.forEach(function(cat) {
+                var card = document.createElement('div');
+                card.className = 'category-card';
+                card.innerHTML =
+                    '<div>' +
+                        '<div class="category-card-label">Categoria ' + cat.name + '</div>' +
+                    '</div>' +
+                    '<div class="category-card-check">' +
+                        '<svg width="14" height="14" viewBox="0 0 14 14" fill="none">' +
+                            '<path d="M11.5 3.5L5.5 10L2.5 7" stroke="#0f1d4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                        '</svg>' +
+                    '</div>';
+
+                card.addEventListener('click', function() {
+                    container.querySelectorAll('.category-card').forEach(function(c) { c.classList.remove('selected'); });
+                    card.classList.add('selected');
+                    selectedRegistrationCategoryId = cat.id;
+                    document.getElementById('register-btn').disabled = false;
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        // ── Self-Register ──
+        document.getElementById('register-btn').addEventListener('click', async function() {
+            if (!selectedRegistrationCategoryId) return;
+
+            var btn = this;
+            var errorEl = document.getElementById('selection-error');
+            errorEl.classList.remove('show');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-inline"></span>Registrando...';
+
+            var token = localStorage.getItem('courtbit_token');
+            if (!token) {
+                showAuthSection();
+                return;
+            }
+
+            try {
+                var response = await fetch(API_URL + '/ranking/self-register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        category_id: selectedRegistrationCategoryId,
+                        organizer_id: ORGANIZER_ID
+                    })
+                });
+
+                if (response.status === 401) {
+                    localStorage.removeItem('courtbit_token');
+                    localStorage.removeItem('courtbit_user');
+                    showAuthSection();
+                    return;
+                }
+
+                var data = await response.json();
+
+                if (!response.ok) {
+                    errorEl.textContent = data.error || 'Error al registrarse';
+                    errorEl.classList.add('show');
+                    btn.disabled = false;
+                    btn.textContent = 'Unirme al Circuito';
+                    return;
+                }
+
+                currentCategoryId = data.category_id || selectedRegistrationCategoryId;
+                var userJson = localStorage.getItem('courtbit_user');
+                var user = JSON.parse(userJson);
+                showRankingSection(user);
+            } catch (err) {
+                errorEl.textContent = 'Error de conexion. Intenta de nuevo.';
+                errorEl.classList.add('show');
+                btn.disabled = false;
+                btn.textContent = 'Unirme al Circuito';
+            }
+        });
+
+        // ── Retry button ──
+        document.getElementById('retry-btn').addEventListener('click', loadRanking);
+
+        // ── Start ──
+        init();
+    </script>
+</body>
+</html>
