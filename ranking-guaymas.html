@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking Guaymas - CourtBit</title>
-    <meta name="description" content="Ranking del circuito de padel en Guaymas">
+    <title>COPG - Circuito de Padel Guaymas</title>
+    <meta name="description" content="Comite de Organizadores de Padel Guaymas. Ranking oficial del circuito, categorias y registro de jugadores.">
 
-    <link rel="icon" type="image/png" href="Assets/courtbit-logo.svg">
+    <link rel="icon" type="image/png" href="Assets/Logo-CB-icono.png">
+    <link rel="apple-touch-icon" href="Assets/Logo-CB-icono.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -49,30 +50,232 @@
             min-height: 100vh;
         }
 
-        /* ── Auth Section ── */
+        /* ── Landing / Auth Section ── */
         .auth-section {
-            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            background: linear-gradient(165deg, #f0fde4 0%, var(--white) 40%, #eef2ff 100%);
+            background: var(--white);
             position: relative;
         }
 
-        .auth-section::before {
+        .landing-hero {
+            width: 100%;
+            background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 60%, #1e3a80 100%);
+            padding: 60px 24px 56px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-hero::before {
             content: '';
             position: absolute;
             inset: 0;
             pointer-events: none;
             background-image:
-                radial-gradient(circle at 20% 80%, rgba(184,240,43,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(46,89,251,0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(184,240,43,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(184,240,43,0.04) 0%, transparent 50%);
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .hero-logo img {
+            height: 56px;
+            width: auto;
+        }
+
+        .hero-logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .hero-logo-text .court {
+            color: var(--white);
+        }
+
+        .hero-logo-text .bit {
+            color: var(--lime);
+        }
+
+        .copg-badge {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 800;
+            color: var(--navy);
+            background: var(--lime);
+            padding: 5px 16px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: rgba(255,255,255,0.7);
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .landing-content {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ── Info Sections ── */
+        .info-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 40px 0 32px;
+        }
+
+        .info-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: border-color 0.2s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--lime);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-card-icon.green { background: var(--lime-bg); color: var(--green-accent); }
+        .info-card-icon.navy { background: #eef0f8; color: var(--navy); }
+        .info-card-icon.amber { background: #fef9e7; color: #b8860b; }
+        .info-card-icon.blue { background: #e8f4fd; color: #1a73e8; }
+
+        .info-card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.01em;
+        }
+
+        .info-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ── Committee Section ── */
+        .committee-section {
+            padding: 0 0 36px;
+        }
+
+        .committee-title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .committee-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .club-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+
+        .club-chip:hover {
+            border-color: var(--lime);
+            background: var(--lime-bg);
+        }
+
+        .club-chip-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--lime);
+        }
+
+        /* ── Participate / Auth ── */
+        .participate-section {
+            padding: 0 0 56px;
+        }
+
+        .participate-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .participate-header h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .participate-header p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
         }
 
         .auth-container {
             width: 100%;
             max-width: 440px;
+            margin: 0 auto;
             position: relative;
             z-index: 2;
         }
@@ -88,6 +291,28 @@
             width: auto;
         }
 
+        .landing-footer {
+            padding: 24px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .landing-footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .landing-footer a {
+            color: var(--green-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .landing-footer a:hover {
+            text-decoration: underline;
+        }
+
         .auth-card {
             background: var(--white);
             border: 1.5px solid var(--border);
@@ -97,19 +322,11 @@
         }
 
         .auth-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--navy);
-            text-align: center;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
+            display: none;
         }
 
         .auth-subtitle {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 28px;
+            display: none;
         }
 
         .auth-tabs {
@@ -431,7 +648,7 @@
             background: var(--lime-bg);
             border: 1px solid rgba(184,240,43,0.3);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             margin-bottom: 24px;
             display: flex;
             gap: 10px;
@@ -447,13 +664,21 @@
         }
 
         .copg-notice p {
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         .copg-notice strong {
             color: var(--text);
+        }
+
+        .selection-subtitle {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .selection-error {
@@ -1065,6 +1290,18 @@
 
         /* ── Responsive ── */
         @media (max-width: 640px) {
+            .landing-hero {
+                padding: 44px 20px 40px;
+            }
+
+            .info-sections {
+                padding: 28px 0 24px;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
             .user-info {
                 display: none;
             }
@@ -1100,100 +1337,176 @@
             .selection-card {
                 padding: 28px 20px;
             }
+
+            .participate-section {
+                padding: 0 0 40px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ════════ AUTH SECTION ════════ -->
+    <!-- ════════ AUTH / LANDING SECTION ════════ -->
     <div class="auth-section" id="auth-section">
-        <div class="auth-container">
-            <div class="logo-center">
-                <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+
+        <!-- Hero -->
+        <div class="landing-hero">
+            <div class="hero-logo">
+                <img src="Assets/Logo-CB-icono.png" alt="CourtBit">
+                <span class="hero-logo-text"><span class="court">Court</span><span class="bit">Bit</span></span>
             </div>
+            <h1 class="hero-title">Comite de Organizadores de Padel Guaymas</h1>
+            <p class="hero-subtitle">Un esfuerzo conjunto de los principales organizadores de padel en Guaymas para centralizar el registro de jugadores, categorizar de forma transparente y hacer crecer nuestro deporte.</p>
+        </div>
 
-            <div class="auth-card">
-                <h2 class="auth-title">Ranking Guaymas</h2>
-                <p class="auth-subtitle">Inicia sesion para consultar el ranking del circuito</p>
+        <div class="landing-content">
 
-                <div class="auth-tabs">
-                    <button class="auth-tab active" data-tab="login">Iniciar Sesion</button>
-                    <button class="auth-tab" data-tab="signup">Crear Cuenta</button>
+            <!-- Info Sections -->
+            <div class="info-sections">
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon green">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                        </div>
+                        <h3 class="info-card-title">Que es el COPG?</h3>
+                    </div>
+                    <p>El Comite de Organizadores de Padel Guaymas nace de la union de los principales clubes y organizadores de la ciudad con un objetivo claro: centralizar el registro de jugadores activos y llevar un control general de categorias y ranking que beneficie a toda la comunidad.</p>
                 </div>
 
-                <div id="error-message" class="error-message"></div>
-                <div id="success-message" class="success-message"></div>
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon navy">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                        </div>
+                        <h3 class="info-card-title">Como se asignan las categorias?</h3>
+                    </div>
+                    <p>Actualmente, el nivel de cada jugador es determinado por votacion del comite, basada en el desempeño demostrado en competencias. Somos transparentes: sabemos que este proceso puede tener un componente subjetivo, y por eso trabajamos activamente en mejorarlo para que sea lo mas justo posible.</p>
+                </div>
 
-                <!-- Login Form -->
-                <form id="login-form" class="auth-form active">
-                    <div class="form-group">
-                        <label class="form-label">Correo electronico</label>
-                        <input type="email" class="form-input" id="login-email" placeholder="tu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contrasena</label>
-                        <div class="password-wrapper">
-                            <input type="password" class="form-input" id="login-password" placeholder="********" required>
-                            <button type="button" class="toggle-password" data-target="login-password">
-                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                            </button>
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon amber">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </div>
+                        <h3 class="info-card-title">Que viene despues?</h3>
                     </div>
-                    <button type="submit" class="submit-btn" id="login-btn">Iniciar Sesion</button>
-                </form>
+                    <p>Se implementara un sistema estructurado por puntos para reducir la subjetividad y permitir que todos los jugadores tengan igualdad de condiciones para subir o bajar de categoria. Este sera un proceso progresivo, enfocado en lograr competencias mas justas, competitivas y en beneficio del crecimiento del padel en Guaymas.</p>
+                </div>
 
-                <!-- Signup Form -->
-                <form id="signup-form" class="auth-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-input" id="signup-firstname" placeholder="Juan" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Apellido</label>
-                            <input type="text" class="form-input" id="signup-lastname" placeholder="Perez" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Correo electronico</label>
-                        <input type="email" class="form-input" id="signup-email" placeholder="tu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Telefono</label>
-                        <input type="tel" class="form-input" id="signup-phone" placeholder="6221234567">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Genero</label>
-                        <select class="form-input" id="signup-gender">
-                            <option value="">Seleccionar</option>
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contrasena</label>
-                        <div class="password-wrapper">
-                            <input type="password" class="form-input" id="signup-password" placeholder="Minimo 8 caracteres" minlength="8" required>
-                            <button type="button" class="toggle-password" data-target="signup-password">
-                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Confirmar contrasena</label>
-                        <div class="password-wrapper">
-                            <input type="password" class="form-input" id="signup-confirm-password" placeholder="Repite tu contrasena" minlength="8" required>
-                            <button type="button" class="toggle-password" data-target="signup-confirm-password">
-                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <button type="submit" class="submit-btn" id="signup-btn">Crear Cuenta</button>
-                </form>
             </div>
+
+            <!-- Committee Members -->
+            <div class="committee-section">
+                <div class="committee-title">Organizaciones que conforman el comite</div>
+                <div class="committee-grid">
+                    <div class="club-chip"><span class="club-chip-dot"></span>Club Deportivo Miramar</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>One Padel Park Guaymas</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>Liga Municipal de Padel Guaymas</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>Orinco Padel</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>Lagartos Padel</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>Kickniela</div>
+                    <div class="club-chip"><span class="club-chip-dot"></span>Puerto Padel</div>
+                </div>
+            </div>
+
+            <!-- How to Participate + Auth -->
+            <div class="participate-section">
+                <div class="participate-header">
+                    <h2>Se parte del circuito</h2>
+                    <p>Crea tu cuenta para afiliarte o inicia sesion para consultar tu ranking.</p>
+                </div>
+
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <h2 class="auth-title">Ranking Guaymas</h2>
+                        <p class="auth-subtitle">Inicia sesion para consultar el ranking del circuito</p>
+
+                        <div class="auth-tabs">
+                            <button class="auth-tab active" data-tab="login">Iniciar Sesion</button>
+                            <button class="auth-tab" data-tab="signup">Crear Cuenta</button>
+                        </div>
+
+                        <div id="error-message" class="error-message"></div>
+                        <div id="success-message" class="success-message"></div>
+
+                        <!-- Login Form -->
+                        <form id="login-form" class="auth-form active">
+                            <div class="form-group">
+                                <label class="form-label">Correo electronico</label>
+                                <input type="email" class="form-input" id="login-email" placeholder="tu@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contrasena</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-input" id="login-password" placeholder="********" required>
+                                    <button type="button" class="toggle-password" data-target="login-password">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn" id="login-btn">Iniciar Sesion</button>
+                        </form>
+
+                        <!-- Signup Form -->
+                        <form id="signup-form" class="auth-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" class="form-input" id="signup-firstname" placeholder="Juan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Apellido</label>
+                                    <input type="text" class="form-input" id="signup-lastname" placeholder="Perez" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Correo electronico</label>
+                                <input type="email" class="form-input" id="signup-email" placeholder="tu@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Telefono</label>
+                                <input type="tel" class="form-input" id="signup-phone" placeholder="6221234567">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Genero</label>
+                                <select class="form-input" id="signup-gender">
+                                    <option value="">Seleccionar</option>
+                                    <option value="male">Masculino</option>
+                                    <option value="female">Femenino</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contrasena</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-input" id="signup-password" placeholder="Minimo 8 caracteres" minlength="8" required>
+                                    <button type="button" class="toggle-password" data-target="signup-password">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirmar contrasena</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-input" id="signup-confirm-password" placeholder="Repite tu contrasena" minlength="8" required>
+                                    <button type="button" class="toggle-password" data-target="signup-confirm-password">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn" id="signup-btn">Crear Cuenta</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="landing-footer">
+            <p>Desarrollado por <a href="index.html">CourtBit</a></p>
         </div>
     </div>
 
@@ -1201,14 +1514,16 @@
     <div class="selection-section" id="selection-section">
         <div class="selection-container">
             <div class="logo-center">
-                <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+                <img src="Assets/Logo-CB-icono.png" alt="CourtBit">
             </div>
 
             <div class="selection-card">
                 <div class="welcome-text">
                     <h2 id="welcome-name">Bienvenido</h2>
-                    <p>Selecciona tu categoria para unirte al circuito de ranking de padel en Guaymas.</p>
+                    <p>Selecciona la categoria en la que consideras que juegas actualmente para unirte al circuito.</p>
                 </div>
+
+                <p class="selection-subtitle">Esta seleccion es inicial. El comite podra ajustarla para garantizar competencias equilibradas.</p>
 
                 <div id="selection-error" class="selection-error"></div>
 
@@ -1218,7 +1533,7 @@
                     <svg class="copg-notice-icon" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/>
                     </svg>
-                    <p>El <strong>COPG</strong> (Comite de Organizadores de Padel en Guaymas) puede ajustar tu categoria en cualquier momento para mantener un circuito equilibrado y competitivo.</p>
+                    <p>El <strong>COPG</strong> se reserva el derecho de reasignar categorias con base en el desempeño observado en torneos. A futuro, este proceso sera automatizado mediante un sistema de puntos para mayor transparencia.</p>
                 </div>
 
                 <button class="submit-btn" id="register-btn" disabled>Unirme al Circuito</button>
@@ -1231,7 +1546,7 @@
         <header>
             <div class="header-content">
                 <a href="index.html" class="logo">
-                    <img src="Assets/courtbit-logo.svg" alt="CourtBit">
+                    <img src="Assets/Logo-CB-icono.png" alt="CourtBit">
                 </a>
                 <div class="user-menu">
                     <div class="user-info">
@@ -1245,7 +1560,7 @@
 
         <main>
             <div class="page-header">
-                <span class="page-tag">Circuito</span>
+                <span class="page-tag">COPG - Circuito</span>
                 <h1 class="page-title">Ranking Guaymas</h1>
             </div>
 
@@ -1259,7 +1574,7 @@
                 <div class="ranking-card" id="ranking-table-wrapper" style="display:none;">
                     <div class="ranking-header-bar">
                         <span>Clasificacion General</span>
-                        <span class="circuit-tag">Circuito</span>
+                        <span class="circuit-tag">COPG</span>
                     </div>
                     <table class="ranking-table">
                         <thead>
@@ -1411,6 +1726,7 @@
             document.getElementById('selection-section').style.display = 'none';
             document.getElementById('ranking-section').style.display = 'none';
             hideMessages();
+            window.scrollTo(0, 0);
 
             var loginBtn = document.getElementById('login-btn');
             loginBtn.disabled = false;
