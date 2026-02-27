@@ -641,6 +641,7 @@
         .ranking-table tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background 0.15s ease;
+            cursor: pointer;
         }
 
         .ranking-table tbody tr:last-child {
@@ -811,6 +812,169 @@
         .retry-btn:hover {
             border-color: var(--navy);
             color: var(--navy);
+        }
+
+        /* ── Player Detail Modal ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15,29,77,0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 200;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-sheet {
+            background: var(--white);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            width: 100%;
+            max-width: 440px;
+            padding: 32px 28px 40px;
+            position: relative;
+            animation: sheetUp 0.25s ease-out;
+        }
+
+        @keyframes sheetUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 0 auto 24px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.15s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .modal-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .modal-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--lime-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green-accent);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .modal-category {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--green-accent);
+            background: var(--lime-bg);
+            padding: 3px 14px;
+            border-radius: var(--radius-full);
+            margin-bottom: 24px;
+        }
+
+        .modal-stats {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .modal-stat {
+            flex: 1;
+            background: var(--bg);
+            border-radius: 14px;
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        .modal-stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .modal-stat-value.points {
+            color: var(--green-accent);
+        }
+
+        .modal-stat-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 640px) {
+            .modal-sheet {
+                padding: 24px 20px 32px;
+            }
+
+            .modal-avatar {
+                width: 68px;
+                height: 68px;
+                font-size: 1.25rem;
+            }
+
+            .modal-stat {
+                padding: 14px 8px;
+            }
+
+            .modal-stat-value {
+                font-size: 1.25rem;
+            }
         }
 
         /* ── Footer ── */
@@ -1037,6 +1201,33 @@
 
         <div class="ranking-footer">
             <p>Desarrollado por <a href="index.html">CourtBit</a></p>
+        </div>
+    </div>
+
+    <!-- ════════ PLAYER DETAIL MODAL ════════ -->
+    <div class="modal-overlay" id="player-modal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <button class="modal-close" id="modal-close">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="modal-player">
+                <div class="modal-avatar" id="modal-avatar"></div>
+                <div class="modal-name" id="modal-name"></div>
+                <div class="modal-category" id="modal-category"></div>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" id="modal-position">#-</div>
+                        <div class="modal-stat-label">Posicion</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value points" id="modal-points">0</div>
+                        <div class="modal-stat-label">Puntos</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1416,6 +1607,13 @@
                 tdPoints.textContent = points;
                 tr.appendChild(tdPoints);
 
+                // Tap to open detail
+                (function(p, n, pts, photo, ini) {
+                    tr.addEventListener('click', function() {
+                        openPlayerModal(p, n, pts, photo, ini);
+                    });
+                })(pos, name, points, photoUrl, initials);
+
                 body.appendChild(tr);
             });
 
@@ -1436,6 +1634,43 @@
             }
             return name.substring(0, 2).toUpperCase();
         }
+
+        // ── Player Detail Modal ──
+        function openPlayerModal(position, name, points, photoUrl, initials) {
+            var modal = document.getElementById('player-modal');
+            var avatarEl = document.getElementById('modal-avatar');
+            var categoryName = CATEGORIES.find(function(c) { return c.id === currentCategoryId; });
+
+            document.getElementById('modal-name').textContent = name;
+            document.getElementById('modal-category').textContent = categoryName ? 'Categoria ' + categoryName.name : '';
+            document.getElementById('modal-position').textContent = '#' + position;
+            document.getElementById('modal-points').textContent = points;
+
+            avatarEl.innerHTML = '';
+            if (photoUrl) {
+                var img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = name;
+                img.onerror = function() {
+                    this.parentNode.removeChild(this);
+                    avatarEl.textContent = initials;
+                };
+                avatarEl.appendChild(img);
+            } else {
+                avatarEl.textContent = initials;
+            }
+
+            modal.classList.add('open');
+        }
+
+        function closePlayerModal() {
+            document.getElementById('player-modal').classList.remove('open');
+        }
+
+        document.getElementById('modal-close').addEventListener('click', closePlayerModal);
+        document.getElementById('player-modal').addEventListener('click', function(e) {
+            if (e.target === this) closePlayerModal();
+        });
 
         // ── Category Selection Cards ──
         function buildCategoryCards() {
