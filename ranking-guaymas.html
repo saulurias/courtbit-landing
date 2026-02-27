@@ -818,9 +818,9 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15,29,77,0.4);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(15,29,77,0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 200;
             display: none;
             align-items: center;
@@ -836,48 +836,60 @@
             background: var(--white);
             border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 440px;
-            padding: 32px 28px 40px;
+            max-width: 380px;
+            overflow: hidden;
             position: relative;
-            animation: modalIn 0.2s ease-out;
+            box-shadow: 0 24px 64px rgba(15,29,77,0.18), 0 0 0 1px rgba(15,29,77,0.06);
+            animation: modalIn 0.25s cubic-bezier(0.16,1,0.3,1);
         }
 
         @keyframes modalIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from { transform: scale(0.92) translateY(8px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
-        .modal-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--border);
+        .modal-header-bg {
+            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 36px 28px 52px;
+            position: relative;
+        }
+
+        .modal-header-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: var(--lime);
             border-radius: 2px;
-            margin: 0 auto 24px;
+            opacity: 0.6;
         }
 
         .modal-close {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 12px;
+            right: 12px;
             width: 32px;
             height: 32px;
             border: none;
-            background: var(--bg);
+            background: rgba(255,255,255,0.12);
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.7);
             transition: all 0.15s ease;
         }
 
         .modal-close:hover {
-            background: var(--border);
-            color: var(--text);
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
         }
 
-        .modal-player {
+        .modal-player-header {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -885,18 +897,20 @@
         }
 
         .modal-avatar {
-            width: 80px;
-            height: 80px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             background: var(--lime-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
             color: var(--green-accent);
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+            border: 3px solid var(--lime);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
 
         .modal-avatar img {
@@ -908,19 +922,23 @@
         .modal-name {
             font-size: 1.25rem;
             font-weight: 800;
-            color: var(--navy);
+            color: var(--white);
             letter-spacing: -0.02em;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .modal-category {
-            font-size: 0.8125rem;
-            font-weight: 600;
-            color: var(--green-accent);
-            background: var(--lime-bg);
-            padding: 3px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--lime);
+            background: rgba(184,240,43,0.15);
+            padding: 4px 14px;
             border-radius: var(--radius-full);
-            margin-bottom: 24px;
+            letter-spacing: 0.03em;
+        }
+
+        .modal-body {
+            padding: 24px 28px 32px;
         }
 
         .modal-stats {
@@ -931,17 +949,23 @@
 
         .modal-stat {
             flex: 1;
-            background: var(--bg);
-            border-radius: 14px;
-            padding: 16px 12px;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 12px;
             text-align: center;
+            transition: border-color 0.15s ease;
+        }
+
+        .modal-stat:hover {
+            border-color: var(--lime);
         }
 
         .modal-stat-value {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
             color: var(--navy);
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .modal-stat-value.points {
@@ -950,30 +974,42 @@
 
         .modal-stat-label {
             font-size: 0.6875rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 4px;
+            letter-spacing: 0.1em;
+            margin-top: 6px;
         }
 
         @media (max-width: 640px) {
+            .modal-overlay {
+                padding: 16px;
+            }
+
             .modal-sheet {
-                padding: 24px 20px 32px;
+                max-width: 100%;
+            }
+
+            .modal-header-bg {
+                padding: 28px 20px 44px;
             }
 
             .modal-avatar {
-                width: 68px;
-                height: 68px;
-                font-size: 1.25rem;
+                width: 76px;
+                height: 76px;
+                font-size: 1.5rem;
+            }
+
+            .modal-body {
+                padding: 20px 20px 28px;
             }
 
             .modal-stat {
-                padding: 14px 8px;
+                padding: 16px 8px;
             }
 
             .modal-stat-value {
-                font-size: 1.25rem;
+                font-size: 1.5rem;
             }
         }
 
@@ -1207,16 +1243,19 @@
     <!-- ════════ PLAYER DETAIL MODAL ════════ -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal-sheet">
-            <div class="modal-handle"></div>
-            <button class="modal-close" id="modal-close">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </button>
-            <div class="modal-player">
-                <div class="modal-avatar" id="modal-avatar"></div>
-                <div class="modal-name" id="modal-name"></div>
-                <div class="modal-category" id="modal-category"></div>
+            <div class="modal-header-bg">
+                <button class="modal-close" id="modal-close">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="modal-player-header">
+                    <div class="modal-avatar" id="modal-avatar"></div>
+                    <div class="modal-name" id="modal-name"></div>
+                    <div class="modal-category" id="modal-category"></div>
+                </div>
+            </div>
+            <div class="modal-body">
                 <div class="modal-stats">
                     <div class="modal-stat">
                         <div class="modal-stat-value" id="modal-position">#-</div>
