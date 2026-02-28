@@ -10,7 +10,8 @@
     <link rel="apple-touch-icon" href="Assets/Logo-CB-icono.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"></noscript>
 
     <style>
         :root {
@@ -1965,6 +1966,20 @@
             }
         }
 
+        // ── Fetch with timeout ──
+        function fetchWithTimeout(url, options, ms) {
+            ms = ms || 10000;
+            var controller = new AbortController();
+            var signal = controller.signal;
+            var opts = Object.assign({}, options || {}, { signal: signal });
+            return Promise.race([
+                fetch(url, opts),
+                new Promise(function(_, reject) {
+                    setTimeout(function() { controller.abort(); reject(new Error('Timeout')); }, ms);
+                })
+            ]);
+        }
+
         // ── Init ──
         async function init() {
             var token = localStorage.getItem('courtbit_token');
@@ -1984,12 +1999,13 @@
         }
 
         async function checkRankingStatus(user) {
+            // Show ranking section immediately as a loading state so the page is never blank
+            showRankingSection(user);
             try {
                 var url = API_URL + '/ranking/status?user_id=' + encodeURIComponent(user.uid) + '&organizer_id=' + ORGANIZER_ID;
-                var response = await fetch(url);
+                var response = await fetchWithTimeout(url, null, 8000);
 
                 if (!response.ok) {
-                    showRankingSection(user);
                     return;
                 }
 
@@ -1997,13 +2013,14 @@
                 if (data.registered) {
                     if (data.category_id) {
                         currentCategoryId = data.category_id;
+                        buildCategoryTabs();
+                        loadRanking();
                     }
-                    showRankingSection(user);
                 } else {
                     showSelectionSection(user);
                 }
             } catch (err) {
-                showRankingSection(user);
+                // Already showing ranking section, just proceed
             }
         }
 
@@ -2096,11 +2113,11 @@
             var email = document.getElementById('forgot-email').value.trim().toLowerCase();
 
             try {
-                var response = await fetch(API_URL + '/auth/forgot-password', {
+                var response = await fetchWithTimeout(API_URL + '/auth/forgot-password', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email })
-                });
+                }, 10000);
 
                 var data = await response.json();
 
@@ -2142,11 +2159,11 @@
             var password = document.getElementById('login-password').value;
 
             try {
-                var response = await fetch(API_URL + '/auth/login', {
+                var response = await fetchWithTimeout(API_URL + '/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email, password: password })
-                });
+                }, 10000);
 
                 var data = await response.json();
 
@@ -2194,7 +2211,7 @@
             }
 
             try {
-                var response = await fetch(API_URL + '/auth/register', {
+                var response = await fetchWithTimeout(API_URL + '/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2205,7 +2222,7 @@
                         phone: phone,
                         gender: gender
                     })
-                });
+                }, 10000);
 
                 var data = await response.json();
 
@@ -2288,7 +2305,7 @@
 
             try {
                 var url = API_URL + '/ranking?organizer_id=' + ORGANIZER_ID + '&category_id=' + currentCategoryId;
-                var response = await fetch(url);
+                var response = await fetchWithTimeout(url, null, 10000);
 
                 if (response.status === 401) {
                     localStorage.removeItem('courtbit_token');
@@ -2588,7 +2605,7 @@
                 return;
             }
 
-            fetch(API_URL + '/ranking/self-register', {
+            fetchWithTimeout(API_URL + '/ranking/self-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -2598,7 +2615,7 @@
                     category_id: selectedRegistrationCategoryId,
                     organizer_id: ORGANIZER_ID
                 })
-            }).then(function(response) {
+            }, 10000).then(function(response) {
                 if (response.status === 401) {
                     localStorage.removeItem('courtbit_token');
                     localStorage.removeItem('courtbit_user');
