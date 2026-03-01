@@ -2214,13 +2214,6 @@
         // ── Organizer Detection ──
         async function checkIfOrganizer(token) {
             try {
-                var checkResp = await fetchWithTimeout(API_URL + '/organizers/me/check', {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                }, 5000);
-                if (!checkResp.ok) return;
-                var checkData = await checkResp.json();
-                if (!checkData.isOrganizer) return;
-
                 var meResp = await fetchWithTimeout(API_URL + '/organizers/me', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 }, 5000);
