@@ -918,6 +918,218 @@
             display: block;
         }
 
+        /* ── Admin Mode ── */
+        .admin-badge {
+            display: inline-block;
+            font-size: 0.625rem;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--navy);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        .admin-edit-btn {
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .admin-edit-btn:hover {
+            border-color: var(--navy);
+            background: var(--bg);
+        }
+
+        .admin-edit-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-secondary);
+        }
+
+        .admin-edit-btn:hover svg {
+            stroke: var(--navy);
+        }
+
+        .ranking-table th.admin-col,
+        .ranking-table td.admin-col {
+            width: 48px;
+            text-align: center;
+            padding: 8px 4px;
+        }
+
+        /* ── Change Category Modal ── */
+        .change-cat-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .change-cat-overlay.open {
+            display: flex;
+        }
+
+        .change-cat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .change-cat-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .change-cat-header h3 {
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .change-cat-header p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .change-cat-group-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+
+        .change-cat-group-label:first-child {
+            margin-top: 0;
+        }
+
+        .change-cat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .change-cat-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .change-cat-option:hover {
+            border-color: var(--navy);
+            background: var(--bg);
+        }
+
+        .change-cat-option.selected {
+            border-color: var(--lime);
+            background: var(--lime-bg);
+        }
+
+        .change-cat-option.current {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .change-cat-option .current-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .change-cat-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .change-cat-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: var(--font);
+        }
+
+        .change-cat-cancel {
+            background: var(--white);
+            color: var(--navy);
+            border: 1.5px solid var(--border);
+        }
+
+        .change-cat-cancel:hover {
+            background: var(--bg);
+        }
+
+        .change-cat-confirm {
+            background: var(--navy);
+            color: var(--white);
+            border: 1.5px solid var(--navy);
+        }
+
+        .change-cat-confirm:hover {
+            background: var(--navy-light);
+        }
+
+        .change-cat-confirm:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .change-cat-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 12px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .change-cat-error.show {
+            display: block;
+        }
+
         /* ── Ranking Section ── */
         .ranking-section {
             display: none;
@@ -1918,6 +2130,22 @@
         </div>
     </div>
 
+    <!-- ════════ CHANGE CATEGORY MODAL ════════ -->
+    <div class="change-cat-overlay" id="change-cat-modal">
+        <div class="change-cat-card">
+            <div class="change-cat-header">
+                <h3>Cambiar Categoria</h3>
+                <p id="change-cat-player-name"></p>
+            </div>
+            <div id="change-cat-options"></div>
+            <div class="change-cat-error" id="change-cat-error"></div>
+            <div class="change-cat-actions">
+                <button class="change-cat-cancel" id="change-cat-cancel">Cancelar</button>
+                <button class="change-cat-confirm" id="change-cat-confirm" disabled>Confirmar Cambio</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const API_URL = 'https://courtbit-api-production.up.railway.app/api';
         const ORGANIZER_ID = '770b3dbf-5073-49d2-b4a1-64fbc34200c9';
@@ -1935,6 +2163,9 @@
 
         let currentCategoryId = CATEGORIES[0].id;
         let selectedRegistrationCategoryId = null;
+        let isAdminMode = false;
+        let changeCatSelectedId = null;
+        let changeCatPlayerData = null;
 
         // ── DOM helpers ──
         function showError(message) {
@@ -1980,14 +2211,39 @@
             ]);
         }
 
+        // ── Organizer Detection ──
+        async function checkIfOrganizer(token) {
+            try {
+                var checkResp = await fetchWithTimeout(API_URL + '/organizers/me/check', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                }, 5000);
+                if (!checkResp.ok) return;
+                var checkData = await checkResp.json();
+                if (!checkData.isOrganizer) return;
+
+                var meResp = await fetchWithTimeout(API_URL + '/organizers/me', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                }, 5000);
+                if (!meResp.ok) return;
+                var meData = await meResp.json();
+                if (meData.id === ORGANIZER_ID) {
+                    isAdminMode = true;
+                }
+            } catch (_) {
+                // Fail silently — user just won't get admin mode
+            }
+        }
+
         // ── Init ──
         async function init() {
+            isAdminMode = false;
             var token = localStorage.getItem('courtbit_token');
             var userJson = localStorage.getItem('courtbit_user');
 
             if (token && userJson) {
                 try {
                     var user = JSON.parse(userJson);
+                    await checkIfOrganizer(token);
                     await checkRankingStatus(user);
                     return;
                 } catch (e) {
@@ -2064,7 +2320,14 @@
             document.getElementById('ranking-section').style.display = 'block';
 
             var fullName = ((user.first_name || '') + ' ' + (user.last_name || '')).trim() || 'Usuario';
-            document.getElementById('user-name').textContent = fullName;
+            var nameEl = document.getElementById('user-name');
+            nameEl.textContent = fullName;
+            if (isAdminMode) {
+                var badge = document.createElement('span');
+                badge.className = 'admin-badge';
+                badge.textContent = 'Admin';
+                nameEl.appendChild(badge);
+            }
             document.getElementById('user-email').textContent = user.email || '';
 
             buildCategoryTabs();
@@ -2249,6 +2512,7 @@
         document.getElementById('logout-btn').addEventListener('click', function() {
             localStorage.removeItem('courtbit_token');
             localStorage.removeItem('courtbit_user');
+            isAdminMode = false;
             init();
         });
 
@@ -2341,6 +2605,18 @@
 
             body.innerHTML = '';
 
+            // Update table header for admin column
+            var thead = body.parentElement.querySelector('thead tr');
+            var existingAdminTh = thead.querySelector('.admin-col');
+            if (isAdminMode && !existingAdminTh) {
+                var th = document.createElement('th');
+                th.className = 'admin-col';
+                th.textContent = '';
+                thead.appendChild(th);
+            } else if (!isAdminMode && existingAdminTh) {
+                existingAdminTh.remove();
+            }
+
             var currentUserUid = null;
             try {
                 var stored = localStorage.getItem('courtbit_user');
@@ -2409,6 +2685,23 @@
                 tdPoints.textContent = points;
                 tr.appendChild(tdPoints);
 
+                // Admin edit button
+                if (isAdminMode) {
+                    var tdAdmin = document.createElement('td');
+                    tdAdmin.className = 'admin-col';
+                    var editBtn = document.createElement('button');
+                    editBtn.className = 'admin-edit-btn';
+                    editBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+                    (function(playerItem) {
+                        editBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            openChangeCategoryModal(playerItem);
+                        });
+                    })(item);
+                    tdAdmin.appendChild(editBtn);
+                    tr.appendChild(tdAdmin);
+                }
+
                 // Tap to open detail
                 (function(p, n, pts, photo, ini) {
                     tr.addEventListener('click', function() {
@@ -2472,6 +2765,136 @@
         document.getElementById('modal-close').addEventListener('click', closePlayerModal);
         document.getElementById('player-modal').addEventListener('click', function(e) {
             if (e.target === this) closePlayerModal();
+        });
+
+        // ── Change Category Modal ──
+        function openChangeCategoryModal(playerItem) {
+            var modal = document.getElementById('change-cat-modal');
+            var optionsContainer = document.getElementById('change-cat-options');
+            var errorEl = document.getElementById('change-cat-error');
+            var confirmBtn = document.getElementById('change-cat-confirm');
+
+            var playerName = getPlayerName(playerItem);
+            document.getElementById('change-cat-player-name').textContent = playerName;
+
+            changeCatSelectedId = null;
+            changeCatPlayerData = playerItem;
+            confirmBtn.disabled = true;
+            errorEl.classList.remove('show');
+            confirmBtn.textContent = 'Confirmar Cambio';
+
+            optionsContainer.innerHTML = '';
+
+            var groups = {};
+            CATEGORIES.forEach(function(cat) {
+                var g = cat.group || 'General';
+                if (!groups[g]) groups[g] = [];
+                groups[g].push(cat);
+            });
+
+            Object.keys(groups).forEach(function(groupName) {
+                var label = document.createElement('div');
+                label.className = 'change-cat-group-label';
+                label.textContent = groupName;
+                optionsContainer.appendChild(label);
+
+                var optionsDiv = document.createElement('div');
+                optionsDiv.className = 'change-cat-options';
+
+                groups[groupName].forEach(function(cat) {
+                    var option = document.createElement('div');
+                    option.className = 'change-cat-option';
+
+                    if (cat.id === currentCategoryId) {
+                        option.classList.add('current');
+                        option.innerHTML = '<span>Categoria ' + cat.name + '</span><span class="current-label">Actual</span>';
+                    } else {
+                        option.textContent = 'Categoria ' + cat.name;
+                        option.addEventListener('click', function() {
+                            optionsContainer.querySelectorAll('.change-cat-option').forEach(function(o) {
+                                if (!o.classList.contains('current')) o.classList.remove('selected');
+                            });
+                            option.classList.add('selected');
+                            changeCatSelectedId = cat.id;
+                            confirmBtn.disabled = false;
+                        });
+                    }
+
+                    optionsDiv.appendChild(option);
+                });
+
+                optionsContainer.appendChild(optionsDiv);
+            });
+
+            modal.classList.add('open');
+        }
+
+        function closeChangeCategoryModal() {
+            document.getElementById('change-cat-modal').classList.remove('open');
+            changeCatSelectedId = null;
+            changeCatPlayerData = null;
+        }
+
+        document.getElementById('change-cat-cancel').addEventListener('click', closeChangeCategoryModal);
+        document.getElementById('change-cat-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeChangeCategoryModal();
+        });
+
+        document.getElementById('change-cat-confirm').addEventListener('click', async function() {
+            if (!changeCatSelectedId || !changeCatPlayerData) return;
+
+            var btn = this;
+            var errorEl = document.getElementById('change-cat-error');
+            errorEl.classList.remove('show');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-inline"></span>Cambiando...';
+
+            var token = localStorage.getItem('courtbit_token');
+            if (!token) {
+                closeChangeCategoryModal();
+                showAuthSection();
+                return;
+            }
+
+            var body = {
+                new_category_id: changeCatSelectedId,
+                organizer_id: ORGANIZER_ID
+            };
+
+            if (changeCatPlayerData.user && changeCatPlayerData.user.uid) {
+                body.user_id = changeCatPlayerData.user.uid;
+            } else if (changeCatPlayerData.team_member_id) {
+                body.team_member_id = changeCatPlayerData.team_member_id;
+            }
+
+            try {
+                var response = await fetchWithTimeout(API_URL + '/ranking/change-category', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(body)
+                }, 10000);
+
+                var data = await response.json();
+
+                if (!response.ok) {
+                    errorEl.textContent = data.error || 'Error al cambiar categoria';
+                    errorEl.classList.add('show');
+                    btn.disabled = false;
+                    btn.textContent = 'Confirmar Cambio';
+                    return;
+                }
+
+                closeChangeCategoryModal();
+                loadRanking();
+            } catch (err) {
+                errorEl.textContent = 'Error de conexion. Intenta de nuevo.';
+                errorEl.classList.add('show');
+                btn.disabled = false;
+                btn.textContent = 'Confirmar Cambio';
+            }
         });
 
         // ── Gender helpers ──
