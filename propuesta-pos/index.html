@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
-<meta name="description" content="Punto de venta, control de inventario, caja y cuentas por cobrar para tu club. Próximamente en CourtBit." />
+<meta name="description" content="Vende productos en el mostrador, controla tu inventario, cuadra la caja y lleva las cuentas de tus socios. Pruébalo en el prototipo." />
 <link rel="icon" href="/Assets/courtbit-logo.svg" type="image/svg+xml">
 <title>Punto de Venta + Almacén — Próximamente en CourtBit</title>
 <meta property="og:type" content="website" />
@@ -159,9 +159,9 @@ html{scroll-behavior:smooth}
 .bbar .url b{color:var(--navy);font-weight:600}
 
 .shell{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:660px;background:var(--bg1)}
-@media(max-width:900px){.shell{grid-template-columns:1fr}}
+@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}}
 .sb{background:#fff;border-right:1px solid var(--ln);padding:12px 9px;display:flex;flex-direction:column;gap:2px}
-@media(max-width:900px){.sb{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--ln)}.sb .sbgrp,.sb .sbtop{display:none}}
+@media(max-width:900px){.sb{flex-direction:row;align-items:center;overflow-x:auto;border-right:0;border-bottom:1px solid var(--ln)}.sb .sbgrp,.sb .sbtop{display:none}}
 .sbtop{padding:6px 10px 14px;display:flex;align-items:center;gap:8px}
 .sbtop .mk{width:24px;height:24px;border-radius:7px;background:var(--deep);color:var(--brand);display:grid;place-items:center;font-size:11px;font-weight:900}
 .sbtop .nm{font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
@@ -211,7 +211,10 @@ html{scroll-behavior:smooth}
 
 /* ── POS venta ── */
 .pos{display:grid;grid-template-columns:minmax(0,1fr) 314px;gap:12px;align-items:start}
-@media(max-width:1080px){.pos{grid-template-columns:1fr}}
+.pos>*{min-width:0}
+.shell>*{min-width:0}
+.dbody>*{min-width:0}
+@media(max-width:759px){.pos{grid-template-columns:minmax(0,1fr)}}
 .srch{display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--deep);border-radius:12px;padding:11px 14px;box-shadow:0 0 0 3px rgba(58,95,15,.08)}
 .srch input{flex:1;border:0;outline:0;font-family:var(--ui);font-size:13.5px;color:var(--ink);background:transparent;min-width:0}
 .srch input::placeholder{color:var(--ink3)}
@@ -303,7 +306,7 @@ html{scroll-behavior:smooth}
 .dtop{display:flex;align-items:center;gap:12px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--ln);font-family:var(--ui);flex-wrap:wrap}
 .dtop .st{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink2);font-weight:600}
 .dbody{background:var(--bg1);font-family:var(--ui);padding:14px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;min-height:480px;align-items:start}
-@media(max-width:1000px){.dbody{grid-template-columns:1fr}}
+@media(max-width:859px){.dbody{grid-template-columns:minmax(0,1fr)}}
 .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:19px;padding:0 5px;border-radius:5px;background:var(--bg2);border:1px solid var(--ln);border-bottom-width:2px;font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--ink2)}
 .hints{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--ink3);font-weight:600;align-items:center;margin-top:9px}
 .hints span{display:inline-flex;align-items:center;gap:5px}
@@ -317,6 +320,129 @@ html{scroll-behavior:smooth}
 .dtotal{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:4px 0}
 .dtotal .l{font-size:13px;font-weight:800;color:var(--ink)}
 .dtotal .v{font-size:30px;font-weight:800;letter-spacing:-.035em;color:var(--deep);font-variant-numeric:tabular-nums}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — iPad y teléfono
+   ═══════════════════════════════════════════════ */
+
+/* ── iPad horizontal (1024) y vertical (768–834): el carrito NO se va abajo ── */
+@media(min-width:760px) and (max-width:1180px){
+  .pos{grid-template-columns:minmax(0,1fr) 258px}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}
+  .pcard{min-height:106px;padding:8px}
+  .pcard .th{height:38px;font-size:18px}
+  .cart .cf{padding:11px 12px;gap:8px}
+  .cart .ch{padding:10px 12px}
+  .cart .cl{padding:9px 12px}
+  .appframe{padding:18px 16px 48px}
+}
+@media(min-width:900px) and (max-width:1180px){
+  .shell{grid-template-columns:184px minmax(0,1fr)}
+}
+@media(min-width:860px) and (max-width:1080px){
+  .dbody{grid-template-columns:minmax(0,1fr) 296px}
+}
+
+/* ── Tablet vertical y abajo: barra de navegación horizontal ── */
+@media(max-width:899px){
+  .sb{gap:6px;padding:9px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .sb::-webkit-scrollbar{display:none}
+  .nvi{flex:0 0 auto;width:auto;border-radius:999px;background:var(--bg2);padding:9px 14px;font-size:12.5px}
+  .nvi[aria-current="page"]{background:var(--deep);color:#fff}
+  .nvi .cnt{margin-left:4px;background:rgba(255,255,255,.22);color:inherit}
+  .nvi[aria-current="page"] .cnt{background:rgba(255,255,255,.25);color:#fff}
+  .sbfoot{display:none}
+  .pos{gap:14px}
+  .tiles{grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+}
+
+/* ── Rejillas fijas que estaban en línea ── */
+@media(max-width:860px){
+  #cliGrid,#cajaGrid,#repGrid,#cierreCols{grid-template-columns:minmax(0,1fr)!important}
+  .price .in{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:560px){
+  #arqueoCols{grid-template-columns:minmax(0,1fr)!important}
+  .pmeth{grid-template-columns:minmax(0,1fr)}
+  .pm{flex-direction:row;justify-content:flex-start;gap:10px;padding:12px 14px}
+  .md .mf{flex-wrap:wrap}
+  .md .mf .btn{flex:1 1 auto;justify-content:center}
+}
+
+/* ── Teléfono ── */
+@media(max-width:640px){
+  .cart{position:static;max-height:none}
+  body{font-size:15.5px}
+  .wrap{padding:0 18px}
+  .sec{padding:44px 0}
+  .hero{padding:44px 0 48px}
+  .hero .lead{font-size:1.04rem}
+  .hero .pills span,.top .tag{font-size:.75rem}
+  .top{padding:9px 14px;gap:10px}
+  .top .tag{display:none}
+  .top nav{margin-left:auto;width:auto}
+  .top nav button{padding:6px 11px;font-size:.6875rem}
+  .appframe{padding:14px 12px 40px}
+  .browser{border-radius:12px}
+  .bbar{padding:8px 10px}
+  .bbar .dots{display:none}
+  .pane{padding:13px}
+  .phead h2{font-size:16.5px}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:7px}
+  .pcard{min-height:100px;padding:8px}
+  .pcard .th{height:34px;font-size:17px}
+  .pcard .nm{font-size:11px}
+  .pcard .bc{display:none}
+  .srch{padding:10px 12px}
+  .kcard,.fg,.tile,.note{border-radius:14px}
+  .price{padding:26px 20px;border-radius:16px}
+  .price .amt .big{font-size:2.8rem}
+  .tape{font-size:9.6px;padding:14px 12px}
+  .tapewrap{padding:12px}
+  .md{border-radius:14px}
+  .md .mb{padding:15px 16px;gap:12px}
+  .md .mh,.md .mf{padding:13px 16px}
+  .paytot .v{font-size:28px}
+  .dtitle span:nth-child(2){display:none}
+  .dtop{gap:8px;padding:9px 12px}
+  .dbody{padding:11px;gap:10px}
+  .dsrch{padding:11px 13px}
+  .dsrch input{font-size:16px}
+  .hints{gap:7px;font-size:10px}
+  .fg h3{font-size:.9rem}
+  .cta{padding:12px 20px;font-size:.9rem}
+}
+
+/* ── Cobro fijo abajo en teléfono ── */
+.mobar{position:fixed;left:0;right:0;bottom:0;z-index:110;display:none;align-items:center;gap:12px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--ln);
+  box-shadow:0 -8px 26px -14px rgba(0,0,0,.35);font-family:var(--ui)}
+.mobar.on{display:flex}
+.mobar .info{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.mobar .info .c{font-size:10.5px;font-weight:600;color:var(--ink3)}
+.mobar .info .t{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.mobar .go{margin-left:auto;flex:none;background:var(--brand);color:#22330a;border:0;border-radius:12px;
+  padding:13px 22px;font-size:15px;font-weight:800;font-family:var(--ui)}
+.mobar .clr{flex:none;background:var(--bg2);color:var(--ink2);border:0;border-radius:12px;width:42px;height:44px;display:grid;place-items:center}
+@media(min-width:760px){.mobar{display:none!important}}
+body.has-mobar{padding-bottom:76px}
+
+/* ── Toque: objetivos más grandes y sin zoom en iOS ── */
+@media(pointer:coarse){
+  input,select,textarea{font-size:16px}
+  .srch input{font-size:16px}
+  .stp{padding:3px}
+  .stp button{width:32px;height:32px}
+  .stp .q{min-width:26px;font-size:13px}
+  .li .rm{padding:8px}
+  .cp{padding:6px 12px;font-size:11px}
+  .btn{padding:10px 16px;font-size:12.5px}
+  .nvi{padding:10px 14px}
+  .xbtn{width:34px;height:34px}
+  .quick button{padding:9px 15px;font-size:13px}
+  .pcard{min-height:112px}
+  .top nav button{padding:9px 15px}
+}
 </style>
 </head>
 <body>
@@ -1027,6 +1153,12 @@ html{scroll-behavior:smooth}
     <p style="margin:22px auto 0;font-size:.8rem;color:var(--tx-faint);max-width:52ch">Las pantallas de esta página son prototipos con datos de ejemplo. Las funciones marcadas como segunda etapa aún no tienen fecha.</p>
   </div>
 </section>
+<div class="mobar" id="mobar">
+  <button class="clr" type="button" id="mobarClr" aria-label="Vaciar carrito"><svg class="ic" style="width:17px;height:17px"><use href="#i-x"/></svg></button>
+  <span class="info"><span class="c" id="mobarCount">0 artículos</span><span class="t" id="mobarTotal">$0.00</span></span>
+  <button class="go" type="button" id="mobarGo">Cobrar</button>
+</div>
+
 <!-- ══════════════════ MODALES ══════════════════ -->
 <div class="ov" id="mPago"><div class="md">
   <div class="mh"><div><h3>Cobrar venta</h3><p id="pagoCli">Venta general</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
@@ -1427,7 +1559,31 @@ function renderAll(){
   var bdg = $('custBadge');
   if(cliente.saldo > 0){ bdg.style.display = ''; bdg.className = 'cp bd'; bdg.textContent = 'Debe ' + money(cliente.saldo); }
   else bdg.style.display = 'none';
+  updateMobar();
 }
+
+/* ─────────── Barra de cobro en teléfono ─────────── */
+var posInView = false;
+function updateMobar(){
+  var bar = $('mobar');
+  if(!bar) return;
+  var items = cart.reduce(function(a,l){ return a + l.qty; }, 0);
+  var show = posInView && items > 0 && window.innerWidth < 760;
+  bar.classList.toggle('on', show);
+  document.body.classList.toggle('has-mobar', show);
+  $('mobarCount').textContent = items + ' artículo' + (items === 1 ? '' : 's');
+  $('mobarTotal').textContent = money(total());
+}
+(function(){
+  var el = document.getElementById('v-pos');
+  if(!el) return;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ posInView = en[0].isIntersecting; updateMobar(); }, {threshold:0}).observe(el);
+  } else { posInView = true; }
+  window.addEventListener('resize', updateMobar);
+  $('mobarGo').addEventListener('click', function(){ openPago(false); });
+  $('mobarClr').addEventListener('click', clearCart);
+})();
 
 /* ─────────── Tablas de catálogo / stock ─────────── */
 function fillTables(){
