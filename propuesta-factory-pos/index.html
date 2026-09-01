@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="description" content="Propuesta de desarrollo del módulo Punto de Venta, Almacén, Caja y Cuentas por Cobrar para CourtBit." />
+<link rel="icon" href="/Assets/courtbit-logo.svg" type="image/svg+xml">
+<title>Propuesta · Punto de Venta + Almacén — CourtBit</title>
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Propuesta · Punto de Venta + Almacén — CourtBit" />
+<meta property="og:description" content="Punto de venta, control de inventario, caja y cuentas por cobrar integrados a CourtBit. Incluye prototipo navegable." />
+<meta property="og:url" content="https://courtbit.com.mx/propuesta-factory-pos/" />
+<style>body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,800&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  /* Marca — courtbit.com.mx */
+  --blue:#2e59fb; --blue-deep:#1a45e0; --blue-mist:#eaf0ff;
+  --navy:#0f1d4d; --navy-950:#060a26;
+  --lime:#B8F02B; --lime-soft:#e9fbb8;
+  --paper:#fff; --bg:#fbfbfd; --bg-tint:#f4f6ff;
+  --tx:#0f1d4d; --tx-soft:#3a4262; --tx-mut:#6b7191; --tx-faint:#9aa0bb;
+  --line:#e6e8ef;
+  /* Producto — CourtBit-Dashboard (reservations/dashboard/utils.ts) */
+  --brand:#B5D85A; --deep:#3a5f0f; --soft:#EEF8D4;
+  --ink:#111111; --ink2:#6B7066; --ink3:#8a8a8a;
+  --ln:#E5E5E0; --ln2:#F0F0ED; --sf:#ffffff; --bg1:#FAFAF7; --bg2:#F5F5F0;
+  --danger:#B91C1C; --danger-sf:#FCECEB; --warn:#B45309; --warn-sf:#FDF1D6;
+  --info:#1E40AF; --info-sf:#E6EEFB;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ui:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:hidden}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.ic{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ═══════ Top switcher ═══════ */
+.top{position:sticky;top:0;z-index:80;background:var(--navy);color:#fff;display:flex;align-items:center;gap:16px;padding:10px 20px;flex-wrap:wrap}
+.top .bd{display:flex;align-items:center;gap:9px;font-weight:800;font-size:.9375rem;letter-spacing:-.02em}
+.top .bd i{width:22px;height:22px;border-radius:6px;background:var(--lime);color:var(--navy);display:grid;place-items:center;font-size:11px;font-weight:900;font-style:normal}
+.top nav{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.top nav button{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.82);font-size:.75rem;font-weight:700;padding:7px 14px;border-radius:999px;transition:all 160ms}
+.top nav button:hover{background:rgba(255,255,255,.18);color:#fff}
+.top nav button[aria-current="page"]{background:var(--lime);border-color:var(--lime);color:var(--navy)}
+.top .tag{font-family:var(--mono);font-size:.625rem;color:rgba(255,255,255,.5);letter-spacing:.05em}
+
+.view{scroll-margin-top:58px}
+html{scroll-behavior:smooth}
+@keyframes fd{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ═══════ Propuesta ═══════ */
+.hero{background:var(--blue);color:#fff;position:relative;overflow:hidden;padding:64px 0 68px}
+.hero::before{content:'';position:absolute;top:-40px;left:-10%;width:70%;height:150%;background:rgba(255,255,255,.055);transform:skewX(-12deg)}
+.hero::after{content:'';position:absolute;bottom:-34%;right:-8%;width:52%;height:120%;background:var(--lime);opacity:.16;transform:skewX(-15deg) rotate(6deg)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.12);color:var(--lime);font-size:.6875rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.18);margin-bottom:20px}
+.eyebrow .dt{width:6px;height:6px;border-radius:999px;background:var(--lime);box-shadow:0 0 0 3px rgba(184,240,43,.28)}
+.hero h1{font-size:clamp(2.2rem,5.2vw,3.7rem);font-weight:800;letter-spacing:-.038em;line-height:1.03;margin:0 0 18px;max-width:17ch;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--lime)}
+.hero .lead{font-size:1.14rem;color:rgba(255,255,255,.87);max-width:56ch;margin:0 0 30px;line-height:1.5}
+.hero .pills{display:flex;flex-wrap:wrap;gap:9px}
+.hero .pills span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 15px;font-size:.8125rem;color:rgba(255,255,255,.82)}
+.hero .pills b{color:var(--lime);font-weight:700}
+
+.sec{padding:60px 0}
+.sec.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sechead{margin-bottom:30px}
+.sechead .eb{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--blue-mist);color:var(--blue-deep);font-size:.6875rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;border:1px solid rgba(46,89,251,.18);margin-bottom:14px}
+.sechead .eb .dt{width:6px;height:6px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 3px rgba(46,89,251,.18)}
+.sechead h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:800;letter-spacing:-.032em;line-height:1.08;margin:0 0 10px;color:var(--navy);text-wrap:balance}
+.sechead h2 em{font-style:italic;color:var(--blue)}
+.sechead p{color:var(--tx-mut);font-size:1.02rem;max-width:62ch;margin:0}
+
+.lead-p{font-size:1.08rem;color:var(--tx-soft);max-width:64ch;margin:0 0 1em}
+.lead-p strong{color:var(--navy);font-weight:700}
+
+.cards3{display:grid;gap:16px}
+@media(min-width:760px){.cards3{grid-template-columns:repeat(3,1fr)}}
+.kcard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 44px -30px rgba(15,29,77,.28)}
+.kcard .n{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:var(--lime);color:var(--navy);font-weight:800;font-size:.875rem;margin-bottom:12px}
+.kcard h3{font-size:1.02rem;font-weight:800;letter-spacing:-.02em;margin:0 0 7px;color:var(--navy)}
+.kcard p{margin:0;font-size:.9rem;color:var(--tx-mut);line-height:1.5}
+
+/* feature groups */
+.fgrid{display:grid;gap:14px}
+@media(min-width:640px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.fgrid{grid-template-columns:repeat(3,1fr)}}
+.fg{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px 20px}
+.fg h3{display:flex;align-items:center;gap:9px;font-size:.9375rem;font-weight:800;letter-spacing:-.015em;color:var(--navy);margin:0 0 12px;padding-bottom:11px;border-bottom:1.5px dashed var(--line)}
+.fg h3 .bx{width:26px;height:26px;border-radius:8px;background:var(--blue-mist);color:var(--blue-deep);display:grid;place-items:center;flex:none}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg li{display:grid;grid-template-columns:14px 1fr;gap:8px;font-size:.84rem;color:var(--tx-soft);line-height:1.4;align-items:start}
+.fg li::before{content:'';width:6px;height:6px;border-radius:999px;background:var(--lime);margin-top:7px;margin-left:4px}
+.fg li.f2{color:var(--tx-faint)}
+.fg li.f2::before{background:var(--line)}
+
+/* inversión */
+.price{background:var(--navy);color:#fff;border-radius:22px;padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 30px 70px -34px rgba(15,29,77,.6)}
+.price::before{content:'';position:absolute;top:-40%;right:-8%;width:56%;height:180%;background:var(--blue);opacity:.3;transform:skewX(-15deg)}
+.price::after{content:'';position:absolute;bottom:-60%;left:-6%;width:40%;height:150%;background:var(--lime);opacity:.14;transform:skewX(-15deg)}
+.price .in{position:relative;z-index:2;display:grid;gap:24px;align-items:center}
+@media(min-width:840px){.price .in{grid-template-columns:1.1fr auto}}
+.price .lbl{font-size:.6875rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--lime);margin-bottom:9px}
+.price h3{font-size:clamp(1.3rem,2.6vw,1.75rem);font-weight:800;letter-spacing:-.028em;margin:0 0 10px;line-height:1.15;max-width:22ch}
+.price p{margin:0;color:rgba(255,255,255,.72);font-size:.9rem;max-width:46ch;line-height:1.5}
+.price .amt{text-align:left}
+@media(min-width:840px){.price .amt{text-align:right}}
+.price .amt .big{font-size:clamp(2.6rem,6vw,4rem);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;color:#fff;display:block}
+.price .amt .cur{font-size:.9rem;font-weight:700;color:var(--lime);letter-spacing:.06em;display:block;margin-top:8px}
+
+.tl{display:grid;gap:12px;margin-top:26px}
+@media(min-width:760px){.tl{grid-template-columns:repeat(3,1fr)}}
+.tl .st{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.tl .st .w{font-family:var(--mono);font-size:.6875rem;font-weight:700;color:var(--blue);letter-spacing:.06em;text-transform:uppercase}
+.tl .st h4{margin:6px 0 5px;font-size:.9375rem;font-weight:800;letter-spacing:-.018em;color:var(--navy)}
+.tl .st p{margin:0;font-size:.82rem;color:var(--tx-mut);line-height:1.45}
+
+.note{background:var(--bg-tint);border:1px solid rgba(46,89,251,.13);border-radius:16px;padding:18px 22px;margin-top:22px;font-size:.9rem;color:var(--tx-soft)}
+.note b{color:var(--navy)}
+.note ul{margin:8px 0 0;padding-left:1.15em}
+.note li{margin:.2em 0}
+
+.cta{display:inline-flex;align-items:center;gap:9px;background:var(--lime);color:var(--navy);border:0;border-radius:999px;padding:13px 24px;font-weight:800;font-size:.95rem;letter-spacing:-.01em;box-shadow:0 14px 30px -12px rgba(184,240,43,.6);transition:transform 160ms,box-shadow 160ms}
+.cta:hover{transform:translateY(-2px);box-shadow:0 20px 38px -12px rgba(184,240,43,.75)}
+.cta.ghost{background:transparent;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+.cta.ghost:hover{border-color:var(--blue);color:var(--blue-deep)}
+
+.outtbl{width:100%;border-collapse:collapse;font-size:.875rem;background:var(--paper)}
+.outtbl th{text-align:left;font-size:.625rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-mut);padding:12px 16px;background:var(--bg-tint);border-bottom:1px solid var(--line);white-space:nowrap}
+.outtbl td{padding:11px 16px;border-bottom:1px solid var(--line);color:var(--tx-soft)}
+.outtbl td:first-child{color:var(--navy);font-weight:600}
+.outtbl tr:last-child td{border-bottom:0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px -32px rgba(15,29,77,.3)}
+.chip{display:inline-block;font-size:.5625rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.chip.inc{background:var(--lime);color:var(--navy)}
+.chip.next{background:var(--bg-tint);color:var(--tx-mut);border:1px solid var(--line)}
+</style>
+<style>
+/* ═══════════════════════════════════════════════
+   PRODUCTO — lenguaje visual de CourtBit-Dashboard
+   ═══════════════════════════════════════════════ */
+.app{font-family:var(--ui);color:var(--ink);background:var(--bg1)}
+.appframe{max-width:1400px;margin:0 auto;padding:22px 24px 60px}
+.browser{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--sf);box-shadow:0 30px 70px -38px rgba(15,29,77,.42)}
+.bbar{display:flex;align-items:center;gap:10px;padding:9px 13px;background:#fff;border-bottom:1px solid var(--line);font-family:var(--sans)}
+.bbar .dots{display:flex;gap:5px}
+.bbar .dots i{width:9px;height:9px;border-radius:999px;background:var(--line)}
+.bbar .url{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-family:var(--mono);font-size:.6875rem;color:var(--tx-mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bbar .url b{color:var(--navy);font-weight:600}
+
+.shell{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:660px;background:var(--bg1)}
+@media(max-width:900px){.shell{grid-template-columns:1fr}}
+.sb{background:#fff;border-right:1px solid var(--ln);padding:12px 9px;display:flex;flex-direction:column;gap:2px}
+@media(max-width:900px){.sb{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--ln)}.sb .sbgrp,.sb .sbtop{display:none}}
+.sbtop{padding:6px 10px 14px;display:flex;align-items:center;gap:8px}
+.sbtop .mk{width:24px;height:24px;border-radius:7px;background:var(--deep);color:var(--brand);display:grid;place-items:center;font-size:11px;font-weight:900}
+.sbtop .nm{font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sbtop .nm span{color:var(--deep)}
+.sbgrp{font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);padding:12px 10px 4px}
+.nvi{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:0;padding:8px 10px;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--ink2);transition:background 140ms,color 140ms;white-space:nowrap}
+.nvi:hover{background:var(--bg2);color:var(--ink)}
+.nvi[aria-current="page"]{background:var(--soft);color:var(--deep);font-weight:700}
+.nvi .cnt{margin-left:auto;font-size:10px;font-weight:700;background:var(--danger-sf);color:var(--danger);padding:1px 7px;border-radius:999px}
+.sbfoot{margin-top:auto;border-top:1px solid var(--ln);padding:10px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink2)}
+.sbfoot .av{width:26px;height:26px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-size:10px;font-weight:800}
+
+.pane{padding:16px;display:none;min-width:0}
+.pane.on{display:block}
+.phead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.phead h2{margin:0;font-size:18px;font-weight:800;letter-spacing:-.025em;color:var(--ink)}
+.phead p{margin:3px 0 0;font-size:12px;color:var(--ink2);font-weight:500}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:8px 15px;font-size:12px;font-weight:700;background:var(--deep);color:#fff;white-space:nowrap;transition:filter 140ms,transform 140ms}
+.btn:hover{filter:brightness(1.14)}
+.btn.gh{background:var(--bg2);color:var(--ink2)}
+.btn.ol{background:#fff;color:var(--ink2);border:1px solid var(--ln)}
+.btn.lm{background:var(--brand);color:#22330a}
+.btn.dg{background:var(--danger-sf);color:var(--danger)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.cp{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 10px;font-size:10.5px;font-weight:700;background:var(--bg2);color:var(--ink2);white-space:nowrap;border:0}
+.cp.on{background:var(--deep);color:#fff}
+.cp.ok{background:var(--soft);color:var(--deep)}
+.cp.wr{background:var(--warn-sf);color:var(--warn)}
+.cp.bd{background:var(--danger-sf);color:var(--danger)}
+.cp.if{background:var(--info-sf);color:var(--info)}
+.fld{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--ln);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--ink3);min-width:0}
+.fld .v{color:var(--ink);font-weight:600}
+.lb{display:block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:9px 12px;border-bottom:1px solid var(--ln);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--ln2);color:var(--ink2);font-weight:500;vertical-align:middle}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);font-weight:700}
+.tbl tbody tr:hover{background:var(--bg1)}
+.tiles{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:12px}
+.tile{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:11px 13px}
+.tile .k{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);display:block}
+.tile .v{font-size:20px;font-weight:800;letter-spacing:-.028em;font-variant-numeric:tabular-nums;display:block;margin-top:3px}
+.tile .d{font-size:10.5px;color:var(--ink2);display:block;margin-top:2px;font-weight:500}
+
+/* ── POS venta ── */
+.pos{display:grid;grid-template-columns:minmax(0,1fr) 314px;gap:12px;align-items:start}
+@media(max-width:1080px){.pos{grid-template-columns:1fr}}
+.srch{display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--deep);border-radius:12px;padding:11px 14px;box-shadow:0 0 0 3px rgba(58,95,15,.08)}
+.srch input{flex:1;border:0;outline:0;font-family:var(--ui);font-size:13.5px;color:var(--ink);background:transparent;min-width:0}
+.srch input::placeholder{color:var(--ink3)}
+.cats{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:8px}
+.pcard{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:9px;display:flex;flex-direction:column;gap:5px;text-align:left;transition:border-color 140ms,transform 140ms,box-shadow 140ms;min-height:118px}
+.pcard:hover:not(:disabled){border-color:var(--deep);transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(0,0,0,.28)}
+.pcard:disabled{opacity:.45;cursor:not-allowed}
+.pcard .th{width:100%;height:44px;border-radius:8px;display:grid;place-items:center;font-size:21px;background:var(--bg2)}
+.pcard .nm{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.22;flex:1}
+.pcard .bt{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.pcard .pr{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--deep)}
+.pcard .bc{font-family:var(--mono);font-size:8.5px;color:var(--ink3);letter-spacing:-.02em}
+
+.cart{background:#fff;border:1px solid var(--ln);border-radius:16px;display:flex;flex-direction:column;position:sticky;top:12px;box-shadow:0 1px 2px rgba(0,0,0,.03);max-height:calc(100vh - 40px)}
+.cart .ch{padding:12px 14px;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:8px}
+.cart .ch .t{font-size:13px;font-weight:800;letter-spacing:-.02em}
+.cart .cl{flex:1;overflow-y:auto;padding:10px 14px;display:flex;flex-direction:column;gap:9px;min-height:110px}
+.empty{display:grid;place-items:center;text-align:center;color:var(--ink3);font-size:11.5px;padding:26px 10px;border:1px dashed var(--ln);border-radius:12px;line-height:1.5}
+.li{display:grid;grid-template-columns:1fr auto;gap:4px 8px;align-items:center}
+.li .nm{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.25}
+.li .su{font-size:10px;color:var(--ink3);font-weight:500}
+.li .tot{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.li .ctl{display:flex;align-items:center;gap:7px;grid-column:1/-1;margin-top:1px}
+.stp{display:inline-flex;align-items:center;gap:3px;background:var(--bg2);border-radius:999px;padding:2px}
+.stp button{width:20px;height:20px;border-radius:999px;border:0;background:transparent;color:var(--ink2);display:grid;place-items:center;padding:0}
+.stp button:hover{background:#fff}
+.stp .q{min-width:18px;text-align:center;font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.li .rm{margin-left:auto;border:0;background:transparent;color:var(--ink3);padding:2px;border-radius:6px}
+.li .rm:hover{color:var(--danger);background:var(--danger-sf)}
+.cart .cf{border-top:1px solid var(--ln);padding:12px 14px;display:grid;gap:9px}
+.rw{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px}
+.rw .l{color:var(--ink2);font-weight:500}
+.rw .r{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.rw.big .l{font-weight:800;color:var(--ink);font-size:13.5px}
+.rw.big .r{font-size:22px;font-weight:800;color:var(--deep);letter-spacing:-.03em}
+.cust{display:flex;align-items:center;gap:8px;background:var(--bg1);border:1px solid var(--ln);border-radius:10px;padding:8px 11px;width:100%;text-align:left;font-size:11.5px}
+.cust .n{font-weight:700;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.actrow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.bigbtn{width:100%;justify-content:center;padding:13px;font-size:14.5px;font-weight:800;border-radius:12px}
+
+/* ── modal ── */
+.ov{position:fixed;inset:0;background:rgba(17,17,17,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.ov.on{display:flex;animation:fd 180ms ease}
+.md{background:#fff;border-radius:18px;width:100%;max-width:470px;max-height:90vh;overflow:auto;font-family:var(--ui);box-shadow:0 40px 90px -30px rgba(0,0,0,.55)}
+.md.wide{max-width:640px}
+.md .mh{padding:16px 20px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.md .mh h3{margin:0;font-size:15px;font-weight:800;letter-spacing:-.022em}
+.md .mh p{margin:2px 0 0;font-size:11.5px;color:var(--ink2);font-weight:500}
+.md .mb{padding:18px 20px;display:grid;gap:14px}
+.md .mf{padding:14px 20px;border-top:1px solid var(--ln);background:var(--bg1);display:flex;gap:8px;justify-content:flex-end}
+.xbtn{border:0;background:var(--bg2);color:var(--ink2);width:28px;height:28px;border-radius:999px;display:grid;place-items:center}
+.paytot{background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.paytot .l{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.paytot .v{font-size:34px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.pmeth{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pm{border:1.5px solid var(--ln);background:#fff;border-radius:12px;padding:13px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ink2);transition:all 140ms}
+.pm:hover{border-color:var(--deep);color:var(--ink)}
+.pm[aria-pressed="true"]{border-color:var(--deep);background:var(--soft);color:var(--deep)}
+.pm:disabled{opacity:.4;cursor:not-allowed}
+.pm .sm{font-size:9.5px;font-weight:600;color:var(--ink3)}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick button{border:1px solid var(--ln);background:#fff;border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
+.quick button:hover{border-color:var(--deep);color:var(--deep)}
+.chg{background:var(--soft);border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between}
+.chg .l{font-size:12px;font-weight:700;color:var(--deep)}
+.chg .v{font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--deep);font-variant-numeric:tabular-nums}
+.numin{border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:8px}
+.numin span{color:var(--ink3);font-size:15px;font-weight:700}
+.numin input{border:0;outline:0;font-family:var(--ui);font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--ink);width:100%;font-variant-numeric:tabular-nums;background:transparent}
+.done{text-align:center;padding:12px 4px 4px}
+.done .ck{width:62px;height:62px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;margin:0 auto 14px}
+.done h3{margin:0 0 5px;font-size:19px;font-weight:800;letter-spacing:-.025em}
+.done .fol{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--deep);margin-bottom:3px}
+.done p{margin:0;font-size:12px;color:var(--ink2)}
+
+/* ── ticket ── */
+.tape{font-family:var(--mono);font-size:10.5px;line-height:1.62;background:#fff;border:1px solid var(--ln);border-radius:5px;padding:18px 20px;white-space:pre-wrap;color:var(--ink2);box-shadow:0 2px 10px rgba(0,0,0,.07);max-width:300px}
+.tape b{color:var(--ink);font-weight:700}
+.tapewrap{display:grid;place-items:center;background:var(--bg2);padding:20px;border-radius:14px}
+
+/* ── desktop app ── */
+.dsk{background:#0d0f0c;border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -40px rgba(0,0,0,.7);border:1px solid #23261f}
+.dtitle{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#16190f;color:#c9d2bb;font-family:var(--ui);font-size:11.5px;font-weight:600}
+.dtitle .wd{display:flex;gap:6px;margin-left:auto}
+.dtitle .wd i{width:11px;height:11px;border-radius:999px;background:#2c3226;display:block}
+.dtitle .lg{display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:-.02em;color:#fff}
+.dtitle .lg i{width:18px;height:18px;border-radius:5px;background:var(--brand);color:#22330a;display:grid;place-items:center;font-size:9px;font-weight:900;font-style:normal}
+.dtop{display:flex;align-items:center;gap:12px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--ln);font-family:var(--ui);flex-wrap:wrap}
+.dtop .st{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink2);font-weight:600}
+.dbody{background:var(--bg1);font-family:var(--ui);padding:14px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;min-height:480px;align-items:start}
+@media(max-width:1000px){.dbody{grid-template-columns:1fr}}
+.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:19px;padding:0 5px;border-radius:5px;background:var(--bg2);border:1px solid var(--ln);border-bottom-width:2px;font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--ink2)}
+.hints{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--ink3);font-weight:600;align-items:center;margin-top:9px}
+.hints span{display:inline-flex;align-items:center;gap:5px}
+.dsrch{display:flex;align-items:center;gap:11px;background:#fff;border:2px solid var(--deep);border-radius:12px;padding:14px 16px;box-shadow:0 0 0 4px rgba(58,95,15,.1)}
+.dsrch input{flex:1;border:0;outline:0;font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink);background:transparent;min-width:0}
+.dsrch input::placeholder{color:var(--ink3);font-weight:500}
+.dcart{background:#fff;border:1px solid var(--ln);border-radius:14px;display:flex;flex-direction:column;overflow:hidden}
+.dcart .h{padding:11px 15px;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800}
+.dcart .dlist{padding:9px 15px;display:flex;flex-direction:column;gap:8px;min-height:150px;max-height:250px;overflow-y:auto}
+.dcart .f{border-top:1px solid var(--ln);padding:13px 15px;display:grid;gap:9px;background:var(--bg1)}
+.dtotal{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:4px 0}
+.dtotal .l{font-size:13px;font-weight:800;color:var(--ink)}
+.dtotal .v{font-size:30px;font-weight:800;letter-spacing:-.035em;color:var(--deep);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2.5l2.2 11.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 7H5.2"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></symbol>
+<symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 21h18M4 21V10M20 21V10M12 3 3 8h18z"/><path d="M9 21v-7M15 21v-7"/></symbol>
+<symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 3v18l2.5-1.6L9 21l2.5-1.6L14 21l2.5-1.6L19 21V3z"/><path d="M8 8h7M8 12h7M8 16h4"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"/><circle cx="9" cy="7.5" r="3.4"/><path d="M22 20v-1.6a4 4 0 0 0-3-3.8"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1.5A5.5 5.5 0 0 1 9.5 14h5a5.5 5.5 0 0 1 5.5 5.5V21"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15V11M12 17V7M17 15v-4"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 17h10v4H7z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 7.5-2"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 12 22l-9-9V3h10z"/><circle cx="7.5" cy="7.5" r="1.4"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></symbol>
+<symbol id="i-desktop" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+</svg>
+
+<header class="top">
+  <span class="bd"><i>CB</i> CourtBit</span>
+  <span class="tag">Propuesta · Punto de Venta + Almacén</span>
+  <nav>
+    <button type="button" data-view="propuesta" aria-current="page"><span>Propuesta</span></button>
+    <button type="button" data-view="pos">POS Web</button>
+    <button type="button" data-view="desktop">App de Escritorio</button>
+  </nav>
+</header>
+
+<!-- ══════════════════ PROPUESTA ══════════════════ -->
+<div class="view" id="v-propuesta">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dt"></span> Módulo nuevo · Propuesta comercial</span>
+    <h1>Punto de Venta y <em>Almacén</em> para tu club</h1>
+    <p class="lead">Vende productos en el mostrador, controla tu inventario, cuadra la caja cada noche y lleva las cuentas de los socios que compran a crédito. Todo dentro de CourtBit.</p>
+    <div class="pills">
+      <span>Inversión <b>$30,000 MXN</b></span>
+      <span>Entrega <b>10 semanas</b></span>
+      <span>Dominio <b>ventas.courtbit.com.mx</b></span>
+      <span>Entregas parciales <b>3</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <p class="lead-p">Hoy CourtBit administra tus canchas, tus clases y tus torneos. <strong>Lo que falta es el mostrador.</strong></p>
+    <p class="lead-p">Este módulo agrega un <strong>punto de venta completo</strong> para los productos que el club ya vende — bebidas, pelotas, grips, ropa, accesorios — con el control de inventario detrás, el corte de caja por turno, y la cuenta corriente de los socios que se llevan algo y pagan después.</p>
+    <p class="lead-p">Se integra al sistema que ya usas: <strong>los mismos clientes, los mismos permisos de staff, el mismo reporte de dinero.</strong> No es un programa aparte que haya que conciliar a mano cada mes.</p>
+
+    <div class="cards3" style="margin-top:34px">
+      <div class="kcard"><span class="n">1</span><h3>Vende en segundos</h3><p>Escanea, cobra, imprime. Una bebida en efectivo toma menos de cinco segundos y no necesita decisiones del cajero.</p></div>
+      <div class="kcard"><span class="n">2</span><h3>Sabe qué tienes</h3><p>Cada venta descuenta existencia. El sistema avisa cuando algo está por acabarse y explica cualquier diferencia con su historial.</p></div>
+      <div class="kcard"><span class="n">3</span><h3>Cuadra la caja</h3><p>Apertura con fondo, corte del turno con arqueo y diferencia. Se acabó el «creo que faltan doscientos».</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eb"><span class="dt"></span> Alcance</span>
+      <h2>Lo que se <em>entrega</em></h2>
+      <p>Todo lo listado está incluido en la inversión. Lo marcado en gris queda para una fase posterior.</p>
+    </div>
+
+    <div class="fgrid">
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-tag"/></svg></span> Productos</h3>
+        <ul>
+          <li>Alta y edición de productos</li>
+          <li>Categorías</li>
+          <li>SKU y código de barras</li>
+          <li>Precio de venta y costo</li>
+          <li>Imagen del producto</li>
+          <li>Productos sin control de inventario (servicios)</li>
+          <li>Activar y desactivar</li>
+          <li class="f2">Variantes por talla y color — fase posterior</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-cart"/></svg></span> Punto de venta</h3>
+        <ul>
+          <li>Búsqueda por nombre, SKU o código</li>
+          <li>Escaneo con lector de código de barras</li>
+          <li>Carrito con cantidades</li>
+          <li>Descuento por producto y global</li>
+          <li>Venta en efectivo con cálculo de cambio</li>
+          <li>Venta con tarjeta y transferencia</li>
+          <li>Venta a crédito (cargo a cuenta del cliente)</li>
+          <li>Pago combinado</li>
+          <li>Cancelación de venta</li>
+          <li>Devoluciones total y parcial</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-box"/></svg></span> Almacén e inventario</h3>
+        <ul>
+          <li>Existencias en tiempo real</li>
+          <li>Entradas de mercancía con costo</li>
+          <li>Salidas y consumo interno</li>
+          <li>Ajustes y mermas con motivo</li>
+          <li>Historial de movimientos</li>
+          <li>Kardex por producto</li>
+          <li>Alerta de stock bajo y agotados</li>
+          <li>Valor del inventario a costo</li>
+          <li class="f2">Múltiples almacenes y traspasos — fase posterior</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-cash"/></svg></span> Caja</h3>
+        <ul>
+          <li>Apertura con fondo inicial</li>
+          <li>Sesión por turno y por usuario</li>
+          <li>Entradas y salidas de efectivo</li>
+          <li>Retiros a bóveda</li>
+          <li>Corte del turno</li>
+          <li>Arqueo y diferencia</li>
+          <li>Cierre de caja</li>
+          <li>Historial de cortes</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-users"/></svg></span> Clientes y cuenta corriente</h3>
+        <ul>
+          <li>Venta general o asociada a un cliente</li>
+          <li>Alta rápida de cliente desde la caja</li>
+          <li>Historial de compras</li>
+          <li>Estado de cuenta con saldo corrido</li>
+          <li>Registro de abonos</li>
+          <li>Liquidación de saldo</li>
+          <li>Vista de cuentas por cobrar</li>
+          <li>Antigüedad del saldo</li>
+          <li class="f2">Límite de crédito y bloqueo — fase posterior</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-receipt"/></svg></span> Tickets</h3>
+        <ul>
+          <li>Folio consecutivo por caja</li>
+          <li>Impresión térmica 58 y 80 mm</li>
+          <li>Reimpresión</li>
+          <li>Comprobante de abono</li>
+          <li>Comprobante de devolución</li>
+          <li class="f2">Ticket digital por WhatsApp — fase posterior</li>
+          <li class="f2">Factura CFDI — módulo independiente</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-chart"/></svg></span> Reportes</h3>
+        <ul>
+          <li>Ventas por día y por periodo</li>
+          <li>Ventas por método de pago</li>
+          <li>Ventas por cajero</li>
+          <li>Productos más vendidos</li>
+          <li>Existencias y stock bajo</li>
+          <li>Corte de caja e historial</li>
+          <li>Total por cobrar y saldo por cliente</li>
+          <li>Margen por producto</li>
+          <li>Exportación a Excel</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-lock"/></svg></span> Permisos y control</h3>
+        <ul>
+          <li>Permisos por usuario del staff</li>
+          <li>Perfiles: cajero, encargado, dueño</li>
+          <li>Ocultar costos y márgenes a recepción</li>
+          <li>PIN para operaciones sensibles</li>
+          <li>Bitácora de cancelaciones y ajustes</li>
+          <li>Registro de quién autorizó cada operación</li>
+        </ul>
+      </div>
+
+      <div class="fg">
+        <h3><span class="bx"><svg class="ic" style="width:14px;height:14px"><use href="#i-globe"/></svg></span> Plataforma</h3>
+        <ul>
+          <li>Dominio propio <span style="font-family:var(--mono);font-size:.9em">ventas.courtbit.com.mx</span></li>
+          <li>Optimizado para escritorio y tablet</li>
+          <li>Compatible con lector de código de barras USB</li>
+          <li>Compatible con impresora térmica</li>
+          <li>Integrado a clientes y reportes existentes</li>
+          <li class="f2">Funcionamiento sin internet — fase posterior</li>
+          <li class="f2">Aplicación de escritorio instalable — fase posterior</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>Qué NO incluye esta inversión.</b> Variantes por talla y color · Proveedores y órdenes de compra · Funcionamiento sin internet · Aplicación de escritorio instalable · Facturación CFDI · Múltiples almacenes · Promociones automáticas · Terminal bancaria integrada.
+      <br><br>Cada uno se puede agregar después sin rehacer nada: <b>el sistema se diseña desde el inicio para recibirlos.</b>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eb"><span class="dt"></span> Inversión</span>
+      <h2>Desarrollo e integración del módulo <em>Punto de Venta + Almacén</em></h2>
+    </div>
+
+    <div class="price">
+      <div class="in">
+        <div>
+          <div class="lbl">Proyecto completo · alcance descrito arriba</div>
+          <h3>Punto de Venta, Almacén, Caja y Cuentas por Cobrar</h3>
+          <p>Incluye análisis, desarrollo, integración con el sistema actual, pruebas, puesta en marcha con el catálogo del club y capacitación al personal.</p>
+        </div>
+        <div class="amt">
+          <span class="big">$30,000</span>
+          <span class="cur">MXN + IVA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl">
+      <div class="st"><span class="w">Semana 1 – 4</span><h4>Entrega 1 · Catálogo e inventario</h4><p>Productos, categorías, existencias, entradas y Kardex. El club ya puede capturar su inventario.</p></div>
+      <div class="st"><span class="w">Semana 5 – 7</span><h4>Entrega 2 · Venta y caja</h4><p>Punto de venta, cobro, ticket impreso, apertura y corte de caja. Ya es operable en el mostrador.</p></div>
+      <div class="st"><span class="w">Semana 8 – 10</span><h4>Entrega 3 · Crédito y reportes</h4><p>Cuenta corriente, abonos, cuentas por cobrar, devoluciones, reportes y capacitación.</p></div>
+    </div>
+
+    <div class="note">
+      <b>Cómo se trabaja.</b>
+      <ul>
+        <li>Tres entregas parciales revisables — no hay que esperar diez semanas para ver algo.</li>
+        <li>El módulo queda en el mismo sistema: mismos usuarios, mismos permisos, mismos reportes.</li>
+        <li>Se pone en marcha con el catálogo real del club y una sesión de capacitación al personal de mostrador.</li>
+      </ul>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px">
+      <button class="cta" type="button" data-view="pos"><svg class="ic" style="width:17px;height:17px"><use href="#i-globe"/></svg> Ver el POS web</button>
+      <button class="cta ghost" type="button" data-view="desktop"><svg class="ic" style="width:17px;height:17px"><use href="#i-desktop"/></svg> Ver la app de escritorio</button>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eb"><span class="dt"></span> Requisitos</span>
+      <h2>Lo que necesita el club</h2>
+      <p>Equipo del lado del cliente. No es parte del desarrollo; se lista para que no haya sorpresas.</p>
+    </div>
+    <div class="tw"><table class="outtbl">
+      <thead><tr><th>Equipo</th><th>Para qué</th><th>Costo aproximado</th></tr></thead>
+      <tbody>
+        <tr><td>PC, laptop o tablet</td><td>Operar el punto de venta desde el navegador</td><td>Ya lo tienen</td></tr>
+        <tr><td>Lector de código de barras USB</td><td>Escanear productos. Funciona como un teclado, sin instalación</td><td>$400 – $900 MXN</td></tr>
+        <tr><td>Impresora térmica 58 u 80 mm</td><td>Imprimir tickets. Cualquier modelo con driver de Windows o Mac</td><td>$1,200 – $2,500 MXN</td></tr>
+        <tr><td>Terminal bancaria</td><td>Cobrar con tarjeta. El POS registra el cobro; la terminal lo procesa</td><td>Ya la tienen</td></tr>
+        <tr><td>Cajón de dinero <span class="chip next">Fase posterior</span></td><td>Se abre desde la impresora. Requiere la app de escritorio</td><td>$1,500 – $3,000 MXN</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+</div>
+<!-- ══════════════════ POS WEB ══════════════════ -->
+<div class="view" id="v-pos" style="background:var(--bg);border-top:1px solid var(--line)">
+<section class="sec" style="padding:56px 0 0">
+  <div class="wrap">
+    <div class="sechead" style="margin-bottom:22px">
+      <span class="eb"><span class="dt"></span> Prototipo navegable · POS Web</span>
+      <h2>Así se vería el <em>punto de venta</em></h2>
+      <p>Prototipo con datos de ejemplo, funcional de verdad: agrega productos, cambia cantidades, cobra en efectivo y el ticket se arma con lo que vendiste. El menú de la izquierda lleva a Productos, Inventario, Ventas, Clientes, Cuentas por cobrar, Caja y Reportes.</p>
+    </div>
+  </div>
+</section>
+<div class="app"><div class="appframe">
+  <div class="browser">
+    <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">https://<b>ventas.courtbit.com.mx</b>/mostrador</span><span style="font-family:var(--sans);font-size:.625rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--tx-mut);background:var(--bg-tint);border:1px solid var(--line);border-radius:999px;padding:3px 9px">Prototipo · datos de ejemplo</span></div>
+
+    <div class="shell">
+      <aside class="sb">
+        <div class="sbtop"><span class="mk">CB</span><span class="nm">CourtBit <span>Ventas</span></span></div>
+        <button class="nvi" type="button" data-pane="venta" aria-current="page"><svg class="ic"><use href="#i-cart"/></svg> Punto de venta</button>
+        <div class="sbgrp">Tienda</div>
+        <button class="nvi" type="button" data-pane="productos"><svg class="ic"><use href="#i-tag"/></svg> Productos</button>
+        <button class="nvi" type="button" data-pane="inventario"><svg class="ic"><use href="#i-box"/></svg> Inventario <span class="cnt">6</span></button>
+        <button class="nvi" type="button" data-pane="ventas"><svg class="ic"><use href="#i-receipt"/></svg> Ventas</button>
+        <div class="sbgrp">Clientes</div>
+        <button class="nvi" type="button" data-pane="clientes"><svg class="ic"><use href="#i-users"/></svg> Clientes</button>
+        <button class="nvi" type="button" data-pane="cxc"><svg class="ic"><use href="#i-doc"/></svg> Cuentas por cobrar</button>
+        <div class="sbgrp">Operación</div>
+        <button class="nvi" type="button" data-pane="caja"><svg class="ic"><use href="#i-cash"/></svg> Caja</button>
+        <button class="nvi" type="button" data-pane="reportes"><svg class="ic"><use href="#i-chart"/></svg> Reportes</button>
+        <div class="sbfoot"><span class="av">MG</span><div style="min-width:0"><div style="font-weight:700;color:var(--ink);font-size:11.5px">María G.</div><div style="font-size:10px;color:var(--ink3)">Cajero · Caja 1</div></div></div>
+      </aside>
+
+      <main style="min-width:0">
+        <!-- ── Punto de venta ── -->
+        <section class="pane on" id="p-venta">
+          <div class="phead">
+            <div><h2>Punto de venta</h2><p>Caja 1 · sesión abierta 09:12 · María G.</p></div>
+            <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+              <span class="cp ok">● Caja abierta</span>
+              <span class="cp">Fondo $1,500.00</span>
+              <span class="cp"><svg class="ic" style="width:12px;height:12px"><use href="#i-scan"/></svg> Lector listo</span>
+            </div>
+          </div>
+
+          <div class="pos">
+            <div>
+              <div class="srch">
+                <svg class="ic" style="color:var(--deep);width:18px;height:18px"><use href="#i-search"/></svg>
+                <input id="posSearch" type="text" placeholder="Escanea el código o busca por nombre o SKU…" autocomplete="off">
+                <span class="cp" id="posCount">18 productos</span>
+              </div>
+              <div class="cats" id="posCats"></div>
+              <div class="pgrid" id="posGrid"></div>
+              <p id="posEmpty" style="display:none;text-align:center;color:var(--ink3);font-size:12px;padding:30px 0">Sin resultados para esa búsqueda.</p>
+            </div>
+
+            <div class="cart">
+              <div class="ch">
+                <svg class="ic" style="width:15px;height:15px;color:var(--deep)"><use href="#i-cart"/></svg>
+                <span class="t">Venta</span>
+                <span class="cp" id="cartCount" style="margin-left:auto">0 artículos</span>
+              </div>
+              <div class="cl" id="cartList"></div>
+              <div class="cf">
+                <button class="cust" type="button" id="custBtn">
+                  <svg class="ic" style="width:14px;height:14px;color:var(--deep)"><use href="#i-user"/></svg>
+                  <span class="n" id="custName">Venta general</span>
+                  <span class="cp" id="custBadge" style="display:none"></span>
+                  <svg class="ic" style="width:13px;height:13px;color:var(--ink3)"><use href="#i-arrow"/></svg>
+                </button>
+                <div>
+                  <div class="rw"><span class="l">Subtotal</span><span class="r tnum" id="sumSub">$0.00</span></div>
+                  <div class="rw" id="rowDisc" style="display:none"><span class="l">Descuento</span><span class="r tnum" id="sumDisc" style="color:var(--danger)">$0.00</span></div>
+                  <div class="rw" style="padding-top:8px;border-top:1px solid var(--ln)"><span class="l" style="font-weight:800;color:var(--ink);font-size:13.5px">Total</span><span class="r tnum" id="sumTotal" style="font-size:22px;font-weight:800;color:var(--deep);letter-spacing:-.03em">$0.00</span></div>
+                </div>
+                <div class="actrow">
+                  <button class="btn ol" type="button" id="btnDisc">Descuento</button>
+                  <button class="btn ol" type="button" id="btnClear">Cancelar</button>
+                </div>
+                <button class="btn lm bigbtn" type="button" id="btnCobrar" disabled>Cobrar</button>
+                <button class="btn gh" type="button" id="btnCuenta" disabled style="justify-content:center">Cargar a cuenta</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Productos ── -->
+        <section class="pane" id="p-productos">
+          <div class="phead">
+            <div><h2>Productos</h2><p>18 activos · 7 categorías</p></div>
+            <div style="display:flex;gap:7px"><button class="btn ol" type="button">Categorías</button><button class="btn" type="button" data-modal="mProducto"><svg class="ic" style="width:13px;height:13px"><use href="#i-plus"/></svg> Nuevo producto</button></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px;align-items:center">
+            <span class="cp on">Todas</span><span class="cp">Bebidas</span><span class="cp">Snacks</span><span class="cp">Pelotas</span><span class="cp">Grips</span><span class="cp">Ropa</span><span class="cp">Accesorios</span><span class="cp">Servicios</span>
+            <span class="fld" style="margin-left:auto;padding:5px 11px;font-size:11.5px"><svg class="ic" style="width:12px;height:12px"><use href="#i-search"/></svg> Buscar producto…</span>
+          </div>
+          <div class="card" style="overflow:hidden"><div style="overflow-x:auto"><table class="tbl" id="tblProductos"></table></div></div>
+        </section>
+
+        <!-- ── Inventario ── -->
+        <section class="pane" id="p-inventario">
+          <div class="phead">
+            <div><h2>Inventario</h2><p>Almacén Mostrador · 18 productos con control de existencia</p></div>
+            <div style="display:flex;gap:7px"><button class="btn ol" type="button" data-modal="mEntrada"><svg class="ic" style="width:13px;height:13px"><use href="#i-plus"/></svg> Entrada</button><button class="btn" type="button" data-modal="mAjuste">Ajuste</button></div>
+          </div>
+          <div class="tiles">
+            <div class="tile"><span class="k">Valor a costo</span><span class="v">$48,320</span><span class="d">18 productos</span></div>
+            <div class="tile"><span class="k">Stock bajo</span><span class="v" style="color:var(--warn)">6</span><span class="d">bajo el mínimo</span></div>
+            <div class="tile"><span class="k">Agotados</span><span class="v" style="color:var(--danger)">1</span><span class="d">no vendible</span></div>
+            <div class="tile"><span class="k">Mermas del mes</span><span class="v">$740</span><span class="d">9 movimientos</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px">
+            <span class="cp on">Todos</span><span class="cp">Stock bajo</span><span class="cp">Agotados</span><span class="cp">Sin movimiento</span>
+          </div>
+          <div class="card" style="overflow:hidden;margin-bottom:16px"><div style="overflow-x:auto"><table class="tbl" id="tblStock"></table></div></div>
+
+          <h3 style="font-size:13px;font-weight:800;letter-spacing:-.02em;margin:0 0 9px;color:var(--ink)">Movimientos recientes · Overgrip Wilson</h3>
+          <div class="card" style="overflow:hidden"><div style="overflow-x:auto"><table class="tbl">
+            <thead><tr><th>Fecha</th><th>Movimiento</th><th>Motivo / referencia</th><th>Usuario</th><th class="n">Antes</th><th class="n">Mov.</th><th class="n">Después</th></tr></thead>
+            <tbody>
+              <tr><td>28 ago 11:04</td><td><span class="cp ok">Entrada</span></td><td>Distribuidora Padel MX</td><td>Encargado</td><td class="n">2</td><td class="n" style="color:var(--deep)">+12</td><td class="n">14</td></tr>
+              <tr><td>29 ago 18:22</td><td><span class="cp">Venta</span></td><td style="font-family:var(--mono);font-size:10.5px">A-000138</td><td>María G.</td><td class="n">14</td><td class="n" style="color:var(--danger)">−2</td><td class="n">12</td></tr>
+              <tr><td>30 ago 20:41</td><td><span class="cp">Venta</span></td><td style="font-family:var(--mono);font-size:10.5px">A-000141</td><td>María G.</td><td class="n">12</td><td class="n" style="color:var(--danger)">−8</td><td class="n">4</td></tr>
+              <tr><td>31 ago 09:15</td><td><span class="cp wr">Merma</span></td><td>Empaque dañado</td><td>Encargado · PIN «Mostrador»</td><td class="n">4</td><td class="n" style="color:var(--danger)">−1</td><td class="n">3</td></tr>
+            </tbody>
+          </table></div></div>
+        </section>
+
+        <!-- ── Ventas ── -->
+        <section class="pane" id="p-ventas">
+          <div class="phead">
+            <div><h2>Ventas</h2><p>7 – 8 de septiembre · 46 tickets</p></div>
+            <button class="btn ol" type="button">Exportar Excel</button>
+          </div>
+          <div class="tiles">
+            <div class="tile"><span class="k">Vendido hoy</span><span class="v">$14,820</span><span class="d">46 tickets</span></div>
+            <div class="tile"><span class="k">Ticket promedio</span><span class="v">$322</span><span class="d">+8 % vs ayer</span></div>
+            <div class="tile"><span class="k">Efectivo</span><span class="v">$6,240</span><span class="d">31 tickets</span></div>
+            <div class="tile"><span class="k">A crédito</span><span class="v" style="color:var(--warn)">$2,150</span><span class="d">4 tickets</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px;align-items:center">
+            <span class="cp on">Hoy</span><span class="cp">7 días</span><span class="cp">Este mes</span>
+            <span style="width:1px;height:18px;background:var(--ln);margin:0 4px"></span>
+            <span class="cp">Todos los métodos</span><span class="cp">Todos los cajeros</span><span class="cp">Solo crédito</span>
+            <span class="fld" style="margin-left:auto;padding:5px 11px;font-size:11.5px"><svg class="ic" style="width:12px;height:12px"><use href="#i-search"/></svg> Buscar folio…</span>
+          </div>
+          <div class="card" style="overflow:hidden"><div style="overflow-x:auto"><table class="tbl">
+            <thead><tr><th>Folio</th><th>Hora</th><th>Cliente</th><th>Artículos</th><th>Método</th><th>Cajero</th><th class="n">Total</th><th></th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:var(--mono)">A-000148</td><td>20:14</td><td>Venta general</td><td>3</td><td><span class="cp ok">Efectivo</span></td><td>María G.</td><td class="n">$400.00</td><td class="n"><button class="cp on" type="button" data-modal="mTicket">Ticket</button></td></tr>
+              <tr><td style="font-family:var(--mono)">A-000147</td><td>19:52</td><td>Christian Michell</td><td>2</td><td><span class="cp bd">A cuenta</span></td><td>María G.</td><td class="n">$400.00</td><td class="n"><button class="cp" type="button" data-modal="mTicket">Ticket</button></td></tr>
+              <tr><td style="font-family:var(--mono)">A-000146</td><td>19:31</td><td>Venta general</td><td>1</td><td><span class="cp if">Débito</span></td><td>María G.</td><td class="n">$260.00</td><td class="n"><button class="cp" type="button" data-modal="mTicket">Ticket</button></td></tr>
+              <tr><td style="font-family:var(--mono)">A-000145</td><td>19:03</td><td>Ana Beltrán</td><td>5</td><td><span class="cp">Mixto</span></td><td>Luis P.</td><td class="n">$1,180.00</td><td class="n"><button class="cp" type="button" data-modal="mTicket">Ticket</button></td></tr>
+              <tr style="opacity:.6"><td style="font-family:var(--mono)">A-000144</td><td>18:40</td><td>Venta general</td><td>2</td><td><span class="cp bd">Cancelada</span></td><td>Luis P.</td><td class="n" style="text-decoration:line-through">$155.00</td><td class="n"><button class="cp" type="button" data-modal="mTicket">Ticket</button></td></tr>
+              <tr><td style="font-family:var(--mono)">A-000143</td><td>18:12</td><td>Venta general</td><td>4</td><td><span class="cp ok">Efectivo</span></td><td>Luis P.</td><td class="n">$318.00</td><td class="n"><button class="cp" type="button" data-modal="mTicket">Ticket</button></td></tr>
+            </tbody>
+          </table></div></div>
+        </section>
+
+        <!-- ── Clientes ── -->
+        <section class="pane" id="p-clientes">
+          <div class="phead">
+            <div><h2>Clientes</h2><p>312 registrados · 12 con saldo pendiente</p></div>
+            <button class="btn" type="button"><svg class="ic" style="width:13px;height:13px"><use href="#i-plus"/></svg> Nuevo cliente</button>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;align-items:start" id="cliGrid">
+            <div class="card" style="overflow:hidden"><div style="overflow-x:auto"><table class="tbl">
+              <thead><tr><th>Cliente</th><th>Teléfono</th><th class="n">Compras</th><th class="n">Saldo</th><th>Última compra</th></tr></thead>
+              <tbody>
+                <tr style="background:var(--soft)"><td>Christian Michell</td><td style="font-family:var(--mono);font-size:10.5px">667 118 2204</td><td class="n">14</td><td class="n" style="color:var(--danger)">$750.00</td><td>05 sep</td></tr>
+                <tr><td>Ana Beltrán</td><td style="font-family:var(--mono);font-size:10.5px">667 220 9981</td><td class="n">41</td><td class="n" style="color:var(--danger)">$4,120.00</td><td>06 sep</td></tr>
+                <tr><td>Jorge Medina</td><td style="font-family:var(--mono);font-size:10.5px">667 145 3320</td><td class="n">28</td><td class="n" style="color:var(--danger)">$2,880.00</td><td>05 sep</td></tr>
+                <tr><td>Sofía Ochoa</td><td style="font-family:var(--mono);font-size:10.5px">667 908 1145</td><td class="n">9</td><td class="n" style="color:var(--danger)">$410.00</td><td>07 sep</td></tr>
+                <tr><td>Luis Fernando Ríos</td><td style="font-family:var(--mono);font-size:10.5px">667 331 0092</td><td class="n">22</td><td class="n">$0.00</td><td>04 sep</td></tr>
+              </tbody>
+            </table></div></div>
+
+            <div class="card" style="padding:15px;display:grid;gap:12px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="width:40px;height:40px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-weight:800;font-size:13px">CM</span>
+                <div style="min-width:0"><div style="font-size:14px;font-weight:800;letter-spacing:-.02em">Christian Michell</div><div style="font-size:11px;color:var(--ink2)">667 118 2204 · desde may 2026</div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div class="tile" style="border-color:var(--danger)"><span class="k">Saldo actual</span><span class="v" style="font-size:17px;color:var(--danger)">$750.00</span></div>
+                <div class="tile"><span class="k">Facturado</span><span class="v" style="font-size:17px">$1,250.00</span></div>
+              </div>
+              <div>
+                <span class="lb">Últimas compras</span>
+                <table class="tbl" style="font-size:11.5px">
+                  <tbody>
+                    <tr><td style="padding:7px 0">01 sep · <span style="font-family:var(--mono);font-size:10px">A-001023</span></td><td class="n" style="padding:7px 0">$850.00</td></tr>
+                    <tr><td style="padding:7px 0">03 sep · <span style="font-family:var(--mono);font-size:10px">A-001045</span></td><td class="n" style="padding:7px 0">$400.00</td></tr>
+                    <tr><td style="padding:7px 0">28 ago · <span style="font-family:var(--mono);font-size:10px">A-000982</span></td><td class="n" style="padding:7px 0">$260.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <button class="btn" type="button" style="justify-content:center" data-pane-go="cxc">Ver estado de cuenta</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Cuentas por cobrar ── -->
+        <section class="pane" id="p-cxc">
+          <div class="phead">
+            <div><h2>Cuentas por cobrar</h2><p>12 clientes con saldo · actualizado hace 1 min</p></div>
+            <button class="btn ol" type="button">Exportar Excel</button>
+          </div>
+          <div class="tiles">
+            <div class="tile" style="border-color:var(--danger)"><span class="k">Total por cobrar</span><span class="v" style="color:var(--danger)">$18,450</span><span class="d">12 clientes</span></div>
+            <div class="tile"><span class="k">Cobrado este mes</span><span class="v" style="color:var(--deep)">$9,200</span><span class="d">21 abonos</span></div>
+            <div class="tile"><span class="k">Vendido a crédito</span><span class="v">$12,780</span><span class="d">34 ventas</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px;align-items:center">
+            <span class="cp on">Con saldo</span><span class="cp">Todos</span><span class="cp">Sin saldo</span>
+            <span style="width:1px;height:18px;background:var(--ln);margin:0 4px"></span>
+            <span style="font-size:10.5px;color:var(--ink3);font-weight:700">Ordenar:</span><span class="cp on">Saldo</span><span class="cp">Antigüedad</span>
+          </div>
+          <div class="card" style="overflow:hidden;margin-bottom:18px"><div style="overflow-x:auto"><table class="tbl">
+            <thead><tr><th>Cliente</th><th class="n">Saldo</th><th class="n">Ventas pendientes</th><th>Última compra</th><th>Último pago</th><th class="n">Antigüedad</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>Ana Beltrán</td><td class="n" style="color:var(--danger)">$4,120.00</td><td class="n">7</td><td>06 sep</td><td>12 ago</td><td class="n"><span class="cp bd">26 días</span></td><td class="n"><button class="cp on" type="button" data-modal="mAbono">Registrar abono</button></td></tr>
+              <tr><td>Jorge Medina</td><td class="n" style="color:var(--danger)">$2,880.00</td><td class="n">4</td><td>05 sep</td><td>28 ago</td><td class="n"><span class="cp wr">10 días</span></td><td class="n"><button class="cp" type="button" data-modal="mAbono">Registrar abono</button></td></tr>
+              <tr style="background:var(--soft)"><td>Christian Michell</td><td class="n" style="color:var(--danger)">$750.00</td><td class="n">2</td><td>03 sep</td><td>05 sep</td><td class="n"><span class="cp ok">2 días</span></td><td class="n"><button class="cp on" type="button" data-modal="mAbono">Registrar abono</button></td></tr>
+              <tr><td>Sofía Ochoa</td><td class="n" style="color:var(--danger)">$410.00</td><td class="n">1</td><td>07 sep</td><td>—</td><td class="n"><span class="cp ok">1 día</span></td><td class="n"><button class="cp" type="button" data-modal="mAbono">Registrar abono</button></td></tr>
+            </tbody>
+          </table></div></div>
+
+          <h3 style="font-size:13px;font-weight:800;letter-spacing:-.02em;margin:0 0 9px;color:var(--ink)">Estado de cuenta · Christian Michell</h3>
+          <div class="card" style="padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <span style="width:44px;height:44px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-weight:800;font-size:14px">CM</span>
+            <div><div style="font-size:15px;font-weight:800;letter-spacing:-.02em">Christian Michell</div><div style="font-size:11.5px;color:var(--ink2)">667 118 2204 · cliente desde may 2026</div></div>
+            <div style="margin-left:auto;text-align:right">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)">Saldo pendiente</div>
+              <div class="tnum" style="font-size:27px;font-weight:800;letter-spacing:-.035em;color:var(--danger);line-height:1.05">$750.00</div>
+              <div style="font-size:10.5px;color:var(--ink3)">de $1,250.00 facturado</div>
+            </div>
+            <button class="btn" type="button" data-modal="mAbono"><svg class="ic" style="width:13px;height:13px"><use href="#i-cash"/></svg> Registrar abono</button>
+          </div>
+          <div class="card" style="overflow:hidden"><div style="overflow-x:auto"><table class="tbl">
+            <thead><tr><th>Fecha</th><th>Concepto</th><th>Referencia</th><th>Usuario</th><th class="n">Cargo</th><th class="n">Abono</th><th class="n">Saldo</th></tr></thead>
+            <tbody>
+              <tr><td>01 sep</td><td><span class="cp bd">Cargo</span> Venta #1023</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--deep)">A-001023</td><td>María G.</td><td class="n">$850.00</td><td class="n" style="color:var(--ink3);font-weight:500">—</td><td class="n">$850.00</td></tr>
+              <tr><td>03 sep</td><td><span class="cp bd">Cargo</span> Venta #1045</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--deep)">A-001045</td><td>Luis P.</td><td class="n">$400.00</td><td class="n" style="color:var(--ink3);font-weight:500">—</td><td class="n">$1,250.00</td></tr>
+              <tr><td>05 sep</td><td><span class="cp ok">Abono</span> Efectivo</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--deep)">AB-0012</td><td>María G. · Caja 1</td><td class="n" style="color:var(--ink3);font-weight:500">—</td><td class="n" style="color:var(--deep)">$500.00</td><td class="n">$750.00</td></tr>
+            </tbody>
+          </table></div></div>
+        </section>
+
+        <!-- ── Caja ── -->
+        <section class="pane" id="p-caja">
+          <div class="phead">
+            <div><h2>Caja</h2><p>Caja 1 · sesión #48 · abierta 09:12 por María G.</p></div>
+            <div style="display:flex;gap:7px"><button class="btn ol" type="button" data-modal="mApertura"><svg class="ic" style="width:13px;height:13px"><use href="#i-unlock"/></svg> Apertura</button><button class="btn" type="button" data-modal="mCierre"><svg class="ic" style="width:13px;height:13px"><use href="#i-lock"/></svg> Cerrar caja</button></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="cajaGrid">
+            <div class="card" style="padding:15px">
+              <span class="lb">Efectivo — mueve el cajón</span>
+              <div class="rw"><span class="l">Fondo de apertura</span><span class="r tnum">$1,500.00</span></div>
+              <div class="rw"><span class="l">Ventas en efectivo <span class="cp" style="font-size:9px">31</span></span><span class="r tnum">$6,240.00</span></div>
+              <div class="rw"><span class="l">Abonos en efectivo <span class="cp" style="font-size:9px">4</span></span><span class="r tnum">$1,900.00</span></div>
+              <div class="rw"><span class="l">Entradas manuales</span><span class="r tnum">$0.00</span></div>
+              <div class="rw"><span class="l">Devoluciones</span><span class="r tnum" style="color:var(--danger)">−$260.00</span></div>
+              <div class="rw"><span class="l">Retiro a bóveda <span class="cp" style="font-size:9px">PIN</span></span><span class="r tnum" style="color:var(--danger)">−$980.00</span></div>
+              <div style="height:1px;background:var(--ln);margin:9px 0"></div>
+              <div class="rw"><span class="l" style="font-weight:800;color:var(--ink);font-size:13.5px">Efectivo esperado</span><span class="r tnum" style="font-size:21px;font-weight:800">$8,400.00</span></div>
+            </div>
+            <div class="card" style="padding:15px">
+              <span class="lb">Otros métodos — para conciliar</span>
+              <div class="rw"><span class="l">Tarjeta crédito <span class="cp" style="font-size:9px">9</span></span><span class="r tnum">$3,180.00</span></div>
+              <div class="rw"><span class="l">Tarjeta débito <span class="cp" style="font-size:9px">14</span></span><span class="r tnum">$4,420.00</span></div>
+              <div class="rw" style="padding-left:11px;border-left:2px solid var(--ln)"><span class="l" style="font-size:11px">Subtotal familia tarjeta</span><span class="r tnum" style="font-size:11.5px">$7,600.00</span></div>
+              <div class="rw"><span class="l">Transferencia <span class="cp" style="font-size:9px">2</span></span><span class="r tnum">$860.00</span></div>
+              <div style="height:1px;background:var(--ln);margin:9px 0"></div>
+              <div class="rw"><span class="l" style="font-weight:700;color:var(--ink)">Vendido a crédito <span class="cp bd" style="font-size:9px">no entra dinero</span></span><span class="r tnum" style="color:var(--ink3)">$2,150.00</span></div>
+              <div style="height:1px;background:var(--ln);margin:9px 0"></div>
+              <span class="lb" style="margin-top:4px">Movimientos manuales del turno</span>
+              <div class="rw"><span class="l">14:20 · Retiro a bóveda</span><span class="r tnum" style="color:var(--danger)">−$980.00</span></div>
+              <div class="rw"><span class="l">16:05 · Devolución A-000139</span><span class="r tnum" style="color:var(--danger)">−$260.00</span></div>
+            </div>
+          </div>
+          <div class="card" style="padding:15px;margin-top:10px">
+            <span class="lb">Historial de cortes</span>
+            <div style="overflow-x:auto"><table class="tbl">
+              <thead><tr><th>Sesión</th><th>Caja</th><th>Usuario</th><th>Abierta</th><th>Cerrada</th><th class="n">Esperado</th><th class="n">Contado</th><th class="n">Diferencia</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:var(--mono)">#48</td><td>Caja 1</td><td>María G.</td><td>08 sep 09:12</td><td><span class="cp ok">En curso</span></td><td class="n">$8,400.00</td><td class="n">—</td><td class="n">—</td></tr>
+                <tr><td style="font-family:var(--mono)">#47</td><td>Caja 1</td><td>Luis P.</td><td>07 sep 08:58</td><td>07 sep 22:04</td><td class="n">$9,120.00</td><td class="n">$9,060.00</td><td class="n" style="color:var(--danger)">−$60.00</td></tr>
+                <tr><td style="font-family:var(--mono)">#46</td><td>Caja 1</td><td>María G.</td><td>06 sep 09:05</td><td>06 sep 21:48</td><td class="n">$7,340.00</td><td class="n">$7,340.00</td><td class="n" style="color:var(--deep)">$0.00</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </section>
+
+        <!-- ── Reportes ── -->
+        <section class="pane" id="p-reportes">
+          <div class="phead">
+            <div><h2>Reportes</h2><p>1 – 8 de septiembre de 2026</p></div>
+            <div style="display:flex;gap:7px"><span class="cp on">Este mes</span><span class="cp">7 días</span><span class="cp">Hoy</span><button class="btn ol" type="button">Exportar Excel</button></div>
+          </div>
+          <div class="tiles">
+            <div class="tile"><span class="k">Ventas del periodo</span><span class="v">$96,400</span><span class="d">312 tickets</span></div>
+            <div class="tile"><span class="k">Utilidad estimada</span><span class="v" style="color:var(--deep)">$34,180</span><span class="d">margen 35 %</span></div>
+            <div class="tile"><span class="k">Valor del inventario</span><span class="v">$48,320</span><span class="d">a costo</span></div>
+            <div class="tile"><span class="k">Por cobrar</span><span class="v" style="color:var(--danger)">$18,450</span><span class="d">12 clientes</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="repGrid">
+            <div class="card" style="padding:15px">
+              <span class="lb">Productos más vendidos</span>
+              <table class="tbl"><tbody>
+                <tr><td>Gatorade 600 ml</td><td class="n">184 pz</td><td class="n">$6,440</td></tr>
+                <tr><td>Agua Ciel 1 L</td><td class="n">151 pz</td><td class="n">$3,020</td></tr>
+                <tr><td>Bote Head Pro x3</td><td class="n">42 pz</td><td class="n">$10,920</td></tr>
+                <tr><td>Overgrip Wilson</td><td class="n">38 pz</td><td class="n">$3,610</td></tr>
+                <tr><td>Barra proteína</td><td class="n">33 pz</td><td class="n">$1,485</td></tr>
+              </tbody></table>
+            </div>
+            <div class="card" style="padding:15px">
+              <span class="lb">Ventas por método de pago</span>
+              <table class="tbl"><tbody>
+                <tr><td>Efectivo</td><td class="n">198</td><td class="n">$41,300</td></tr>
+                <tr><td>Tarjeta débito</td><td class="n">61</td><td class="n">$26,140</td></tr>
+                <tr><td>Tarjeta crédito</td><td class="n">28</td><td class="n">$14,020</td></tr>
+                <tr><td>Transferencia</td><td class="n">11</td><td class="n">$2,160</td></tr>
+                <tr><td>A crédito</td><td class="n">14</td><td class="n">$12,780</td></tr>
+              </tbody></table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div></div>
+</div>
+<!-- ══════════════════ DESKTOP ══════════════════ -->
+<div class="view" id="v-desktop" style="background:var(--paper);border-top:1px solid var(--line)">
+<section class="sec" style="padding:56px 0 0;background:var(--paper)">
+  <div class="wrap">
+    <div class="sechead" style="margin-bottom:22px">
+      <span class="eb"><span class="dt"></span> Evolución · App de escritorio</span>
+      <h2>La misma caja, ahora <em>instalada</em></h2>
+      <p>Cuando el club sume cajón de dinero e impresión sin diálogo, la aplicación de escritorio envuelve esta misma pantalla y la optimiza para teclado y escáner.</p>
+    </div>
+  </div>
+</section>
+<div class="app"><div class="appframe">
+
+  <div style="max-width:900px;margin:0 auto 22px;text-align:center;font-family:var(--sans)">
+    <span class="chip next" style="font-size:.625rem;padding:4px 12px">Fase posterior · no incluida en los $30,000</span>
+    <p style="margin:12px 0 0;color:var(--tx-mut);font-size:.9rem;line-height:1.5">La aplicación de escritorio envuelve la misma pantalla del POS web y agrega lo que el navegador no puede dar: <strong style="color:var(--navy)">cajón de dinero, impresión sin diálogo, modo kiosco y arranque automático</strong>. Se muestra aquí para dejar clara la evolución del producto.</p>
+  </div>
+
+  <div class="dsk">
+    <div class="dtitle">
+      <span class="lg"><i>CB</i> CourtBit Ventas</span>
+      <span style="color:#7c8a6b">— Club Pádel Ejemplo · Caja 1</span>
+      <span class="wd"><i></i><i></i><i></i></span>
+    </div>
+
+    <div class="dtop">
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:28px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-size:10.5px;font-weight:800">MG</span><span style="font-size:12.5px;font-weight:700">María G.</span></span>
+      <span style="width:1px;height:20px;background:var(--ln)"></span>
+      <span class="st"><svg class="ic" style="width:14px;height:14px;color:var(--deep)"><use href="#i-cash"/></svg> Caja 1</span>
+      <span class="cp ok">● Abierta 09:12 · fondo $1,500</span>
+      <span class="cp"><svg class="ic" style="width:12px;height:12px"><use href="#i-scan"/></svg> Lector conectado</span>
+      <span class="cp"><svg class="ic" style="width:12px;height:12px"><use href="#i-print"/></svg> EPSON TM-m30</span>
+      <span style="margin-left:auto;display:flex;gap:6px">
+        <button class="cp" type="button" data-modal="mApertura">Apertura</button>
+        <button class="cp" type="button" data-modal="mCierre">Corte / Cierre</button>
+        <button class="cp" type="button"><svg class="ic" style="width:12px;height:12px"><use href="#i-gear"/></svg></button>
+      </span>
+    </div>
+
+    <div class="dbody">
+      <div>
+        <div class="dsrch">
+          <svg class="ic" style="width:22px;height:22px;color:var(--deep)"><use href="#i-scan"/></svg>
+          <input id="dskSearch" type="text" placeholder="Escanea el código o escribe para buscar…" autocomplete="off">
+          <span class="kbd">F1</span>
+        </div>
+        <div class="hints">
+          <span><span class="kbd">F1</span> Buscar</span>
+          <span><span class="kbd">F2</span> Cliente</span>
+          <span><span class="kbd">F3</span> Descuento</span>
+          <span><span class="kbd">F4</span> A cuenta</span>
+          <span><span class="kbd">Enter</span> Cobrar</span>
+          <span><span class="kbd">Esc</span> Cancelar</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <span class="lb">Productos frecuentes</span>
+          <div class="cats" id="dskCats" style="margin:0 0 9px"></div>
+          <div class="pgrid" id="dskGrid" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))"></div>
+        </div>
+      </div>
+
+      <div class="dcart">
+        <div class="h">
+          <svg class="ic" style="width:15px;height:15px;color:var(--deep)"><use href="#i-cart"/></svg>
+          Venta en curso
+          <span class="cp" id="dskCount" style="margin-left:auto">0 artículos</span>
+        </div>
+        <div class="dlist" id="dskList"></div>
+        <div class="f">
+          <button class="cust" type="button" id="dskCustBtn">
+            <svg class="ic" style="width:14px;height:14px;color:var(--deep)"><use href="#i-user"/></svg>
+            <span class="n" id="dskCustName">Venta general</span>
+            <span class="kbd">F2</span>
+          </button>
+          <div class="rw"><span class="l">Subtotal</span><span class="r tnum" id="dskSub">$0.00</span></div>
+          <div class="rw" id="dskRowDisc" style="display:none"><span class="l">Descuento</span><span class="r tnum" id="dskDisc" style="color:var(--danger)">$0.00</span></div>
+          <div class="dtotal"><span class="l">TOTAL</span><span class="v tnum" id="dskTotal">$0.00</span></div>
+          <button class="btn lm bigbtn" type="button" id="dskCobrar" disabled style="padding:15px;font-size:16px">COBRAR <span class="kbd" style="background:rgba(0,0,0,.12);border-color:transparent">Enter</span></button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <button class="btn gh" type="button" id="dskCuenta" disabled style="justify-content:center">A cuenta <span class="kbd">F4</span></button>
+            <button class="btn ol" type="button" id="dskClear" style="justify-content:center">Cancelar <span class="kbd">Esc</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1400px;margin:26px auto 0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));font-family:var(--sans)">
+    <div class="kcard"><span class="n" style="background:var(--blue-mist);color:var(--blue-deep)"><svg class="ic" style="width:16px;height:16px"><use href="#i-scan"/></svg></span><h3>Escáner como teclado</h3><p>El lector escribe el código y manda Enter. El producto entra al carrito sin tocar el mouse.</p></div>
+    <div class="kcard"><span class="n" style="background:var(--blue-mist);color:var(--blue-deep)"><svg class="ic" style="width:16px;height:16px"><use href="#i-print"/></svg></span><h3>Impresión sin diálogo</h3><p>El ticket sale directo a la térmica al confirmar la venta, sin ventana de impresión de por medio.</p></div>
+    <div class="kcard"><span class="n" style="background:var(--blue-mist);color:var(--blue-deep)"><svg class="ic" style="width:16px;height:16px"><use href="#i-cash"/></svg></span><h3>Cajón de dinero</h3><p>Se abre solo en las ventas en efectivo, por el puerto de la impresora.</p></div>
+  </div>
+
+</div></div>
+</div>
+
+<!-- ══════════════════ MODALES ══════════════════ -->
+<div class="ov" id="mPago"><div class="md">
+  <div class="mh"><div><h3>Cobrar venta</h3><p id="pagoCli">Venta general</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div class="paytot"><span class="l">Total a cobrar</span><span class="v tnum" id="pagoTotal">$0.00</span></div>
+    <div>
+      <span class="lb">Método de pago</span>
+      <div class="pmeth">
+        <button class="pm" type="button" data-pm="efectivo" aria-pressed="true"><svg class="ic" style="width:20px;height:20px"><use href="#i-cash"/></svg> Efectivo</button>
+        <button class="pm" type="button" data-pm="tarjeta"><svg class="ic" style="width:20px;height:20px"><use href="#i-card"/></svg> Tarjeta<span class="sm">Crédito o débito</span></button>
+        <button class="pm" type="button" data-pm="transferencia"><svg class="ic" style="width:20px;height:20px"><use href="#i-bank"/></svg> Transferencia</button>
+        <button class="pm" type="button" data-pm="cuenta" id="pmCuenta"><svg class="ic" style="width:20px;height:20px"><use href="#i-user"/></svg> Cuenta del cliente<span class="sm" id="pmCuentaSm">Requiere cliente</span></button>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11.5px;color:var(--ink2);font-weight:600;cursor:pointer">
+        <input type="checkbox" id="pagoMixto" style="accent-color:#3a5f0f;width:15px;height:15px"> Pago combinado — dividir entre dos métodos
+      </label>
+    </div>
+    <div id="pagoEfectivo">
+      <span class="lb">Recibido</span>
+      <div class="numin"><span>$</span><input id="pagoRecibido" type="text" inputmode="decimal" value=""></div>
+      <div class="quick" style="margin-top:9px" id="pagoQuick"></div>
+      <div class="chg" style="margin-top:11px"><span class="l">Cambio</span><span class="v tnum" id="pagoCambio">$0.00</span></div>
+    </div>
+    <div id="pagoCuentaInfo" style="display:none;background:var(--warn-sf);border-radius:12px;padding:13px 15px;font-size:12px;color:var(--warn);font-weight:600;line-height:1.5">
+      Esta venta se carga a la cuenta del cliente. <b>No entra dinero a la caja</b> y no aparece en el corte de efectivo — se registra como saldo pendiente y afecta el corte cuando el cliente abone.
+    </div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn lm" type="button" id="pagoConfirmar" style="padding:11px 22px;font-size:13.5px">Confirmar venta</button></div>
+</div></div>
+
+<div class="ov" id="mExito"><div class="md" style="max-width:420px">
+  <div class="mb">
+    <div class="done">
+      <div class="ck"><svg class="ic" style="width:30px;height:30px;stroke-width:2.4"><use href="#i-check"/></svg></div>
+      <h3>Venta completada</h3>
+      <div class="fol" id="exitoFolio">A-000149</div>
+      <p id="exitoDetalle">$400.00 · Efectivo · cambio $100.00</p>
+    </div>
+  </div>
+  <div class="mf" style="justify-content:stretch;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button class="btn ol" type="button" data-modal="mTicket" style="justify-content:center"><svg class="ic" style="width:14px;height:14px"><use href="#i-print"/></svg> Imprimir ticket</button>
+    <button class="btn lm" type="button" data-close style="justify-content:center">Nueva venta</button>
+  </div>
+</div></div>
+
+<div class="ov" id="mTicket"><div class="md" style="max-width:400px">
+  <div class="mh"><div><h3>Ticket</h3><p>Impresora térmica 80 mm</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb"><div class="tapewrap"><div class="tape" id="ticketTape"></div></div></div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cerrar</button><button class="btn ol" type="button">Reimprimir</button><button class="btn" type="button"><svg class="ic" style="width:14px;height:14px"><use href="#i-print"/></svg> Imprimir</button></div>
+</div></div>
+
+<div class="ov" id="mCliente"><div class="md" style="max-width:430px">
+  <div class="mh"><div><h3>Cliente de la venta</h3><p>Necesario para vender a crédito</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div class="fld"><svg class="ic" style="width:14px;height:14px"><use href="#i-search"/></svg><span>Buscar por nombre o teléfono…</span></div>
+    <div style="display:grid;gap:7px" id="cliList"></div>
+    <button class="btn ol" type="button" style="justify-content:center"><svg class="ic" style="width:14px;height:14px"><use href="#i-plus"/></svg> Crear cliente nuevo</button>
+  </div>
+</div></div>
+
+<div class="ov" id="mAbono"><div class="md">
+  <div class="mh"><div><h3>Registrar abono</h3><p>Christian Michell · Caja 1 · sesión #48</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div><span class="lb">Monto</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="numin" style="flex:1"><span>$</span><input id="abonoMonto" type="text" inputmode="decimal" value="400.00"></div>
+        <button class="cp on" type="button" id="abonoLiquidar" style="padding:9px 14px">Liquidar $750</button>
+      </div>
+    </div>
+    <div><span class="lb">Método</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="cp on" type="button">Efectivo</button><button class="cp" type="button">Crédito</button><button class="cp" type="button">Débito</button><button class="cp" type="button">Transferencia</button>
+      </div>
+      <p style="margin:8px 0 0;font-size:10.5px;color:var(--ink3);font-weight:500">El efectivo entra al corte de esta sesión. Los demás quedan registrados para conciliar.</p>
+    </div>
+    <div><span class="lb">Nota o referencia</span><div class="fld"><span>Opcional — folio de transferencia, comentario…</span></div></div>
+    <div style="background:var(--soft);border-radius:12px;padding:13px 15px">
+      <div class="rw" style="padding:3px 0"><span class="l">Saldo anterior</span><span class="r tnum">$750.00</span></div>
+      <div class="rw" style="padding:3px 0"><span class="l">Abono</span><span class="r tnum" id="abonoPrev" style="color:var(--deep)">−$400.00</span></div>
+      <div class="rw" style="padding:7px 0 0;border-top:1px solid rgba(58,95,15,.22)"><span class="l" style="font-weight:800;color:var(--deep)">Saldo resultante</span><span class="r tnum" id="abonoResto" style="font-size:19px;color:var(--deep)">$350.00</span></div>
+    </div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn" type="button" data-close>Registrar e imprimir</button></div>
+</div></div>
+
+<div class="ov" id="mApertura"><div class="md" style="max-width:420px">
+  <div class="mh"><div><h3>Apertura de caja</h3><p>8 de septiembre de 2026 · 09:12</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div><span class="lb">Caja</span><div class="fld"><svg class="ic" style="width:14px;height:14px;color:var(--deep)"><use href="#i-cash"/></svg><span class="v">Caja 1 — Mostrador</span><span style="margin-left:auto;color:var(--ink3)">▾</span></div></div>
+    <div><span class="lb">Usuario responsable</span><div class="fld"><span style="width:22px;height:22px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-size:9px;font-weight:800">MG</span><span class="v">María G.</span><span class="cp ok" style="margin-left:auto">Sesión activa</span></div></div>
+    <div><span class="lb">Fondo inicial</span><div class="numin"><span>$</span><input type="text" value="1,500.00" inputmode="decimal"></div>
+      <div class="quick" style="margin-top:9px"><button type="button">$500</button><button type="button">$1,000</button><button type="button">$1,500</button><button type="button">$2,000</button></div>
+    </div>
+    <div style="background:var(--info-sf);border-radius:12px;padding:12px 14px;font-size:11.5px;color:var(--info);font-weight:600;line-height:1.5">Mientras la caja esté cerrada no se pueden registrar ventas. Así toda venta pertenece siempre a un corte.</div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-unlock"/></svg> Confirmar apertura</button></div>
+</div></div>
+
+<div class="ov" id="mCierre"><div class="md wide">
+  <div class="mh"><div><h3>Corte y cierre de caja</h3><p>Caja 1 · sesión #48 · abierta 09:12 por María G.</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" id="cierreCols">
+      <div style="background:var(--bg1);border-radius:12px;padding:13px 15px">
+        <span class="lb">Efectivo</span>
+        <div class="rw"><span class="l">Fondo</span><span class="r tnum">$1,500.00</span></div>
+        <div class="rw"><span class="l">Ventas efectivo (31)</span><span class="r tnum">$6,240.00</span></div>
+        <div class="rw"><span class="l">Abonos efectivo (4)</span><span class="r tnum">$1,900.00</span></div>
+        <div class="rw"><span class="l">Devoluciones</span><span class="r tnum" style="color:var(--danger)">−$260.00</span></div>
+        <div class="rw"><span class="l">Retiros</span><span class="r tnum" style="color:var(--danger)">−$980.00</span></div>
+        <div style="height:1px;background:var(--ln);margin:8px 0"></div>
+        <div class="rw"><span class="l" style="font-weight:800;color:var(--ink)">Esperado</span><span class="r tnum" style="font-size:18px">$8,400.00</span></div>
+      </div>
+      <div style="background:var(--bg1);border-radius:12px;padding:13px 15px">
+        <span class="lb">Otros métodos</span>
+        <div class="rw"><span class="l">Tarjeta crédito (9)</span><span class="r tnum">$3,180.00</span></div>
+        <div class="rw"><span class="l">Tarjeta débito (14)</span><span class="r tnum">$4,420.00</span></div>
+        <div class="rw"><span class="l">Transferencia (2)</span><span class="r tnum">$860.00</span></div>
+        <div style="height:1px;background:var(--ln);margin:8px 0"></div>
+        <div class="rw"><span class="l">A crédito (4)</span><span class="r tnum" style="color:var(--ink3)">$2,150.00</span></div>
+        <div class="rw"><span class="l" style="font-weight:800;color:var(--ink)">Vendido total</span><span class="r tnum" style="font-size:18px">$18,850.00</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="lb">Arqueo — conteo físico del cajón</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px" id="arqueoCols">
+        <div><span class="lb" style="font-size:9px">Contado</span><div class="numin" style="padding:9px 12px"><span style="font-size:13px">$</span><input id="arqContado" type="text" value="8,340.00" inputmode="decimal" style="font-size:17px"></div></div>
+        <div><span class="lb" style="font-size:9px">Esperado</span><div class="numin" style="padding:9px 12px;background:var(--bg2)"><span style="font-size:13px">$</span><input type="text" value="8,400.00" readonly style="font-size:17px;color:var(--ink2)"></div></div>
+        <div><span class="lb" style="font-size:9px">Diferencia</span><div class="numin" style="padding:9px 12px;border-color:var(--danger);background:var(--danger-sf)"><span style="font-size:13px;color:var(--danger)">−$</span><input id="arqDif" type="text" value="60.00" readonly style="font-size:17px;color:var(--danger)"></div></div>
+      </div>
+    </div>
+    <div class="fld" style="align-items:flex-start"><span style="font-size:11.5px;line-height:1.5">Nota obligatoria — <span class="v">«Faltante de $60: se cobró un Gatorade sin registrar, se repone mañana.»</span></span></div>
+    <p style="margin:0;font-size:10.5px;color:var(--warn);font-weight:600">Una diferencia distinta de cero exige nota y queda en la bitácora. El esperado nunca se corrige a mano.</p>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn ol" type="button"><svg class="ic" style="width:14px;height:14px"><use href="#i-print"/></svg> Imprimir corte</button><button class="btn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-lock"/></svg> Confirmar cierre</button></div>
+</div></div>
+
+<div class="ov" id="mProducto"><div class="md">
+  <div class="mh"><div><h3>Nuevo producto</h3><p>Se guarda en el catálogo del club</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div><span class="lb">Nombre</span><div class="fld"><span class="v">Overgrip Wilson Pro · negro</span></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">Categoría</span><div class="fld"><span class="v">Grips</span><span style="margin-left:auto;color:var(--ink3)">▾</span></div></div>
+      <div><span class="lb">Imagen</span><div class="fld" style="border-style:dashed;justify-content:center"><span>Arrastra o elige…</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">Precio de venta</span><div class="numin" style="padding:9px 12px"><span style="font-size:13px">$</span><input type="text" value="95.00" style="font-size:17px"></div></div>
+      <div><span class="lb">Costo <span class="cp" style="font-size:8.5px;margin-left:3px">permiso</span></span><div class="numin" style="padding:9px 12px"><span style="font-size:13px">$</span><input type="text" value="58.00" style="font-size:17px"><span class="cp ok" style="font-size:9px">39 %</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">SKU</span><div class="fld"><span class="v" style="font-family:var(--mono);font-size:11.5px">GRP-0101</span><span class="cp" style="margin-left:auto;font-size:9px">Generar</span></div></div>
+      <div><span class="lb">Código de barras</span><div class="fld"><svg class="ic" style="width:13px;height:13px;color:var(--deep)"><use href="#i-scan"/></svg><span class="v" style="font-family:var(--mono);font-size:11.5px">7501234567890</span></div></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="cp on">Controla inventario</span><span class="cp on">Retornable</span><span class="cp on">Activo en el POS</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">Existencia inicial</span><div class="numin" style="padding:9px 12px"><input type="text" value="12" style="font-size:17px"><span style="margin-left:auto;font-size:11px">pz</span></div></div>
+      <div><span class="lb">Stock mínimo</span><div class="numin" style="padding:9px 12px"><input type="text" value="8" style="font-size:17px"><span style="margin-left:auto;font-size:11px">alerta</span></div></div>
+    </div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn" type="button" data-close>Guardar producto</button></div>
+</div></div>
+
+<div class="ov" id="mEntrada"><div class="md">
+  <div class="mh"><div><h3>Entrada de mercancía</h3><p>Almacén Mostrador</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div><span class="lb">Producto</span><div class="fld"><svg class="ic" style="width:13px;height:13px"><use href="#i-search"/></svg><span class="v">Overgrip Wilson</span><span class="cp" style="margin-left:auto;font-size:9px">Existencia 3</span></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">Cantidad</span><div class="numin" style="padding:9px 12px"><input type="text" value="12" style="font-size:17px"><span style="margin-left:auto;font-size:11px">pz</span></div></div>
+      <div><span class="lb">Costo unitario</span><div class="numin" style="padding:9px 12px"><span style="font-size:13px">$</span><input type="text" value="58.00" style="font-size:17px"></div></div>
+    </div>
+    <div><span class="lb">Proveedor / referencia</span><div class="fld"><span class="v">Distribuidora Padel MX · factura 8842</span></div></div>
+    <div style="background:var(--soft);border-radius:12px;padding:12px 14px">
+      <div class="rw" style="padding:3px 0"><span class="l">Existencia actual</span><span class="r tnum">3</span></div>
+      <div class="rw" style="padding:3px 0"><span class="l">Entrada</span><span class="r tnum" style="color:var(--deep)">+12</span></div>
+      <div class="rw" style="padding:6px 0 0;border-top:1px solid rgba(58,95,15,.22)"><span class="l" style="font-weight:800;color:var(--deep)">Existencia resultante</span><span class="r tnum" style="font-size:18px;color:var(--deep)">15</span></div>
+    </div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn" type="button" data-close>Registrar entrada</button></div>
+</div></div>
+
+<div class="ov" id="mAjuste"><div class="md">
+  <div class="mh"><div><h3>Ajuste de inventario</h3><p>Requiere PIN de autorización</p></div><button class="xbtn" type="button" data-close><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div>
+  <div class="mb">
+    <div><span class="lb">Producto</span><div class="fld"><svg class="ic" style="width:13px;height:13px"><use href="#i-search"/></svg><span class="v">Overgrip Wilson</span><span class="cp" style="margin-left:auto;font-size:9px">Sistema: 4</span></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><span class="lb">Cantidad contada</span><div class="numin" style="padding:9px 12px"><input type="text" value="3" style="font-size:17px"><span style="margin-left:auto;font-size:11px">pz</span></div></div>
+      <div><span class="lb">Diferencia</span><div class="numin" style="padding:9px 12px;background:var(--danger-sf);border-color:var(--danger)"><input type="text" value="−1" readonly style="font-size:17px;color:var(--danger)"></div></div>
+    </div>
+    <div><span class="lb">Motivo</span><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="cp" type="button">Conteo</button><button class="cp on" type="button">Merma</button><button class="cp" type="button">Caducidad</button><button class="cp" type="button">Daño</button><button class="cp" type="button">Consumo interno</button></div></div>
+    <div><span class="lb">Detalle</span><div class="fld"><span class="v">Empaque dañado</span></div></div>
+    <div><span class="lb">PIN de autorización</span><div class="numin" style="padding:9px 12px;max-width:170px"><input type="password" value="••••" style="font-size:19px;letter-spacing:.3em"></div></div>
+  </div>
+  <div class="mf"><button class="btn ol" type="button" data-close>Cancelar</button><button class="btn" type="button" data-close>Aplicar ajuste</button></div>
+</div></div>
+<script>
+(function(){
+'use strict';
+
+/* ─────────── Datos de ejemplo ─────────── */
+var CATS = [
+  {k:'all',  n:'Todo',        t:'#F5F5F0'},
+  {k:'beb',  n:'Bebidas',     t:'#E6F0FA'},
+  {k:'sna',  n:'Snacks',      t:'#FDF1D6'},
+  {k:'pel',  n:'Pelotas',     t:'#EEF8D4'},
+  {k:'gri',  n:'Grips',       t:'#F3EAFB'},
+  {k:'rop',  n:'Ropa',        t:'#FBEAEA'},
+  {k:'acc',  n:'Accesorios',  t:'#EAF4F2'},
+  {k:'srv',  n:'Servicios',   t:'#EEF0F5'}
+];
+var CATT = {}; CATS.forEach(function(c){ CATT[c.k] = c.t; });
+
+var P = [
+  {id:1,  n:'Gatorade 600 ml',    c:'beb', p:35,  s:24, min:10, sku:'BEB-0012', bc:'7501055310333', e:'🥤'},
+  {id:2,  n:'Agua Ciel 1 L',      c:'beb', p:20,  s:40, min:15, sku:'BEB-0004', bc:'7501055363162', e:'💧'},
+  {id:3,  n:'Coca-Cola 355 ml',   c:'beb', p:28,  s:31, min:12, sku:'BEB-0021', bc:'7501055300020', e:'🥤'},
+  {id:4,  n:'Powerade 600 ml',    c:'beb', p:32,  s:6,  min:10, sku:'BEB-0033', bc:'7501055319114', e:'🧃'},
+  {id:5,  n:'Barra proteína',     c:'sna', p:45,  s:18, min:8,  sku:'SNA-0007', bc:'7622300441234', e:'🍫'},
+  {id:6,  n:'Cacahuates 60 g',    c:'sna', p:22,  s:27, min:10, sku:'SNA-0011', bc:'7501030410119', e:'🥜'},
+  {id:7,  n:'Bote Head Pro x3',   c:'pel', p:260, s:11, min:6,  sku:'PEL-0033', bc:'0726424881123', e:'🎾'},
+  {id:8,  n:'Bote Wilson x3',     c:'pel', p:240, s:7,  min:6,  sku:'PEL-0041', bc:'0097512550012', e:'🎾'},
+  {id:9,  n:'Bote Bullpadel x3',  c:'pel', p:255, s:3,  min:6,  sku:'PEL-0052', bc:'8434426110091', e:'🎾'},
+  {id:10, n:'Overgrip Wilson',    c:'gri', p:95,  s:3,  min:8,  sku:'GRP-0101', bc:'0097512334410', e:'🧵'},
+  {id:11, n:'Grip Bullpadel',     c:'gri', p:120, s:9,  min:6,  sku:'GRP-0114', bc:'8434426220118', e:'🧵'},
+  {id:12, n:'Pack overgrip x3',   c:'gri', p:250, s:14, min:5,  sku:'GRP-0130', bc:'0097512334588', e:'📦'},
+  {id:13, n:'Playera CourtBit',   c:'rop', p:320, s:12, min:5,  sku:'ROP-0201', bc:'7500000000121', e:'👕'},
+  {id:14, n:'Gorra CourtBit',     c:'rop', p:280, s:2,  min:5,  sku:'ROP-0210', bc:'7500000000138', e:'🧢'},
+  {id:15, n:'Muñequera par',      c:'acc', p:140, s:0,  min:4,  sku:'ACC-0210', bc:'0097512776601', e:'🎽'},
+  {id:16, n:'Toalla deportiva',   c:'acc', p:180, s:8,  min:4,  sku:'ACC-0225', bc:'7500000000442', e:'🧺'},
+  {id:17, n:'Renta de pala',      c:'srv', p:80,  s:null, min:0, sku:'SRV-0001', bc:'', e:'🏓'},
+  {id:18, n:'Encordado exprés',   c:'srv', p:250, s:null, min:0, sku:'SRV-0004', bc:'', e:'🔧'}
+];
+var PBYID = {}; P.forEach(function(x){ PBYID[x.id] = x; });
+
+var CLIENTES = [
+  {id:1, n:'Venta general',       tel:'',              saldo:0},
+  {id:2, n:'Christian Michell',   tel:'667 118 2204',  saldo:750},
+  {id:3, n:'Ana Beltrán',         tel:'667 220 9981',  saldo:4120},
+  {id:4, n:'Jorge Medina',        tel:'667 145 3320',  saldo:2880},
+  {id:5, n:'Sofía Ochoa',         tel:'667 908 1145',  saldo:410},
+  {id:6, n:'Luis Fernando Ríos',  tel:'667 331 0092',  saldo:0}
+];
+
+/* ─────────── Estado ─────────── */
+var cart = [];            // [{id, qty}]
+var cliente = CLIENTES[0];
+var descuento = 0;
+var catWeb = 'all', catDsk = 'all';
+var metodo = 'efectivo';
+var folioSeq = 149;
+var lastSale = null;
+
+/* ─────────── Utilidades ─────────── */
+function money(n){
+  return '$' + Number(n).toLocaleString('es-MX', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function parseNum(s){
+  var v = parseFloat(String(s).replace(/[^0-9.]/g, ''));
+  return isNaN(v) ? 0 : v;
+}
+function $(id){ return document.getElementById(id); }
+function stockOf(id){
+  var p = PBYID[id]; if(p.s === null) return null;
+  var inCart = 0;
+  cart.forEach(function(l){ if(l.id === id) inCart = l.qty; });
+  return p.s - inCart;
+}
+function subtotal(){
+  return cart.reduce(function(a,l){ return a + PBYID[l.id].p * l.qty; }, 0);
+}
+function total(){ return Math.max(0, subtotal() - descuento); }
+
+/* ─────────── Catálogo ─────────── */
+function stockChip(p){
+  if(p.s === null) return '<span class="cp if">Servicio</span>';
+  var left = stockOf(p.id);
+  if(left <= 0) return '<span class="cp bd">Agotado</span>';
+  if(p.s <= p.min) return '<span class="cp wr">' + left + ' pz · bajo</span>';
+  return '<span class="cp ok">' + left + ' pz</span>';
+}
+function renderCats(el, active, onPick){
+  el.innerHTML = '';
+  CATS.forEach(function(c){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cp' + (c.k === active ? ' on' : '');
+    b.textContent = c.n;
+    b.addEventListener('click', function(){ onPick(c.k); });
+    el.appendChild(b);
+  });
+}
+function renderGrid(gridEl, cat, query, emptyEl, countEl){
+  var q = (query || '').trim().toLowerCase();
+  var list = P.filter(function(p){
+    if(cat !== 'all' && p.c !== cat) return false;
+    if(!q) return true;
+    return p.n.toLowerCase().indexOf(q) > -1 || p.sku.toLowerCase().indexOf(q) > -1 || (p.bc && p.bc.indexOf(q) > -1);
+  });
+  gridEl.innerHTML = '';
+  list.forEach(function(p){
+    var left = stockOf(p.id);
+    var out = (p.s !== null && left <= 0);
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pcard';
+    b.disabled = out;
+    b.innerHTML =
+      '<span class="th" style="background:' + CATT[p.c] + '">' + p.e + '</span>' +
+      '<span class="nm">' + p.n + '</span>' +
+      stockChip(p) +
+      '<span class="bt"><span class="pr">' + money(p.p) + '</span>' +
+      (p.bc ? '<span class="bc">' + p.bc.slice(-6) + '</span>' : '') + '</span>';
+    b.addEventListener('click', function(){ addToCart(p.id); });
+    gridEl.appendChild(b);
+  });
+  if(emptyEl) emptyEl.style.display = list.length ? 'none' : 'block';
+  if(countEl) countEl.textContent = list.length + ' producto' + (list.length === 1 ? '' : 's');
+}
+
+/* ─────────── Carrito ─────────── */
+function addToCart(id){
+  var p = PBYID[id];
+  if(p.s !== null && stockOf(id) <= 0) return;
+  var line = null;
+  cart.forEach(function(l){ if(l.id === id) line = l; });
+  if(line) line.qty += 1; else cart.push({id:id, qty:1});
+  renderAll();
+}
+function setQty(id, d){
+  for(var i = 0; i < cart.length; i++){
+    if(cart[i].id === id){
+      if(d > 0 && PBYID[id].s !== null && stockOf(id) <= 0) return;
+      cart[i].qty += d;
+      if(cart[i].qty <= 0) cart.splice(i, 1);
+      break;
+    }
+  }
+  renderAll();
+}
+function removeLine(id){
+  cart = cart.filter(function(l){ return l.id !== id; });
+  renderAll();
+}
+function clearCart(){ cart = []; descuento = 0; cliente = CLIENTES[0]; renderAll(); }
+
+function lineNode(l, compact){
+  var p = PBYID[l.id];
+  var d = document.createElement('div');
+  d.className = 'li';
+  d.innerHTML =
+    '<div style="min-width:0"><div class="nm">' + p.n + '</div><div class="su">' + money(p.p) + ' c/u</div></div>' +
+    '<div class="tot">' + money(p.p * l.qty) + '</div>' +
+    '<div class="ctl">' +
+      '<span class="stp">' +
+        '<button type="button" data-a="m"><svg class="ic" style="width:11px;height:11px"><use href="#i-minus"/></svg></button>' +
+        '<span class="q">' + l.qty + '</span>' +
+        '<button type="button" data-a="p"><svg class="ic" style="width:11px;height:11px"><use href="#i-plus"/></svg></button>' +
+      '</span>' +
+      '<button class="rm" type="button" data-a="r"><svg class="ic" style="width:13px;height:13px"><use href="#i-x"/></svg></button>' +
+    '</div>';
+  d.querySelector('[data-a="m"]').addEventListener('click', function(){ setQty(l.id, -1); });
+  d.querySelector('[data-a="p"]').addEventListener('click', function(){ setQty(l.id, 1); });
+  d.querySelector('[data-a="r"]').addEventListener('click', function(){ removeLine(l.id); });
+  return d;
+}
+
+function renderCart(listEl, countEl, subEl, discEl, rowDiscEl, totEl, cobrarEl, cuentaEl, custEl){
+  listEl.innerHTML = '';
+  if(!cart.length){
+    var e = document.createElement('div');
+    e.className = 'empty';
+    e.innerHTML = 'Carrito vacío<br><span style="opacity:.75">Escanea o elige un producto</span>';
+    listEl.appendChild(e);
+  } else {
+    cart.forEach(function(l){ listEl.appendChild(lineNode(l)); });
+  }
+  var items = cart.reduce(function(a,l){ return a + l.qty; }, 0);
+  if(countEl) countEl.textContent = items + ' artículo' + (items === 1 ? '' : 's');
+  if(subEl) subEl.textContent = money(subtotal());
+  if(discEl) discEl.textContent = '−' + money(descuento);
+  if(rowDiscEl) rowDiscEl.style.display = descuento > 0 ? '' : 'none';
+  if(totEl) totEl.textContent = money(total());
+  if(cobrarEl){
+    cobrarEl.disabled = !cart.length;
+    cobrarEl.innerHTML = cart.length
+      ? (cobrarEl.dataset.big === '1'
+          ? 'COBRAR ' + money(total()) + ' <span class="kbd" style="background:rgba(0,0,0,.12);border-color:transparent">Enter</span>'
+          : 'Cobrar ' + money(total()))
+      : (cobrarEl.dataset.big === '1' ? 'COBRAR' : 'Cobrar');
+  }
+  if(cuentaEl) cuentaEl.disabled = !cart.length;
+  if(custEl) custEl.textContent = cliente.n;
+}
+
+function renderAll(){
+  renderGrid($('posGrid'), catWeb, $('posSearch').value, $('posEmpty'), $('posCount'));
+  renderGrid($('dskGrid'), catDsk, $('dskSearch').value, null, null);
+  renderCart($('cartList'), $('cartCount'), $('sumSub'), $('sumDisc'), $('rowDisc'), $('sumTotal'), $('btnCobrar'), $('btnCuenta'), $('custName'));
+  renderCart($('dskList'), $('dskCount'), $('dskSub'), $('dskDisc'), $('dskRowDisc'), $('dskTotal'), $('dskCobrar'), $('dskCuenta'), $('dskCustName'));
+  var bdg = $('custBadge');
+  if(cliente.saldo > 0){ bdg.style.display = ''; bdg.className = 'cp bd'; bdg.textContent = 'Debe ' + money(cliente.saldo); }
+  else bdg.style.display = 'none';
+}
+
+/* ─────────── Tablas de catálogo / stock ─────────── */
+function fillTables(){
+  var h1 = '<thead><tr><th>Producto</th><th>SKU</th><th>Código</th><th>Categoría</th><th class="n">Precio</th><th class="n">Costo</th><th class="n">Existencia</th><th>Estado</th></tr></thead><tbody>';
+  var h2 = '<thead><tr><th>Producto</th><th>SKU</th><th>Categoría</th><th class="n">Existencia</th><th class="n">Mínimo</th><th class="n">Costo</th><th class="n">Valor</th></tr></thead><tbody>';
+  var r1 = '', r2 = '';
+  P.forEach(function(p){
+    var cost = Math.round(p.p * 0.62);
+    var catName = ''; CATS.forEach(function(c){ if(c.k === p.c) catName = c.n; });
+    r1 += '<tr><td>' + p.e + ' ' + p.n + '</td><td style="font-family:var(--mono);font-size:10.5px">' + p.sku + '</td>' +
+          '<td style="font-family:var(--mono);font-size:10.5px">' + (p.bc || '—') + '</td><td>' + catName + '</td>' +
+          '<td class="n">' + money(p.p) + '</td><td class="n">' + (p.s === null ? '—' : money(cost)) + '</td>' +
+          '<td class="n">' + (p.s === null ? '—' : p.s) + '</td><td>' + stockChip(p) + '</td></tr>';
+    if(p.s !== null){
+      r2 += '<tr><td>' + p.e + ' ' + p.n + '</td><td style="font-family:var(--mono);font-size:10.5px">' + p.sku + '</td><td>' + catName + '</td>' +
+            '<td class="n">' + stockChip(p) + '</td><td class="n">' + p.min + '</td><td class="n">' + money(cost) + '</td>' +
+            '<td class="n">' + money(cost * p.s) + '</td></tr>';
+    }
+  });
+  $('tblProductos').innerHTML = h1 + r1 + '</tbody>';
+  $('tblStock').innerHTML = h2 + r2 + '</tbody>';
+}
+
+/* ─────────── Ticket ─────────── */
+function pad(s, n){ s = String(s); while(s.length < n) s = ' ' + s; return s; }
+function padr(s, n){ s = String(s); if(s.length > n) return s.slice(0, n); while(s.length < n) s = s + ' '; return s; }
+function buildTicket(sale){
+  var W = 30, L = [];
+  L.push('      CLUB PÁDEL EJEMPLO');
+  L.push('   Av. Ejemplo 1234, Culiacán');
+  L.push('       RFC XAXX010101000');
+  L.push('- - - - - - - - - - - - - - -');
+  L.push('Ticket   ' + sale.folio);
+  L.push('08/09/2026            ' + sale.hora);
+  L.push('Cajero   María G.');
+  if(sale.cliente !== 'Venta general') L.push('Cliente  ' + sale.cliente);
+  L.push('- - - - - - - - - - - - - - -');
+  sale.items.forEach(function(it){
+    L.push(padr(it.qty + '  ' + it.nombre, 20) + pad(it.importe.toFixed(2), 9));
+  });
+  L.push('- - - - - - - - - - - - - - -');
+  L.push(padr('Subtotal', 20) + pad(sale.subtotal.toFixed(2), 9));
+  if(sale.descuento > 0) L.push(padr('Descuento', 20) + pad('-' + sale.descuento.toFixed(2), 9));
+  L.push(padr('TOTAL', 20) + pad(sale.total.toFixed(2), 9));
+  L.push('');
+  if(sale.metodo === 'cuenta'){
+    L.push(padr('CARGO A CUENTA', 20) + pad(sale.total.toFixed(2), 9));
+    L.push(padr('Saldo anterior', 20) + pad(sale.saldoPrev.toFixed(2), 9));
+    L.push(padr('SALDO PENDIENTE', 20) + pad((sale.saldoPrev + sale.total).toFixed(2), 9));
+  } else {
+    L.push(padr(sale.metodoLabel, 20) + pad(sale.recibido.toFixed(2), 9));
+    L.push(padr('Cambio', 20) + pad(sale.cambio.toFixed(2), 9));
+  }
+  L.push('- - - - - - - - - - - - - - -');
+  L.push('    Gracias por su compra');
+  L.push('  courtbit.mx/t/' + sale.folio);
+  var txt = L.join('\n');
+  txt = txt.replace('CLUB PÁDEL EJEMPLO', '<b>CLUB PÁDEL EJEMPLO</b>');
+  txt = txt.replace('Ticket   ' + sale.folio, 'Ticket   <b>' + sale.folio + '</b>');
+  txt = txt.replace(padr('TOTAL', 20) + pad(sale.total.toFixed(2), 9), '<b>' + padr('TOTAL', 20) + pad(sale.total.toFixed(2), 9) + '</b>');
+  if(sale.metodo === 'cuenta'){
+    var sp = padr('SALDO PENDIENTE', 20) + pad((sale.saldoPrev + sale.total).toFixed(2), 9);
+    txt = txt.replace(sp, '<b>' + sp + '</b>');
+  }
+  return txt;
+}
+
+/* ─────────── Modales ─────────── */
+function openModal(id){
+  var m = $(id); if(!m) return;
+  if(id === 'mTicket'){
+    $('ticketTape').innerHTML = lastSale ? buildTicket(lastSale) : buildTicket(demoSale());
+  }
+  m.classList.add('on');
+}
+function closeModal(m){ m.classList.remove('on'); }
+function closeAll(){
+  Array.prototype.forEach.call(document.querySelectorAll('.ov.on'), function(m){ m.classList.remove('on'); });
+}
+function demoSale(){
+  return {folio:'A-000148', hora:'20:14', cliente:'Venta general',
+    items:[{qty:2,nombre:'Gatorade 600ml',importe:70},{qty:1,nombre:'Overgrip Wilson',importe:95},{qty:1,nombre:'Bote Head Pro',importe:260}],
+    subtotal:425, descuento:25, total:400, metodo:'efectivo', metodoLabel:'Efectivo', recibido:500, cambio:100, saldoPrev:0};
+}
+
+/* ─────────── Cobro ─────────── */
+function setMetodo(m){
+  metodo = m;
+  Array.prototype.forEach.call(document.querySelectorAll('#mPago .pm'), function(b){
+    b.setAttribute('aria-pressed', b.dataset.pm === m ? 'true' : 'false');
+  });
+  $('pagoEfectivo').style.display = (m === 'efectivo') ? '' : 'none';
+  $('pagoCuentaInfo').style.display = (m === 'cuenta') ? '' : 'none';
+  calcCambio();
+}
+function calcCambio(){
+  var r = parseNum($('pagoRecibido').value);
+  var c = Math.max(0, r - total());
+  $('pagoCambio').textContent = money(c);
+}
+function openPago(forceCuenta){
+  if(!cart.length) return;
+  var t = total();
+  $('pagoTotal').textContent = money(t);
+  $('pagoCli').textContent = cliente.n === 'Venta general' ? 'Venta general' : (cliente.n + ' · saldo ' + money(cliente.saldo));
+  var pmC = $('pmCuenta');
+  var hasCli = cliente.id !== 1;
+  pmC.disabled = !hasCli;
+  $('pmCuentaSm').textContent = hasCli ? ('Saldo ' + money(cliente.saldo)) : 'Requiere cliente';
+  $('pagoRecibido').value = '';
+  setMetodo(forceCuenta && hasCli ? 'cuenta' : 'efectivo');
+  buildQuick(t);
+  openModal('mPago');
+}
+function buildQuick(t){
+  var el = $('pagoQuick'); el.innerHTML = '';
+  var opts = [t, Math.ceil(t / 50) * 50, Math.ceil(t / 100) * 100, Math.ceil(t / 500) * 500, 1000];
+  var seen = {};
+  opts.forEach(function(v){
+    if(v < t || seen[v]) return; seen[v] = 1;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = (v === t) ? 'Exacto' : money(v);
+    b.addEventListener('click', function(){ $('pagoRecibido').value = v.toFixed(2); calcCambio(); });
+    el.appendChild(b);
+  });
+}
+function confirmarVenta(){
+  var t = total();
+  var recibido = (metodo === 'efectivo') ? Math.max(parseNum($('pagoRecibido').value), t) : t;
+  var labels = {efectivo:'Efectivo', tarjeta:'Tarjeta', transferencia:'Transferencia', cuenta:'A cuenta'};
+  folioSeq += 1;
+  lastSale = {
+    folio: 'A-' + String(folioSeq).padStart(6, '0'),
+    hora: '20:' + String(14 + (folioSeq % 40)).slice(-2),
+    cliente: cliente.n,
+    items: cart.map(function(l){ return {qty:l.qty, nombre:PBYID[l.id].n, importe:PBYID[l.id].p * l.qty}; }),
+    subtotal: subtotal(), descuento: descuento, total: t,
+    metodo: metodo, metodoLabel: labels[metodo],
+    recibido: recibido, cambio: Math.max(0, recibido - t),
+    saldoPrev: cliente.saldo
+  };
+  // descontar existencia del catálogo de ejemplo
+  cart.forEach(function(l){ var p = PBYID[l.id]; if(p.s !== null) p.s = Math.max(0, p.s - l.qty); });
+  if(metodo === 'cuenta') cliente.saldo += t;
+
+  closeAll();
+  $('exitoFolio').textContent = lastSale.folio;
+  $('exitoDetalle').textContent = (metodo === 'cuenta')
+    ? money(t) + ' cargado a la cuenta de ' + cliente.n + ' · saldo ' + money(cliente.saldo)
+    : money(t) + ' · ' + labels[metodo] + (metodo === 'efectivo' ? ' · cambio ' + money(lastSale.cambio) : '');
+  openModal('mExito');
+  clearCart();
+}
+
+/* ─────────── Navegación ─────────── */
+function markNav(v){
+  Array.prototype.forEach.call(document.querySelectorAll('.top nav button'), function(b){
+    if(b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+}
+function showView(v){
+  var el = document.getElementById('v-' + v);
+  if(!el) return;
+  markNav(v);
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function showPane(p){
+  Array.prototype.forEach.call(document.querySelectorAll('.pane'), function(el){
+    el.classList.toggle('on', el.id === 'p-' + p);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.nvi'), function(b){
+    if(b.dataset.pane === p) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+}
+
+/* ─────────── Cableado ─────────── */
+document.addEventListener('click', function(e){
+  var v = e.target.closest('[data-view]');
+  if(v){ showView(v.dataset.view); return; }
+  var pn = e.target.closest('[data-pane]');
+  if(pn){ showPane(pn.dataset.pane); return; }
+  var pg = e.target.closest('[data-pane-go]');
+  if(pg){ showPane(pg.dataset.paneGo); return; }
+  var md = e.target.closest('[data-modal]');
+  if(md){ closeAll(); openModal(md.dataset.modal); return; }
+  var cl = e.target.closest('[data-close]');
+  if(cl){ closeModal(cl.closest('.ov')); return; }
+  if(e.target.classList && e.target.classList.contains('ov')) closeModal(e.target);
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(); });
+
+$('posSearch').addEventListener('input', function(){
+  var q = this.value.trim();
+  var hit = null;
+  P.forEach(function(p){ if(p.bc && p.bc === q) hit = p; });
+  if(hit){ addToCart(hit.id); this.value = ''; return; }
+  renderGrid($('posGrid'), catWeb, this.value, $('posEmpty'), $('posCount'));
+});
+$('dskSearch').addEventListener('input', function(){
+  var q = this.value.trim(), hit = null;
+  P.forEach(function(p){ if(p.bc && p.bc === q) hit = p; });
+  if(hit){ addToCart(hit.id); this.value = ''; return; }
+  renderGrid($('dskGrid'), catDsk, this.value, null, null);
+});
+
+$('btnCobrar').addEventListener('click', function(){ openPago(false); });
+$('btnCuenta').addEventListener('click', function(){
+  if(cliente.id === 1){ openModal('mCliente'); return; }
+  openPago(true);
+});
+$('btnClear').addEventListener('click', clearCart);
+$('btnDisc').addEventListener('click', function(){
+  descuento = descuento > 0 ? 0 : Math.min(25, subtotal());
+  renderAll();
+});
+$('dskCobrar').dataset.big = '1';
+$('dskCobrar').addEventListener('click', function(){ openPago(false); });
+$('dskCuenta').addEventListener('click', function(){
+  if(cliente.id === 1){ openModal('mCliente'); return; }
+  openPago(true);
+});
+$('dskClear').addEventListener('click', clearCart);
+$('custBtn').addEventListener('click', function(){ openModal('mCliente'); });
+$('dskCustBtn').addEventListener('click', function(){ openModal('mCliente'); });
+
+Array.prototype.forEach.call(document.querySelectorAll('#mPago .pm'), function(b){
+  b.addEventListener('click', function(){ if(!b.disabled) setMetodo(b.dataset.pm); });
+});
+$('pagoRecibido').addEventListener('input', calcCambio);
+$('pagoConfirmar').addEventListener('click', confirmarVenta);
+$('pagoMixto').addEventListener('change', function(){
+  $('pagoCuentaInfo').style.display = 'none';
+  if(this.checked){
+    $('pagoCuentaInfo').style.display = '';
+    $('pagoCuentaInfo').style.background = 'var(--info-sf)';
+    $('pagoCuentaInfo').style.color = 'var(--info)';
+    $('pagoCuentaInfo').innerHTML = 'Pago combinado: el cajero reparte el total entre dos métodos — por ejemplo <b>$200 en efectivo y $200 con tarjeta</b>. La suma debe cuadrar con el total antes de confirmar.';
+  } else {
+    $('pagoCuentaInfo').style.background = 'var(--warn-sf)';
+    $('pagoCuentaInfo').style.color = 'var(--warn)';
+    $('pagoCuentaInfo').innerHTML = 'Esta venta se carga a la cuenta del cliente. <b>No entra dinero a la caja</b> y no aparece en el corte de efectivo — se registra como saldo pendiente y afecta el corte cuando el cliente abone.';
+    setMetodo(metodo);
+  }
+});
+
+// abono
+function recalcAbono(){
+  var m = Math.min(parseNum($('abonoMonto').value), 750);
+  $('abonoPrev').textContent = '−' + money(m);
+  $('abonoResto').textContent = money(750 - m);
+}
+$('abonoMonto').addEventListener('input', recalcAbono);
+$('abonoLiquidar').addEventListener('click', function(){ $('abonoMonto').value = '750.00'; recalcAbono(); });
+
+// arqueo
+$('arqContado').addEventListener('input', function(){
+  var d = 8400 - parseNum(this.value);
+  var el = $('arqDif'), box = el.parentNode;
+  el.value = Math.abs(d).toFixed(2);
+  box.previousElementSibling;
+  var sign = box.querySelector('span');
+  if(d > 0){ sign.textContent = '−$'; box.style.borderColor = 'var(--danger)'; box.style.background = 'var(--danger-sf)'; el.style.color = 'var(--danger)'; sign.style.color = 'var(--danger)'; }
+  else if(d < 0){ sign.textContent = '+$'; box.style.borderColor = 'var(--warn)'; box.style.background = 'var(--warn-sf)'; el.style.color = 'var(--warn)'; sign.style.color = 'var(--warn)'; }
+  else { sign.textContent = '$'; box.style.borderColor = 'var(--deep)'; box.style.background = 'var(--soft)'; el.style.color = 'var(--deep)'; sign.style.color = 'var(--deep)'; }
+});
+
+// lista de clientes en el modal
+(function(){
+  var el = $('cliList');
+  CLIENTES.forEach(function(c){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cust';
+    b.style.padding = '10px 12px';
+    b.innerHTML =
+      '<span style="width:28px;height:28px;border-radius:999px;background:var(--soft);color:var(--deep);display:grid;place-items:center;font-size:10px;font-weight:800">' +
+        (c.id === 1 ? '—' : c.n.split(' ').map(function(w){ return w[0]; }).slice(0,2).join('')) + '</span>' +
+      '<span style="flex:1;min-width:0"><span class="n" style="display:block">' + c.n + '</span>' +
+      '<span style="font-size:10px;color:var(--ink3)">' + (c.tel || 'Sin cliente asociado') + '</span></span>' +
+      (c.saldo > 0 ? '<span class="cp bd">Debe ' + money(c.saldo) + '</span>' : '');
+    b.addEventListener('click', function(){ cliente = c; renderAll(); closeAll(); });
+    el.appendChild(b);
+  });
+})();
+
+(function(){
+  function bindWeb(){ renderCats($('posCats'), catWeb, function(k){ catWeb = k; bindWeb(); renderAll(); }); }
+  function bindDsk(){ renderCats($('dskCats'), catDsk, function(k){ catDsk = k; bindDsk(); renderAll(); }); }
+  bindWeb(); bindDsk();
+})();
+
+/* scroll-spy del switcher superior */
+(function(){
+  var ids = ['propuesta','pos','desktop'];
+  var els = ids.map(function(i){ return document.getElementById('v-' + i); }).filter(Boolean);
+  if(!els.length || !('IntersectionObserver' in window)) return;
+  function pick(){
+    var best = els[0], bestTop = -Infinity;
+    els.forEach(function(el){
+      var t = el.getBoundingClientRect().top - 90;
+      if(t <= 0 && t > bestTop){ bestTop = t; best = el; }
+    });
+    markNav(best.id.replace('v-', ''));
+  }
+  var t = null;
+  window.addEventListener('scroll', function(){
+    if(t) return;
+    t = setTimeout(function(){ t = null; pick(); }, 120);
+  }, {passive:true});
+  pick();
+})();
+fillTables();
+renderAll();
+})();
+</script>
+</body>
+</html>
