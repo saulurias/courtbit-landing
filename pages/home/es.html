@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>CourtBit — Software para clubes y organizadores de padel | Reservas, academias y torneos</title>
-  <meta name="description" content="La plataforma de padel en México. Reservas, academias y competencias en una sola plataforma. Planes para clubes y organizadores. Pagos directos a Stripe — CourtBit solo cobra 4% al pagador.">
+  <meta name="description" content="La plataforma de padel en México. Reservas, academias y competencias en una sola plataforma. Planes para clubes y organizadores. Cobra con Stripe o MercadoPago — CourtBit solo cobra 4% al pagador.">
   <link rel="canonical" href="https://courtbit.com.mx/">
   <link rel="alternate" hreflang="es" href="https://courtbit.com.mx/">
   <link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/">
@@ -17,7 +17,7 @@
   <meta property="og:locale" content="es_MX">
   <meta property="og:url" content="https://courtbit.com.mx/">
   <meta property="og:title" content="CourtBit — Reservas, academias y torneos en una sola plataforma de padel">
-  <meta property="og:description" content="Reservas, academias y competencias para tu club. Planes para clubes y organizadores. Pagos directos a Stripe del club; CourtBit cobra 4% al pagador, nunca al club. En efectivo y transferencia, cero fees.">
+  <meta property="og:description" content="Reservas, academias y competencias para tu club. Planes para clubes y organizadores. Pagos directos a la cuenta Stripe o MercadoPago del club; CourtBit cobra 4% al pagador, nunca al club. En efectivo y transferencia, cero fees.">
   <meta property="og:image" content="https://courtbit.com.mx/Assets/marketing/og/og-home.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -28,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://courtbit.com.mx/">
   <meta name="twitter:title" content="CourtBit — Plataforma de padel para clubes y organizadores">
-  <meta name="twitter:description" content="Reservas, academias y torneos en una sola plataforma. Planes para clubes y organizadores. Pagos directos a Stripe; 4% al pagador.">
+  <meta name="twitter:description" content="Reservas, academias y torneos en una sola plataforma. Planes para clubes y organizadores. Cobra con Stripe o MercadoPago; 4% al pagador.">
   <meta name="twitter:image" content="https://courtbit.com.mx/Assets/marketing/og/og-home.jpg">
 
   <!-- Favicons -->
@@ -51,7 +51,7 @@
     "operatingSystem": "Web, iOS, Android",
     "url": "https://courtbit.com.mx/",
     "image": "https://courtbit.com.mx/Assets/marketing/hero/hero-clubes.png",
-    "description": "Plataforma de padel para clubes y organizadores: reservas, academias y competencias en una sola plataforma. Planes para clubes y organizadores. Pagos directos a Stripe.",
+    "description": "Plataforma de padel para clubes y organizadores: reservas, academias y competencias en una sola plataforma. Planes para clubes y organizadores. Cobra con Stripe o MercadoPago.",
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "MXN",
@@ -71,7 +71,7 @@
     "alternateName": "Courtbit",
     "url": "https://courtbit.com.mx/",
     "logo": "https://courtbit.com.mx/Assets/logo.png",
-    "description": "Plataforma de padel para clubes y organizadores en México: reservas de cancha, gestión de academias y organización de torneos y ligas, con app nativa (iOS y Android) y panel web. Pagos directos a la cuenta de Stripe del club.",
+    "description": "Plataforma de padel para clubes y organizadores en México: reservas de cancha, gestión de academias y organización de torneos y ligas, con app nativa (iOS y Android) y panel web. Pagos directos a la cuenta de Stripe o MercadoPago del club.",
     "areaServed": "MX",
     "knowsAbout": ["reservas de padel", "academias de padel", "torneos de padel", "ligas de padel", "liga americana de padel"],
     "sameAs": [
@@ -1116,6 +1116,122 @@
       line-height: 1.6;
     }
 
+    /* ─── Payment processors (Stripe · MercadoPago) ─── */
+    .e-proc-section {
+      padding: 96px 0;
+      background: var(--bg-tint);
+      border-bottom: 1px solid var(--border);
+    }
+    .e-proc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .e-proc-card {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      overflow: hidden;
+      transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 220ms;
+    }
+    .e-proc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: var(--proc);
+    }
+    .e-proc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px -18px rgba(15, 29, 77, 0.28);
+    }
+    .e-proc-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1.5px dashed var(--border);
+    }
+    .e-proc-mark {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--proc);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9375rem;
+      letter-spacing: -0.02em;
+    }
+    .e-proc-name {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.022em;
+      color: var(--navy);
+    }
+    .e-proc-tag {
+      font-size: 0.6875rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: var(--navy);
+    }
+    .e-proc-sub {
+      margin: 4px 0 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .e-proc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .e-proc-list li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+    }
+    .e-proc-list li::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 0.4em;
+      width: 13px;
+      height: 7px;
+      border-left: 2.2px solid var(--proc);
+      border-bottom: 2.2px solid var(--proc);
+      transform: rotate(-45deg);
+    }
+    .e-proc-note {
+      max-width: 780px;
+      margin: 30px auto 0;
+      text-align: center;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .e-proc-note b { color: var(--text-soft); font-weight: 700; }
+
     /* ─── Product showcase ─── */
     .e-showcase {
       padding: 96px 0;
@@ -1998,6 +2114,7 @@
       .e-ring-val b { font-size: 1.15rem; }
       .e-chip--league { display: none; }
       .e-steps { grid-template-columns: 1fr; }
+      .e-proc-grid { grid-template-columns: 1fr; }
       .e-audience-grid { grid-template-columns: 1fr; }
       .e-test-grid { grid-template-columns: 1fr; }
       .e-test-card,
@@ -2089,10 +2206,11 @@
       .e-hero-grid > div:last-child { display: none; }
       .e-section-title { font-size: clamp(1.625rem, 5.5vw, 2.25rem); }
       .e-section-desc { font-size: 1rem; padding: 0 8px; }
-      .e-compare-section, .e-steps-section, .e-audiences, .e-pricing-why, .e-testimonials, .e-showcase, .e-final {
+      .e-compare-section, .e-steps-section, .e-audiences, .e-pricing-why, .e-proc-section, .e-testimonials, .e-showcase, .e-final {
         padding: 44px 0;
       }
       .e-pricing-why-card { padding: 24px; }
+      .e-proc-card { padding: 22px; }
       .e-pricing-why-card h3 { font-size: 1.25rem; }
       .e-mock-tile { padding: 20px; }
       .e-mock-tile h4 { font-size: 1rem; }
@@ -2276,14 +2394,14 @@
               </svg>
             </div>
 
-            <!-- Pago recibido → Stripe -->
+            <!-- Pago recibido → cuenta del club (Stripe o MercadoPago) -->
             <div class="e-chip e-chip--pay">
               <span class="e-chip-ico">
                 <svg viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
               </span>
               <span class="e-chip-tx">
                 <span class="t">Pago recibido</span>
-                <span class="v">$480 <small>→ a tu Stripe</small></span>
+                <span class="v">$480 <small>→ directo a tu cuenta</small></span>
               </span>
             </div>
 
@@ -2318,7 +2436,7 @@
           <div class="e-float-card">
             <div class="label">Tu club</div>
             <div class="price">4% <small>al jugador, nunca al club</small></div>
-            <div class="meta">El dinero llega directo a tu Stripe. El jugador paga <b>4%</b> solo si usa tarjeta.</div>
+            <div class="meta">El dinero llega directo a tu Stripe o MercadoPago. El jugador paga <b>4%</b> solo si usa tarjeta.</div>
           </div>
         </div>
       </div>
@@ -2376,8 +2494,8 @@
         </div>
         <div class="e-step">
           <span class="num">2</span>
-          <h3>Conecta Stripe</h3>
-          <p>El dinero llega directo a tu cuenta. CourtBit no lo toca.</p>
+          <h3>Conecta tus cobros</h3>
+          <p>Stripe o MercadoPago, tú eliges. El dinero llega directo a tu cuenta; CourtBit no lo toca.</p>
         </div>
         <div class="e-step">
           <span class="num">3</span>
@@ -2388,20 +2506,65 @@
     </div>
   </section>
 
+  <!-- 6.2 PAYMENT PROCESSORS — Stripe · MercadoPago -->
+  <section class="e-proc-section" id="cobros">
+    <div class="container">
+      <div class="e-section-header" style="text-align:center; max-width:720px; margin: 0 auto 40px;">
+        <span class="e-eyebrow" style="margin-left:auto; margin-right:auto;"><span class="dot"></span> Cobros</span>
+        <h2 class="e-section-title">Stripe o <em>MercadoPago</em>. Tú eliges.</h2>
+        <p class="e-section-desc">Conecta la cuenta que ya usas y empieza a cobrar con tarjeta el mismo día. En los dos casos el dinero llega directo a ti: CourtBit nunca lo retiene.</p>
+      </div>
+
+      <div class="e-proc-grid">
+        <article class="e-proc-card" style="--proc:#635BFF;">
+          <header class="e-proc-head">
+            <span class="e-proc-mark" aria-hidden="true">S</span>
+            <div>
+              <h3 class="e-proc-name">Stripe</h3>
+              <p class="e-proc-sub">Stripe Connect · el estándar global</p>
+            </div>
+          </header>
+          <ul class="e-proc-list">
+            <li>Tarjeta de crédito y débito</li>
+            <li>Depósitos automáticos a tu banco</li>
+            <li>Cobro nativo dentro de la app de jugadores</li>
+          </ul>
+        </article>
+
+        <article class="e-proc-card" style="--proc:#009EE3;">
+          <header class="e-proc-head">
+            <span class="e-proc-mark" aria-hidden="true">MP</span>
+            <div>
+              <h3 class="e-proc-name">MercadoPago <span class="e-proc-tag">Nuevo</span></h3>
+              <p class="e-proc-sub">Conectas tu cuenta en un click</p>
+            </div>
+          </header>
+          <ul class="e-proc-list">
+            <li>Tarjeta de crédito y débito</li>
+            <li>El dinero cae en tu propia cuenta MercadoPago</li>
+            <li>La cuenta que tu club ya usa en México</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="e-proc-note"><b>Un procesador activo a la vez</b>, y lo cambias cuando quieras desde tu dashboard. Con Stripe el cobro es nativo dentro de la app; con MercadoPago se abre una hoja de pago segura sin salir de CourtBit. Efectivo y transferencia siguen sin comisión.</p>
+    </div>
+  </section>
+
   <!-- 6.5 PRICING MODEL — gratis vs pago -->
   <section class="e-pricing-why" style="padding: 96px 0; background: var(--paper);">
     <div class="container">
       <div class="e-section-header">
         <span class="e-eyebrow"><span class="dot"></span> Nuestro modelo</span>
         <h2 class="e-section-title">Pagas según <em>cómo operas</em>.</h2>
-        <p class="e-section-desc">Planes a la medida de tu club, tu academia o tu torneo. El dinero de tus cobros llega directo a tu Stripe; CourtBit solo cobra 4% al pagador, nunca al club.</p>
+        <p class="e-section-desc">Planes a la medida de tu club, tu academia o tu torneo. El dinero de tus cobros llega directo a tu Stripe o MercadoPago; CourtBit solo cobra 4% al pagador, nunca al club.</p>
       </div>
 
       <div class="e-pricing-why-grid">
         <div class="e-pricing-why-card">
           <div class="e-pricing-why-badge e-pricing-why-badge-lime">Planes para tu club</div>
           <h3>Clubes y academias</h3>
-          <p>Al club <b>nunca le cobramos comisión.</b> El jugador o alumno paga 4% solo si usa tarjeta. Efectivo y transferencia: cero. Pagos directos a tu Stripe.</p>
+          <p>Al club <b>nunca le cobramos comisión.</b> El jugador o alumno paga 4% solo si usa tarjeta. Efectivo y transferencia: cero. Pagos directos a tu Stripe o MercadoPago.</p>
         </div>
         <div class="e-pricing-why-card dark">
           <div class="e-pricing-why-badge e-pricing-why-badge-lime">4 planes · Desde $0/mes</div>
@@ -2424,7 +2587,7 @@
           <span class="e-eyebrow"><span class="dot"></span> Reservas · Para el club</span>
           <h2>Tu calendario, <em>tus reglas</em>.</h2>
           <p style="color:var(--text-soft); font-size:1.0625rem; margin:0 0 18px;">
-            Tu operación diaria, en una pantalla. <b>Pagos directos a tu Stripe.</b>
+            Tu operación diaria, en una pantalla. <b>Pagos directos a tu Stripe o MercadoPago.</b>
           </p>
           <ul>
             <li><span class="bullet">›</span> Multi-cancha con drag-and-drop</li>

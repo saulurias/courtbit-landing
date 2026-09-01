@@ -1,12 +1,12 @@
 # CourtBit
 
-> CourtBit es la plataforma de pádel para clubes y organizadores en México: reservas de cancha, gestión de academias y organización de torneos y ligas en una sola herramienta, con app nativa para jugadores (iOS y Android) y panel web para el club. Los pagos van directos a la cuenta de Stripe del club; CourtBit no cobra comisión propia sobre torneos y ligas, y en efectivo o transferencia no hay fee.
+> CourtBit es la plataforma de pádel para clubes y organizadores en México: reservas de cancha, gestión de academias y organización de torneos y ligas en una sola herramienta, con app nativa para jugadores (iOS y Android) y panel web para el club. El club elige su procesador de cobro (Stripe o MercadoPago) y los pagos van directos a su cuenta; CourtBit no cobra comisión propia sobre torneos y ligas, y en efectivo o transferencia no hay fee.
 
 ## Qué es CourtBit
 
 CourtBit reúne tres productos sobre una misma base:
 
-- **Reservas** — sistema de reservas de cancha para clubes de pádel. $0/mes. Calendario, pagos online (Stripe), bloqueos, días cerrados, reservas para invitados y recepción.
+- **Reservas** — sistema de reservas de cancha para clubes de pádel. $0/mes. Calendario, pagos online (Stripe o MercadoPago), bloqueos, días cerrados, reservas para invitados y recepción.
 - **Academias** — gestión de alumnos, clases (incluidas clases recurrentes), entrenadores y cobros para academias y escuelas de pádel. $0/mes.
 - **Competencias** — organización de torneos, ligas (incluida la liga americana / liga escalera) y retas. Cuadros automáticos, rankings en tiempo real, inscripciones y cobros. Planes para organizadores desde $0/mes.
 
@@ -16,7 +16,7 @@ Disponible como app nativa (App Store y Google Play) para jugadores y como panel
 
 - Reservas y academias: **$0/mes** para el club.
 - Torneos y ligas: varios planes para organizadores, desde **$0/mes**.
-- Pagos: directos a la cuenta de Stripe del club. CourtBit **no cobra comisión propia** sobre torneos y ligas; en efectivo y transferencia no hay fee.
+- Pagos: el club elige su procesador (Stripe o MercadoPago) y el dinero llega directo a su cuenta. CourtBit **no cobra comisión propia** sobre torneos y ligas; en efectivo y transferencia no hay fee.
 
 ## Páginas
 
