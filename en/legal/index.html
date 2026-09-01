@@ -584,7 +584,7 @@
                     <p class="consent-box">
                         This is an English translation provided for your convenience. The Spanish-language version of these documents is the original and legally binding text. In the event of any conflict, inconsistency, or discrepancy between this translation and the Spanish original, the Spanish version shall prevail and govern.
                     </p>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -616,13 +616,13 @@
                     <p>CourtBit reserves the right to suspend or cancel accounts that violate these terms.</p>
 
                     <h2 id="j-4">4. Payments and Fees</h2>
-                    <p>Registration payments are processed through <strong>Stripe Connect</strong>.</p>
+                    <p>Registration payments are processed through the payment provider each organizer has chosen: <strong>Stripe Connect</strong> or <strong>MercadoPago</strong>. Only one provider is active per organizer, and the applicable provider is identified at checkout before you confirm your payment.</p>
                     <ul>
-                        <li><strong>Organizer verification:</strong> CourtBit verifies organizers' identity before allowing them to receive payments through the platform. This includes identity and bank account verification via Stripe Connect.</li>
+                        <li><strong>Organizer verification:</strong> CourtBit verifies organizers' identity before allowing them to receive payments through the platform. This verification is carried out by the relevant payment provider: Stripe Connect's identity and bank account verification, or the verification MercadoPago has already performed on the account the organizer connects.</li>
                         <li><strong>Platform fee:</strong> CourtBit charges a fee of 5% to 7% (depending on the organizer's plan) on the registration amount. This fee is paid by the player and is displayed transparently at checkout.</li>
                         <li><strong>Payment methods:</strong> Credit and debit cards.</li>
                         <li><strong>VAT:</strong> CourtBit's fee includes VAT (IVA). The total amount is itemized at checkout in accordance with Article 7 BIS of the Federal Consumer Protection Law (Ley Federal de Protección al Consumidor).</li>
-                        <li><strong>Stripe:</strong> Payments are subject to the <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a>. CourtBit does not store credit card data.</li>
+                        <li><strong>Payment providers:</strong> Depending on the provider the organizer uses, payments are subject to the <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a> or the <a href="https://www.mercadopago.com.mx/mp/TyCs-MP" target="_blank" rel="noopener">MercadoPago Terms and Conditions</a>. In both cases your card details are entered in forms served by the provider itself: <strong>CourtBit never receives or stores credit card data</strong>.</li>
                     </ul>
 
                     <h2 id="j-5">5. Refund and Cancellation Policy</h2>
@@ -630,7 +630,7 @@
                         <p><strong>Important:</strong> The platform fee that CourtBit charges the player is generally non-refundable, as it corresponds to the technology intermediation service rendered. However, in cases where the event is canceled by the organizer before it begins, CourtBit will evaluate refunding the fee on a case-by-case basis.</p>
                     </div>
                     <ul>
-                        <li><strong>Registration payments to the organizer:</strong> These are subject to the organizer's refund policies and to the <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a>. The organizer must publish its refund policy before the player completes registration.</li>
+                        <li><strong>Registration payments to the organizer:</strong> These are subject to the organizer's refund policies and to the terms of the payment provider used (<a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a> or <a href="https://www.mercadopago.com.mx/mp/TyCs-MP" target="_blank" rel="noopener">MercadoPago Terms and Conditions</a>). The organizer must publish its refund policy before the player completes registration.</li>
                         <li><strong>Event cancellation by the organizer:</strong> Refunding the registration fee is the organizer's responsibility. CourtBit will make reasonable efforts to facilitate communication and the refund process.</li>
                         <li><strong>Unreachable organizer:</strong> In exceptional cases where the organizer is unreachable for more than 15 business days after a refund request, CourtBit will evaluate the possibility of processing the refund directly to the player.</li>
                         <li><strong>Voluntary player withdrawal:</strong> Refunds are at the organizer's discretion, in accordance with its own policies.</li>
@@ -648,7 +648,7 @@
                         <li>The quality, safety, or conduct of sporting events.</li>
                         <li>Injuries, damages, or losses occurring during events.</li>
                         <li>Cancellations, schedule changes, or venue changes made by the organizer.</li>
-                        <li>Third-party failures (Stripe, internet providers, the App Store, Google Play).</li>
+                        <li>Third-party failures (Stripe, MercadoPago, internet providers, the App Store, Google Play).</li>
                     </ul>
                     <p>CourtBit's maximum liability is limited to the amount of fees charged to the player over the preceding 12 months. CourtBit does not guarantee uninterrupted service availability.</p>
 
@@ -684,7 +684,7 @@
                         Organizers (B2B)
                     </span>
                     <h1 class="doc-title">Terms of Service for Organizers</h1>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -714,7 +714,7 @@
 
                     <h2 id="o-3">3. Subscriptions and Billing</h2>
                     <ul>
-                        <li>The subscription is billed monthly through <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe</a>.</li>
+                        <li>The CourtBit subscription is billed monthly through <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe</a>, regardless of which provider the organizer uses to charge its own players.</li>
                         <li>CourtBit will issue a CFDI (electronic invoice) for each subscription payment.</li>
                         <li>In case of non-payment, CourtBit may suspend the service after 7 days past due.</li>
                         <li><strong>Cancellation:</strong> The organizer may cancel at any time. There are no minimum-term contracts. If canceled mid-month, the organizer retains access until the end of the paid period.</li>
@@ -724,18 +724,22 @@
                     <ul>
                         <li>CourtBit charges a fee on registration payments made <strong>through the app</strong> (5% to 7%, depending on the plan).</li>
                         <li>The fee is paid by the player, not the organizer.</li>
-                        <li>Stripe's processing fees are deducted from the payment to the organizer.</li>
+                        <li>The payment provider's processing fees (Stripe or MercadoPago) are deducted from the payment to the organizer according to that provider's current rates. CourtBit neither sets nor receives those fees.</li>
                         <li>Payments made outside the app (cash, direct bank transfer) do not generate a CourtBit fee.</li>
                     </ul>
 
-                    <h2 id="o-4b">4.1. Payment Verification</h2>
+                    <h2 id="o-4b">4.1. Payment Provider and Verification</h2>
                     <ul>
-                        <li><strong>Identity verification:</strong> To receive payments through CourtBit, the organizer must complete the identity and bank account verification process through Stripe Connect.</li>
+                        <li><strong>Choice of provider:</strong> The organizer chooses which provider it uses to charge its players: <strong>Stripe</strong> or <strong>MercadoPago</strong>. Only one provider can be active at a time; the organizer may switch from its dashboard, and the change applies only to subsequent charges.</li>
+                        <li><strong>Identity verification:</strong> With Stripe, the organizer must complete Stripe Connect's identity and bank account verification. With MercadoPago, the organizer connects its own MercadoPago account, previously verified by MercadoPago, and authorizes CourtBit to create charges on its behalf through that connection.</li>
+                        <li><strong>Where the funds go:</strong> Charges are deposited directly into the account the organizer holds with the chosen provider. The contractual relationship for the processing service is between the organizer and that provider; <strong>CourtBit does not hold, custody, or manage those funds</strong>.</li>
+                        <li><strong>Applicable terms:</strong> Use of each provider is governed by its own terms: <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a> and <a href="https://www.mercadopago.com.mx/mp/TyCs-MP" target="_blank" rel="noopener">MercadoPago Terms and Conditions</a>.</li>
+                        <li><strong>Revocation:</strong> If the organizer disconnects or loses access to its account with the provider, CourtBit will no longer be able to create online charges for its events until the connection is restored or another provider is selected.</li>
                     </ul>
 
                     <h2 id="o-5">5. Organizer's Obligations</h2>
                     <ul>
-                        <li>Complete and keep current the identity verification required by CourtBit and Stripe Connect.</li>
+                        <li>Complete and keep current the identity verification required by CourtBit and by its payment provider (Stripe Connect or MercadoPago), and keep that account connection active for as long as it receives payments through the platform.</li>
                         <li>Hold the permits and insurance necessary to hold sporting events.</li>
                         <li>Comply with applicable Mexican law (tax, sports, and civil protection regulations).</li>
                         <li>Provide truthful information about its events (dates, venues, costs, categories).</li>
@@ -800,7 +804,7 @@
                         All users
                     </span>
                     <h1 class="doc-title">Comprehensive Privacy Notice</h1>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -818,7 +822,7 @@
 
                     <h3>Financial or asset-related data (necessary purpose — requires express consent)</h3>
                     <ul>
-                        <li>Payment method information (processed and stored exclusively by Stripe; CourtBit does <strong>NOT</strong> store card data).</li>
+                        <li>Payment method information (captured, processed, and stored exclusively by the relevant payment provider — Stripe or MercadoPago; CourtBit does <strong>NOT</strong> receive or store card data).</li>
                         <li>Transaction history on the platform.</li>
                         <li>Billing data (tax ID/RFC, company name, registered address — only if an invoice is requested).</li>
                     </ul>
@@ -873,14 +877,15 @@
                             <tr><th>Recipient</th><th>Purpose</th><th>Country</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Stripe, Inc.</td><td>Payment processing</td><td>United States</td></tr>
+                            <tr><td>Stripe, Inc.</td><td>Payment processing (organizers charging with Stripe)</td><td>United States</td></tr>
+                            <tr><td>MP Agregador, S. de R.L. de C.V. (MercadoPago)</td><td>Payment processing (organizers charging with MercadoPago)</td><td>Mexico</td></tr>
                             <tr><td>Supabase, Inc.</td><td>Database storage and management</td><td>United States</td></tr>
                             <tr><td>Apple Inc. / Google LLC</td><td>App distribution and push notifications</td><td>United States</td></tr>
                             <tr><td>Event organizers</td><td>Managing registrations and results (name, category, contact info)</td><td>Mexico</td></tr>
                             <tr><td>Mexican authorities</td><td>When required by law or a judicial order</td><td>Mexico</td></tr>
                         </tbody>
                     </table>
-                    <p>Data transferred to companies in the United States is protected under those companies' privacy policies and the contractual agreements with CourtBit.</p>
+                    <p>Data transferred to companies in the United States is protected under those companies' privacy policies and the contractual agreements with CourtBit. MercadoPago operates in Mexico through the Mercado Libre group entities and processes data under its own <a href="https://www.mercadopago.com.mx/privacidad" target="_blank" rel="noopener">Privacy Notice</a>, which may contemplate transfers to other countries where the group operates.</p>
 
                     <h2 id="p-4">4. ARCO Rights</h2>
                     <p>The data subject may exercise their <strong>ARCO rights (Access, Rectification, Cancellation, and Objection)</strong> by sending a request to:</p>
@@ -915,7 +920,7 @@
                         <li>Role-based access control.</li>
                         <li>Periodic security audits.</li>
                     </ul>
-                    <p>Payment data is processed exclusively by Stripe, which complies with the <strong>PCI DSS Level 1</strong> standard.</p>
+                    <p>Card details are captured and tokenized directly in forms served by the payment provider — Stripe, certified <strong>PCI DSS Level 1</strong>, or MercadoPago, certified under the <strong>PCI DSS</strong> standard — and never reach CourtBit servers.</p>
 
                     <h2 id="p-8">8. Changes to This Privacy Notice</h2>
                     <p>Changes to this notice will be announced through the app, by email, or by posting at courtbit.com.mx/legal/. The last-updated date will be shown at the top of the document. Previous versions of this notice are available upon request at contacto@courtbit.com.mx.</p>
@@ -927,7 +932,7 @@
                     <div class="consent-box">
                         "By registering with CourtBit and using our services, you signify your consent to the processing of your personal data as described in this Privacy Notice. For purposes that require consent, you may grant or revoke it at any time from the app's settings or by contacting contacto@courtbit.com.mx."
                     </div>
-                    <p><strong>For financial data:</strong> By providing your payment information through Stripe during the registration or subscription process, you grant your express consent to the processing of that data in accordance with Article 8 of the NLFPDPPP.</p>
+                    <p><strong>For financial data:</strong> By providing your payment information through the applicable provider (Stripe or MercadoPago) during the registration or subscription process, you grant your express consent to the processing of that data in accordance with Article 8 of the NLFPDPPP.</p>
 
                     <h2 id="p-11">11. Identity and Address of the Data Controller</h2>
                     <ul>
@@ -950,7 +955,7 @@
                         Registration and forms
                     </span>
                     <h1 class="doc-title">Simplified Privacy Notice</h1>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -960,7 +965,7 @@
                     <p><strong>Saúl Ulises Urías Guzmán</strong>, with an address in Guaymas, Sonora, Mexico.</p>
 
                     <h2 id="s-2">Data Collected</h2>
-                    <p>Name, email address, phone number, app usage data, and sports data (results, rankings). Financial data is processed exclusively by Stripe.</p>
+                    <p>Name, email address, phone number, app usage data, and sports data (results, rankings). Financial data is processed exclusively by the relevant payment provider (Stripe or MercadoPago).</p>
 
                     <h2 id="s-3">Sensitive Data</h2>
                     <p>No sensitive personal data is collected.</p>
@@ -996,7 +1001,7 @@
                         Players and Organizers
                     </span>
                     <h1 class="doc-title">Refund and Cancellation Policy</h1>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -1010,18 +1015,18 @@
                     <p>The fee corresponds to the technology intermediation service, which is considered rendered once the registration transaction is completed. In the case of voluntary withdrawal by the player, the fee is non-refundable. However, if the event is canceled by the organizer before it begins, CourtBit will evaluate refunding the fee on a case-by-case basis.</p>
 
                     <h2 id="r-3">3. Event Registrations (Payments to the Organizer)</h2>
-                    <p>Registration payments are processed through Stripe Connect and are subject to:</p>
+                    <p>Registration payments are processed through the payment provider the organizer has chosen (Stripe Connect or MercadoPago) and are subject to:</p>
                     <ol>
                         <li><strong>Each organizer's own refund policies</strong>, which the organizer must communicate to players before registration.</li>
-                        <li><strong>The <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a></strong>, since payments are processed through Stripe Connect.</li>
+                        <li><strong>The terms of the payment provider used</strong>: <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a> or <a href="https://www.mercadopago.com.mx/mp/TyCs-MP" target="_blank" rel="noopener">MercadoPago Terms and Conditions</a>, as applicable.</li>
                     </ol>
-                    <p>Registration funds are transferred directly to the organizer through Stripe Connect. CourtBit does not hold or manage registration funds. In the event of disputes, CourtBit may assist as a mediator between the player and the organizer.</p>
+                    <p>Registration funds are transferred directly to the organizer through the relevant payment provider. CourtBit does not hold or manage registration funds. In the event of disputes, CourtBit may assist as a mediator between the player and the organizer.</p>
 
                     <h2 id="r-4">4. Event Cancellation</h2>
                     <ul>
                         <li>If an organizer cancels an event, it is responsible for managing refunds to registered players.</li>
                         <li>CourtBit will notify players of the cancellation through the app.</li>
-                        <li>CourtBit will work with the organizer to facilitate the refund process through Stripe.</li>
+                        <li>CourtBit will work with the organizer to facilitate the refund process through the relevant payment provider.</li>
                         <li><strong>Unreachable organizer:</strong> In exceptional cases where the organizer is unreachable for more than 15 business days after the event's cancellation, CourtBit will evaluate the possibility of processing the registration refund directly to the player.</li>
                     </ul>
 
@@ -1029,14 +1034,14 @@
                     <ul>
                         <li>Subscriptions may be canceled at any time without penalty.</li>
                         <li><strong>No refunds are issued for partial periods.</strong> Upon cancellation, the organizer retains access until the end of the current billing period.</li>
-                        <li>Subscription payments are subject to the <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a>.</li>
+                        <li>CourtBit subscription payments are processed with Stripe and are subject to the <a href="https://stripe.com/mx/legal/ssa" target="_blank" rel="noopener">Stripe Terms of Service</a>.</li>
                         <li>CourtBit will issue the corresponding CFDI for each charge made.</li>
                     </ul>
 
                     <h2 id="r-6">6. Disputes and Chargebacks</h2>
                     <ul>
-                        <li>If a player initiates a chargeback with their bank or card issuer, Stripe will handle the dispute according to its procedures.</li>
-                        <li>CourtBit will provide transaction evidence to Stripe for the dispute process.</li>
+                        <li>If a player initiates a chargeback with their bank or card issuer, the payment provider that processed the transaction (Stripe or MercadoPago) will handle the dispute according to its procedures.</li>
+                        <li>CourtBit will provide transaction evidence to the payment provider for the dispute process.</li>
                         <li>Organizers agree to cooperate by providing the information necessary to resolve disputes.</li>
                     </ul>
 
@@ -1044,7 +1049,7 @@
                     <ol>
                         <li>The player contacts the organizer directly (contact details available in the app).</li>
                         <li>If there is no response within 5 business days, the player may escalate to <strong>contacto@courtbit.com.mx</strong>.</li>
-                        <li>CourtBit will respond within a maximum of <strong>10 business days</strong> and will mediate between the parties to facilitate the refund process through Stripe if the organizer authorizes it.</li>
+                        <li>CourtBit will respond within a maximum of <strong>10 business days</strong> and will mediate between the parties to facilitate the refund process through the payment provider if the organizer authorizes it.</li>
                         <li>If the organizer is unreachable for more than 15 business days, CourtBit will evaluate the possibility of processing the refund directly.</li>
                         <li>If no agreement is reached, the player may turn to <a href="https://www.profeco.gob.mx" target="_blank" rel="noopener">PROFECO</a> or initiate a dispute with their card issuer.</li>
                     </ol>
@@ -1065,7 +1070,7 @@
                         All users
                     </span>
                     <h1 class="doc-title">Cookie and Local Storage Policy</h1>
-                    <p class="doc-updated">Last updated: March 23, 2026</p>
+                    <p class="doc-updated">Last updated: August 31, 2026</p>
                 </div>
                 <div class="doc-body">
 
@@ -1084,7 +1089,7 @@
                     <h2 id="ck-3">3. Technologies We Use</h2>
 
                     <div class="highlight-box">
-                        <p><strong>Transparency:</strong> The website courtbit.com.mx currently <strong>does not use tracking or analytics cookies</strong>. We do not use Google Analytics, Facebook Pixel, or any advertising-tracking tool.</p>
+                        <p><strong>Transparency:</strong> The courtbit.com.mx website uses <strong>Google Analytics 4</strong> to measure, in aggregate, how many people visit the site and which pages they view. We do <strong>not</strong> use advertising pixels (Facebook, TikTok, Google Ads), we do not run retargeting, and we do not sell data to third parties. On pages where a payment is made, the payment provider SDK (Stripe or MercadoPago) is also loaded, which is required to process the charge securely.</p>
                     </div>
 
                     <h3>3.1 Local storage (localStorage) — only on pages with sign-in</h3>
@@ -1107,16 +1112,20 @@
                         <tbody>
                             <tr><td>Google Fonts</td><td>Google LLC</td><td>Site typography (CSS only, no JavaScript)</td><td>Does not set cookies</td></tr>
                             <tr><td>Formspree</td><td>Formspree, Inc.</td><td>Processing contact forms</td><td>Does not set cookies</td></tr>
+                            <tr><td>Google Analytics 4</td><td>Google LLC</td><td>Aggregate measurement of visits and page views</td><td>Yes (<code>_ga</code>, <code>_ga_*</code>)</td></tr>
+                            <tr><td>Stripe.js</td><td>Stripe, Inc.</td><td>Secure payment form and fraud prevention — payment pages only</td><td>Yes, Stripe's own cookies</td></tr>
+                            <tr><td>MercadoPago SDK</td><td>MP Agregador, S. de R.L. de C.V.</td><td>Secure payment form and fraud prevention — payment pages only</td><td>Yes, MercadoPago's own cookies and device identifiers</td></tr>
                         </tbody>
                     </table>
 
                     <h3>3.3 Third-party cookies — not currently used</h3>
                     <p>CourtBit does <strong>not</strong> currently use:</p>
                     <ul>
-                        <li>Web analytics cookies (Google Analytics, Mixpanel, etc.)</li>
                         <li>Marketing or retargeting pixels (Facebook, TikTok, Google Ads)</li>
-                        <li>Advertising-tracking cookies</li>
+                        <li>Advertising-tracking cookies, and we do not sell data to third parties</li>
+                        <li>Individual user profiling for advertising purposes</li>
                     </ul>
+                    <p>The payment cookies set by Stripe and MercadoPago are <strong>necessary</strong> to process the charge and prevent fraud: without them, card payment is not possible.</p>
                     <p>If CourtBit implements any of these technologies in the future, this policy will be updated and your consent will be requested before activating them.</p>
 
                     <h2 id="ck-4">4. How to Manage These Technologies</h2>
@@ -1135,7 +1144,7 @@
                     </div>
 
                     <h2 id="ck-5">5. International Data Transfer</h2>
-                    <p>Google Fonts and Formspree process data in the United States. For more information about international transfers, see our <a href="#aviso-privacidad" onclick="switchDoc('aviso-privacidad')">Comprehensive Privacy Notice</a>.</p>
+                    <p>Google Fonts, Google Analytics, Formspree, and Stripe process data in the United States. MercadoPago processes it in Mexico through the Mercado Libre group entities. For more information about international transfers, see our <a href="#aviso-privacidad" onclick="switchDoc('aviso-privacidad')">Comprehensive Privacy Notice</a>.</p>
 
                     <h2 id="ck-6">6. Updates to This Policy</h2>
                     <p>CourtBit may update this policy to reflect changes in the technologies used or in applicable law. The last-updated date is shown at the top of this document. Previous versions are available upon request at contacto@courtbit.com.mx.</p>
