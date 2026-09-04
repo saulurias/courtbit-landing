@@ -47,12 +47,13 @@
         "name": "CourtBit",
         "applicationCategory": "SportsApplication",
         "operatingSystem": "iOS, Android",
-        "offers": [
-            { "@type": "Offer", "price": "0", "priceCurrency": "MXN", "name": "Free" },
-            { "@type": "Offer", "price": "99", "priceCurrency": "MXN", "name": "Express" },
-            { "@type": "Offer", "price": "499", "priceCurrency": "MXN", "name": "Profesional" },
-            { "@type": "Offer", "price": "1499", "priceCurrency": "MXN", "name": "Enterprise" }
-        ],
+        "offers": {
+            "@type": "Offer",
+            "name": "Competencias",
+            "price": "1499",
+            "priceCurrency": "MXN",
+            "description": "Un solo plan con todas las funcionalidades de Competencias. Mensualidad + IVA, sin permanencia."
+        },
         "description": "El sistema operativo para organizadores de padel. Gestiona torneos, ligas, rankings de circuito y pagos desde una plataforma con apps nativas para jugadores."
     }
     </script>
@@ -61,13 +62,13 @@
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            { "@type": "Question", "name": "Como empiezo a usar CourtBit?", "acceptedAnswer": { "@type": "Answer", "text": "Prueba gratis el plan Profesional por 14 dias desde el inicio, sin cobros. Pagas solo cuando confirmes que CourtBit se adapta a ti." } },
+            { "@type": "Question", "name": "Como empiezo a usar CourtBit?", "acceptedAnswer": { "@type": "Answer", "text": "Crea tu cuenta, conecta tu Stripe o MercadoPago y publica tu primer torneo el mismo dia. Un solo plan con todo incluido, sin contratos ni permanencia: cancelas cuando quieras." } },
             { "@type": "Question", "name": "Mis jugadores necesitan descargar algo?", "acceptedAnswer": { "@type": "Answer", "text": "Si, pero la app es gratis en iOS y Android. Desde la app pueden registrarse, pagar, ver brackets, consultar calendarios, ingresar resultados y seguir su ranking." } },
             { "@type": "Question", "name": "Como funcionan los pagos y las comisiones?", "acceptedAnswer": { "@type": "Answer", "text": "Solo los pagos realizados desde la app incluyen comisiones. Los jugadores tambien pueden pagar por transferencia, efectivo o el metodo que el organizador defina. CourtBit cobra una pequena comision al jugador y el procesador que elijas (Stripe o MercadoPago) cobra sus fees al organizador." } },
-            { "@type": "Question", "name": "Puedo gestionar torneos y ligas al mismo tiempo?", "acceptedAnswer": { "@type": "Answer", "text": "Si. Dependiendo de tu plan puedes tener varios torneos y ligas activos al mismo tiempo, todo desde el mismo dashboard." } },
+            { "@type": "Question", "name": "Puedo gestionar torneos y ligas al mismo tiempo?", "acceptedAnswer": { "@type": "Answer", "text": "Si. Puedes tener todos los torneos y ligas activos que necesites al mismo tiempo, sin limites, todo desde el mismo dashboard." } },
             { "@type": "Question", "name": "Puedo tener mi propia app?", "acceptedAnswer": { "@type": "Answer", "text": "Si. Desarrollamos apps white-label a la medida con tu marca, colores y dominio. Contactanos para mas informacion." } },
             { "@type": "Question", "name": "Quien es dueno de mis datos?", "acceptedAnswer": { "@type": "Answer", "text": "Tu. Toda la informacion pertenece a los organizadores. Puedes exportar tus datos en todo momento para analisis internos o migracion a otras plataformas." } },
-            { "@type": "Question", "name": "Puedo cambiar de plan despues?", "acceptedAnswer": { "@type": "Answer", "text": "Si, puedes subir o bajar de plan en cualquier momento. Sin contratos ni permanencias." } }
+            { "@type": "Question", "name": "Puedo cancelar despues?", "acceptedAnswer": { "@type": "Answer", "text": "Si, puedes cancelar en cualquier momento. Sin contratos ni permanencias: conservas el acceso hasta el fin del periodo pagado." } }
         ]
     }
     </script>
@@ -857,6 +858,9 @@
 
         /* ── PRICING ── */
         .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; align-items: start; }
+        .pricing-grid.pricing-grid-single { grid-template-columns: minmax(0, 720px); justify-content: center; }
+        .pricing-grid-single .pricing-card.featured::before { content: 'Todo incluido'; }
+        .pricing-grid-single .pricing-features { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; row-gap: 9px; }
         .pricing-card {
             background: var(--white); border: 1.5px solid var(--border);
             border-radius: var(--radius-lg); padding: 32px 26px;
@@ -1204,6 +1208,7 @@
 
         @media (max-width:560px) {
             .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-grid-single .pricing-features { grid-template-columns: 1fr; }
             .pricing-card.featured { margin-top: 16px; }
         }
 
@@ -1252,7 +1257,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
             <span>Inicio</span>
         </a>
-        <span class="topbar-msg"><b>Nuevo</b> · CourtBit Competencias · <b>14 días gratis</b> en Plan Profesional</span>
+        <span class="topbar-msg"><b>Nuevo</b> · CourtBit Competencias · <b>Un solo plan</b>, todo incluido</span>
     </div>
 
     <nav class="e-nav" aria-label="Principal">
@@ -1668,60 +1673,27 @@
     <!-- PRICING -->
     <section class="section" id="precios">
         <div class="container">
-            <div class="section-header reveal"><span class="section-tag">Precios</span><h2 class="section-title">Empieza <em>gratis</em>. Escala cuando estes listo.</h2></div>
-            <div class="pricing-grid">
-                <div class="pricing-card reveal">
-                    <div class="pricing-name">Gratis</div><div class="pricing-price">$0</div><div class="pricing-desc">Para probar la plataforma</div>
+            <div class="section-header reveal"><span class="section-tag">Precios</span><h2 class="section-title">Un solo plan. <em>Todo incluido</em>.</h2></div>
+            <div class="pricing-grid pricing-grid-single">
+                <div class="pricing-card featured reveal">
+                    <div class="pricing-name">Competencias</div><div class="pricing-price">$1,499 <span>MXN / mes</span></div><div class="pricing-desc">+ IVA · sin permanencia · para clubes, organizadores, asociaciones y federaciones</div>
                     <div class="pricing-features">
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 1 torneo activo, 1 categoria</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hasta 32 parejas</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 1 miembro en la organizacion</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> App de jugadores incluida</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 7% comision de plataforma*</div>
-                    </div>
-                    <a href="/empezar/" class="pricing-btn outline">Comienza gratis</a>
-                </div>
-                <div class="pricing-card reveal d1">
-                    <div class="pricing-name">Express</div><div class="pricing-price">$99 <span>/ mes</span></div><div class="pricing-desc">Para organizadores en crecimiento</div>
-                    <div class="pricing-features">
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 3 torneos activos, 3 categorias</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hasta 64 parejas</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 1 temporada de liga</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 2 miembros en la organizacion</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Codigos de descuento</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Reportes Excel basicos</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 6% comision de plataforma*</div>
-                    </div>
-                    <a href="/empezar/" class="pricing-btn outline">Empezar</a>
-                </div>
-                <div class="pricing-card featured reveal d2">
-                    <div class="pricing-name">Profesional</div><div class="pricing-price">$499 <span>/ mes</span></div><div class="pricing-desc">Para organizadores con circuitos</div>
-                    <div class="pricing-features">
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 10 torneos activos, 5 categorias</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Parejas ilimitadas</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Temporadas ilimitadas</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 5 miembros en la organizacion</div>
-                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Auto-calendarizacion</div>
-                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ranking de circuito</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Reportes Excel avanzados</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 5% comision de plataforma*</div>
-                    </div>
-                    <a href="/empezar/" class="pricing-btn primary">Prueba 14 dias gratis</a>
-                </div>
-                <div class="pricing-card reveal d3">
-                    <div class="pricing-name">Enterprise</div><div class="pricing-price">$1,499 <span>/ mes</span></div><div class="pricing-desc">Para asociaciones y federaciones</div>
-                    <div class="pricing-features">
-                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Todo lo del plan Profesional</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Torneos activos ilimitados</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Categorias ilimitadas</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Miembros de organizacion ilimitados</div>
-                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Multimedia (exportar PDF con tu marca)</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 5% comision de plataforma*</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Soporte prioritario</div>
-                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Planes personalizados disponibles</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Torneos y categorias ilimitados</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Brackets automaticos</div>
+                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Auto-calendarizacion de jornadas</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ligas: americana, escalera e individual</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Retas: americano y rey de la cancha</div>
+                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ranking por puntos y de circuito</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Resultados en vivo</div>
                         <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pantalla de partidos en vivo (TV)</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Multiples sedes y miembros ilimitados</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Codigos de descuento y reportes Excel avanzados</div>
+                        <div class="pricing-feature highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Multimedia (exportar PDF con tu marca)</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> APIs publicas + white-label</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Soporte prioritario por WhatsApp</div>
+                        <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 5% comision de plataforma*</div>
                     </div>
-                    <a href="/empezar/" class="pricing-btn outline">Contactar</a>
+                    <a href="/empezar/" class="pricing-btn primary">Empezar ahora</a>
                 </div>
             </div>
             <p style="text-align:center; font-size:0.8125rem; color:var(--text-muted); margin-top:20px; max-width:620px; margin-left:auto; margin-right:auto; line-height:1.6;">Todos los precios + IVA. * Aplica solo a pagos realizados desde la app. CourtBit cobra la comision al jugador, nunca al organizador. Las comisiones del procesador (Stripe o MercadoPago) se deducen del pago al organizador.</p>
@@ -1762,13 +1734,13 @@
         <div class="container">
             <div class="section-header reveal"><span class="section-tag">FAQ</span><h2 class="section-title">Preguntas Frecuentes</h2></div>
             <div class="faq-list reveal">
-                <div class="faq-item"><button class="faq-toggle">Como empiezo a usar CourtBit? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Prueba gratis el plan Profesional por 14 dias desde el inicio — sin cobros, sin tarjeta de credito. Explora todas las funciones y pagas solo cuando confirmes que CourtBit se adapta a ti.</div></div></div>
+                <div class="faq-item"><button class="faq-toggle">Como empiezo a usar CourtBit? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Crea tu cuenta, conecta tu Stripe o MercadoPago y publica tu primer torneo el mismo dia. Un solo plan con todo incluido, sin contratos ni permanencia: cancelas cuando quieras.</div></div></div>
                 <div class="faq-item"><button class="faq-toggle">Mis jugadores necesitan descargar algo? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si, pero la app es gratis para ellos en iOS y Android. Desde la app pueden descubrir tus eventos, registrarse, pagar, ver brackets, consultar el calendario de partidos, ingresar resultados y seguir su ranking — sin que tu tengas que gestionar nada de eso manualmente.</div></div></div>
-                <div class="faq-item"><button class="faq-toggle">Como funcionan los pagos y las comisiones? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Solo los pagos realizados desde la app incluyen comisiones. Los jugadores tambien pueden pagar por transferencia, efectivo o el metodo que tu definas como organizador. Cuando pagan por la app, CourtBit cobra una pequena comision al jugador (5% a 7% segun tu plan) y tu procesador (Stripe o MercadoPago) cobra sus fees al organizador. Todo queda desglosado en tu dashboard financiero.</div></div></div>
-                <div class="faq-item"><button class="faq-toggle">Puedo gestionar torneos y ligas al mismo tiempo? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si. Dependiendo de tu plan puedes tener varios torneos y temporadas de liga activos al mismo tiempo. Todo se gestiona desde el mismo dashboard y tus jugadores ven todos los eventos en una sola app.</div></div></div>
+                <div class="faq-item"><button class="faq-toggle">Como funcionan los pagos y las comisiones? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Solo los pagos realizados desde la app incluyen comisiones. Los jugadores tambien pueden pagar por transferencia, efectivo o el metodo que tu definas como organizador. Cuando pagan por la app, CourtBit cobra una pequena comision al jugador (5%) y tu procesador (Stripe o MercadoPago) cobra sus fees al organizador. Todo queda desglosado en tu dashboard financiero.</div></div></div>
+                <div class="faq-item"><button class="faq-toggle">Puedo gestionar torneos y ligas al mismo tiempo? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si. Puedes tener todos los torneos y temporadas de liga activos que necesites al mismo tiempo, sin limites. Todo se gestiona desde el mismo dashboard y tus jugadores ven todos los eventos en una sola app.</div></div></div>
                 <div class="faq-item"><button class="faq-toggle">Puedo tener mi propia app? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si. Desarrollamos apps white-label a la medida con tu marca, colores y dominio. Tu comunidad vive en tu propia app. Contactanos para mas informacion.</div></div></div>
                 <div class="faq-item"><button class="faq-toggle">Quien es dueno de mis datos? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Tu. Toda la informacion pertenece a los organizadores. Puedes exportar tus datos en todo momento para analisis internos o migracion a otras plataformas. Sin candados ni restricciones.</div></div></div>
-                <div class="faq-item"><button class="faq-toggle">Puedo cambiar de plan despues? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si, puedes subir o bajar de plan en cualquier momento desde tu dashboard. Si subes, se te cobra la diferencia prorrateada. Si bajas, recibes credito a favor para tu siguiente factura. Sin contratos ni permanencias.</div></div></div>
+                <div class="faq-item"><button class="faq-toggle">Puedo cancelar despues? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Si, puedes cancelar en cualquier momento desde tu dashboard. Sin contratos ni permanencias: conservas el acceso hasta el fin del periodo pagado.</div></div></div>
             </div>
         </div>
     </section>

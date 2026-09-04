@@ -190,6 +190,7 @@ em{font-style:italic;font-weight:800;color:var(--blue);}
 
 /* pricing tiers */
 .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:6px;}
+.tiers.tiers-single{grid-template-columns:minmax(0,640px);justify-content:center;}
 .tier{background:var(--paper);border:1px solid var(--border);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;position:relative;}
 .tier.hot{border:2px solid var(--blue);}
 .tier .tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.66rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 12px;border-radius:999px;white-space:nowrap;}
@@ -454,7 +455,7 @@ body.capacitacion .notes{display:block;}
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> Brackets y calendario automáticos</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> Live Control en cancha</li>
           </ul>
-          <div class="pfoot"><div class="pdiv"></div><div class="price">Desde $0 <small>· 4 planes</small></div></div>
+          <div class="pfoot"><div class="pdiv"></div><div class="price">$1,499 <small>MXN/mes · todo incluido</small></div></div>
         </div>
       </div>
     </div>
@@ -713,8 +714,8 @@ body.capacitacion .notes{display:block;}
         <div class="model-card">
           <span class="badge badge-blue">Suscripción mensual</span>
           <h3>Organizadores de competencias</h3>
-          <p>Herramientas avanzadas (brackets, ligas, ranking, reportes, pantalla en vivo) con <b>planes escalonados</b>: empiezas gratis y subes según tu volumen.</p>
-          <div class="fee"><span class="big">5–7%</span><span class="txt">comisión del jugador <b>según el plan</b>, solo con tarjeta. Tú nunca pagas comisión por cobrar.</span></div>
+          <p>Herramientas avanzadas (brackets, ligas, ranking, reportes, pantalla en vivo) con <b>un solo plan</b>: $1,499 MXN/mes + IVA, todo incluido y sin permanencia.</p>
+          <div class="fee"><span class="big">5%</span><span class="txt">comisión del jugador, <b>solo con tarjeta</b>. Tú nunca pagas comisión por cobrar.</span></div>
         </div>
       </div>
     </div>
@@ -722,19 +723,16 @@ body.capacitacion .notes{display:block;}
   </section>
 
   <!-- 9 · PRECIOS -->
-  <section class="slide bg-tint" data-key="precios" data-title="Planes de Competencias" data-track="org">
+  <section class="slide bg-tint" data-key="precios" data-title="Plan de Competencias" data-track="org">
     <div class="slide-inner">
-      <span class="eyebrow"><span class="dot"></span> Planes de Competencias</span>
-      <h2 class="s-title">Empiezas gratis. Subes <em>cuando se paga solo</em>.</h2>
-      <div class="tiers">
-        <div class="tier"><div class="name">Free</div><div class="amt">$0</div><div class="desc">1 categoría · hasta 32 parejas · pasarela integrada · resultados en vivo · ranking automático.</div></div>
-        <div class="tier"><div class="name">Express</div><div class="amt">$99 <small>MXN/mes</small></div><div class="desc">Hasta 3 categorías · 64 parejas · ligas individuales · soporte WhatsApp y email.</div></div>
-        <div class="tier hot"><span class="tag">Recomendado</span><div class="name">Profesional</div><div class="amt">$499 <small>MXN/mes</small></div><div class="desc">Hasta 5 categorías · 150 parejas · ligas ilimitadas con jornadas · ranking de circuito · reportes financieros.</div></div>
-        <div class="tier"><div class="name">Enterprise</div><div class="amt">$1,499 <small>MXN/mes</small></div><div class="desc">Categorías y torneos ilimitados · APIs públicas · white-label · pantalla en vivo (TV).</div></div>
+      <span class="eyebrow"><span class="dot"></span> Plan de Competencias</span>
+      <h2 class="s-title">Un solo plan. <em>Todo incluido</em>.</h2>
+      <div class="tiers tiers-single">
+        <div class="tier hot"><span class="tag">Todo incluido</span><div class="name">Competencias</div><div class="amt">$1,499 <small>MXN/mes + IVA</small></div><div class="desc">Torneos, categorías y sedes ilimitados · brackets y calendario automáticos · ligas y retas · ranking de circuito · resultados y pantalla en vivo (TV) · reportes financieros · APIs públicas y white-label · soporte prioritario por WhatsApp.</div></div>
       </div>
-      <div class="trial">🎁 <span>Prueba el plan <b>Profesional 14 días gratis</b> — sin tarjeta de crédito. Pagas solo cuando confirmas que te sirve.</span></div>
+      <div class="trial"><span>Sin contratos ni permanencia — <b>cancelas cuando quieras</b>. Conservas el acceso hasta el fin del periodo pagado.</span></div>
     </div>
-    <div class="s-foot"><span class="wm">Court<span>Bit</span></span><span>Planes de Competencias</span></div>
+    <div class="s-foot"><span class="wm">Court<span>Bit</span></span><span>Plan de Competencias</span></div>
   </section>
 
   <!-- 10 · POR QUÉ -->
@@ -818,7 +816,7 @@ body.capacitacion .notes{display:block;}
         <ul class="next-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> <b>Demo en vivo de 15 min</b> con tu propio caso en pantalla</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> <b>Creamos tu cuenta juntos</b> y conectamos tu Stripe o MercadoPago ahora</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> <b>Prueba con un torneo</b> en plan Free, sin pagar nada</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> <b>Publica tu primer torneo</b> el mismo día, con tu cuenta ya conectada</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg> <b>Una semana de Reservas</b> en horario valle para medir ocupación</li>
         </ul>
         <!-- PERSONALIZA AQUÍ: nombre, WhatsApp y correo del asesor -->
