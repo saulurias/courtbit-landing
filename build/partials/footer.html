@@ -17,6 +17,13 @@
         <a href="{{prefix}}/competencias/" class="footer-link">{{navCompetencias}}</a>
         <a href="/torneos/" class="footer-link">{{navTorneos}}</a>
         <a href="{{prefix}}/pricing/" class="footer-link">{{navPricing}}</a>
+        <!-- Directorio público (app.courtbit.com.mx). Va en el footer de todas
+             las páginas a propósito: es un subdominio nuevo sin autoridad
+             propia, y estos enlaces son lo que lo respalda desde el dominio
+             que Google ya conoce. Sin nofollow — el objetivo es justamente
+             pasarle autoridad. -->
+        <a href="https://app.courtbit.com.mx/torneos" class="footer-link">{{footerDirectoryTournaments}}</a>
+        <a href="https://app.courtbit.com.mx/clubes" class="footer-link">{{footerDirectoryClubs}}</a>
       </div>
 
       <div class="footer-col">

@@ -112,6 +112,8 @@ function renderFooter(page, locale) {
     footerProductHeading: strings.footerProductHeading,
     footerToolsHeading: strings.footerToolsHeading,
     footerGuidesHeading: strings.footerGuidesHeading,
+    footerDirectoryTournaments: strings.footerDirectoryTournaments,
+    footerDirectoryClubs: strings.footerDirectoryClubs,
     footerTournamentCalc: strings.footerTournamentCalc,
     footerLeagueCalc: strings.footerLeagueCalc,
     footerBracketGenerator: strings.footerBracketGenerator,

@@ -23,7 +23,9 @@
     "footerAmericanoLeague": "Liga americana",
     "footerAmericanoIndividual": "Liga americana individual",
     "footerCopyright": "© 2026 CourtBit · Todos los derechos reservados",
-    "footerLegal": "Legal"
+    "footerLegal": "Legal",
+    "footerDirectoryTournaments": "Torneos por ciudad",
+    "footerDirectoryClubs": "Clubes por ciudad"
   },
   "en": {
     "navAriaLabel": "Main",
@@ -49,6 +51,8 @@
     "footerAmericanoLeague": "Americano league",
     "footerAmericanoIndividual": "Individual americano league",
     "footerCopyright": "© 2026 CourtBit · All rights reserved",
-    "footerLegal": "Legal"
+    "footerLegal": "Legal",
+    "footerDirectoryTournaments": "Tournaments by city",
+    "footerDirectoryClubs": "Clubs by city"
   }
 }
