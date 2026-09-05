@@ -94,6 +94,7 @@ function renderNav(page, locale) {
     navAcademias: strings.navAcademias,
     navCompetencias: strings.navCompetencias,
     navTorneos: strings.navTorneos,
+    navGuias: strings.navGuias,
     navPricing: strings.navPricing,
     navDashboard: strings.navDashboard,
     navCta: strings.navCta,

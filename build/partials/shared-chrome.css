@@ -225,6 +225,15 @@
     /* ─── Mobile (chrome-only rules extracted from index.html's
        tangled @media blocks — page-specific siblings stay in each
        page's own <style> block) ─── */
+    /* Banda estrecha de escritorio: la nav tiene 6 enlaces y a <1080px no cabe
+       con el espaciado completo. Se aprieta en vez de desaparecer — abajo de
+       900px los enlaces ya se ocultan por completo. */
+    @media (min-width: 901px) and (max-width: 1080px) {
+      .e-nav-inner { gap: 14px; padding-left: 14px; padding-right: 14px; }
+      .e-nav-links { gap: 14px; }
+      .e-nav-links a { font-size: 0.9375rem; }
+      .e-logo img { height: 72px; }
+    }
     @media (max-width: 900px) {
       .e-nav-links { display: none; }
       .e-nav-secondary { display: none; }
