@@ -6,19 +6,19 @@
 
   <title>CourtBit — Software for Padel Clubs and Tournament Organizers | Bookings, Academies & Tournaments</title>
   <meta name="description" content="The padel platform in Mexico. Bookings, academies, and tournaments in one platform. Plans for clubs and organizers. Get paid with Stripe or MercadoPago — CourtBit only charges the payer 4%.">
-  <link rel="canonical" href="https://courtbit.com.mx/en/">
-  <link rel="alternate" hreflang="es" href="https://courtbit.com.mx/">
-  <link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/">
-  <link rel="alternate" hreflang="x-default" href="https://courtbit.com.mx/">
+  <link rel="canonical" href="https://www.courtbit.com.mx/en/">
+  <link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/">
+  <link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/">
+  <link rel="alternate" hreflang="x-default" href="https://www.courtbit.com.mx/">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
-  <meta property="og:url" content="https://courtbit.com.mx/en/">
+  <meta property="og:url" content="https://www.courtbit.com.mx/en/">
   <meta property="og:title" content="CourtBit — Bookings, Academies, and Tournaments in One Padel Platform">
   <meta property="og:description" content="Bookings, academies, and tournaments for your club. Plans for clubs and organizers. Payments go straight to your club's Stripe or MercadoPago account; CourtBit charges the payer 4%, never the club. Cash and bank transfer: zero fees.">
-  <meta property="og:image" content="https://courtbit.com.mx/Assets/marketing/og/og-home.jpg">
+  <meta property="og:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-home.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Padel players on a court with the CourtBit brand.">
@@ -26,10 +26,10 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://courtbit.com.mx/en/">
+  <meta name="twitter:url" content="https://www.courtbit.com.mx/en/">
   <meta name="twitter:title" content="CourtBit — Padel Platform for Clubs and Organizers">
   <meta name="twitter:description" content="Bookings, academies, and tournaments in one platform. Plans for clubs and organizers. Get paid with Stripe or MercadoPago; 4% charged to the payer.">
-  <meta name="twitter:image" content="https://courtbit.com.mx/Assets/marketing/og/og-home.jpg">
+  <meta name="twitter:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-home.jpg">
 
   <!-- Favicons -->
   <link rel="icon" href="/Assets/courtbit-logo.svg" type="image/svg+xml">
@@ -49,8 +49,8 @@
     "name": "CourtBit",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web, iOS, Android",
-    "url": "https://courtbit.com.mx/en/",
-    "image": "https://courtbit.com.mx/Assets/marketing/hero/hero-clubes.png",
+    "url": "https://www.courtbit.com.mx/en/",
+    "image": "https://www.courtbit.com.mx/Assets/marketing/hero/hero-clubes.png",
     "description": "Padel platform for clubs and organizers: bookings, academies, and tournaments in one platform. Plans for clubs and organizers. Get paid with Stripe or MercadoPago.",
     "offers": {
       "@type": "AggregateOffer",
@@ -69,8 +69,8 @@
     "@type": "Organization",
     "name": "CourtBit",
     "alternateName": "Courtbit",
-    "url": "https://courtbit.com.mx/en/",
-    "logo": "https://courtbit.com.mx/Assets/logo.png",
+    "url": "https://www.courtbit.com.mx/en/",
+    "logo": "https://www.courtbit.com.mx/Assets/logo.png",
     "description": "Padel platform for clubs and organizers in Mexico: court bookings, academy management, and tournament and league organization, with a native app (iOS and Android) and a web dashboard. Payments go straight to the club's Stripe or MercadoPago account.",
     "areaServed": "MX",
     "knowsAbout": ["padel court bookings", "padel academies", "padel tournaments", "padel leagues", "padel Americano league"],
@@ -309,6 +309,15 @@
     /* ─── Mobile (chrome-only rules extracted from index.html's
        tangled @media blocks — page-specific siblings stay in each
        page's own <style> block) ─── */
+    /* Banda estrecha de escritorio: la nav tiene 6 enlaces y a <1080px no cabe
+       con el espaciado completo. Se aprieta en vez de desaparecer — abajo de
+       900px los enlaces ya se ocultan por completo. */
+    @media (min-width: 901px) and (max-width: 1080px) {
+      .e-nav-inner { gap: 14px; padding-left: 14px; padding-right: 14px; }
+      .e-nav-links { gap: 14px; }
+      .e-nav-links a { font-size: 0.9375rem; }
+      .e-logo img { height: 72px; }
+    }
     @media (max-width: 900px) {
       .e-nav-links { display: none; }
       .e-nav-secondary { display: none; }
@@ -2631,6 +2640,7 @@
       <a href="/en/academias/" class="">For academies</a>
       <a href="/en/competencias/" class="">For organizers</a>
       <a href="/torneos/">Tournaments</a>
+      <a href="/guias/">Guides</a>
       <a href="/en/pricing/" class="">Pricing</a>
     </div>
     <div class="e-nav-secondary">

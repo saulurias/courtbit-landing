@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CourtBit Academia — gestión de alumnos y clases para entrenadores</title>
   <meta name="description" content="Software de academia de padel: lista de alumnos, agenda de clases, pagos directos. Planes para tu academia; CourtBit solo cobra 4% al alumno.">
-  <link rel="canonical" href="https://courtbit.com.mx/academias/">
-  <link rel="alternate" hreflang="es" href="https://courtbit.com.mx/academias/">
-  <link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/academias/">
-  <link rel="alternate" hreflang="x-default" href="https://courtbit.com.mx/academias/">
+  <link rel="canonical" href="https://www.courtbit.com.mx/academias/">
+  <link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/academias/">
+  <link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/academias/">
+  <link rel="alternate" hreflang="x-default" href="https://www.courtbit.com.mx/academias/">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- OG / Twitter -->
-  <meta property="og:url" content="https://courtbit.com.mx/academias/">
+  <meta property="og:url" content="https://www.courtbit.com.mx/academias/">
   <meta property="og:title" content="CourtBit Academia — para tu academia de padel">
   <meta property="og:description" content="Lista de alumnos, agenda de clases, cobros directos. CourtBit solo cobra 4% al alumno, nunca al instructor.">
-  <meta property="og:image" content="https://courtbit.com.mx/Assets/marketing/og/og-academias.jpg">
+  <meta property="og:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-academias.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -33,7 +33,7 @@
     "name": "CourtBit Academia",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web, iOS, Android",
-    "url": "https://courtbit.com.mx/academias/"
+    "url": "https://www.courtbit.com.mx/academias/"
   }
   </script>
 
@@ -265,6 +265,15 @@
     /* ─── Mobile (chrome-only rules extracted from index.html's
        tangled @media blocks — page-specific siblings stay in each
        page's own <style> block) ─── */
+    /* Banda estrecha de escritorio: la nav tiene 6 enlaces y a <1080px no cabe
+       con el espaciado completo. Se aprieta en vez de desaparecer — abajo de
+       900px los enlaces ya se ocultan por completo. */
+    @media (min-width: 901px) and (max-width: 1080px) {
+      .e-nav-inner { gap: 14px; padding-left: 14px; padding-right: 14px; }
+      .e-nav-links { gap: 14px; }
+      .e-nav-links a { font-size: 0.9375rem; }
+      .e-logo img { height: 72px; }
+    }
     @media (max-width: 900px) {
       .e-nav-links { display: none; }
       .e-nav-secondary { display: none; }
@@ -652,6 +661,7 @@
       <a href="/academias/" class="is-active">Para academias</a>
       <a href="/competencias/" class="">Para organizadores</a>
       <a href="/torneos/">Torneos</a>
+      <a href="/guias/">Guías</a>
       <a href="/pricing/" class="">Precios</a>
     </div>
     <div class="e-nav-secondary">
