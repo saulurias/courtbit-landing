@@ -20,22 +20,22 @@ Disponible como app nativa (App Store y Google Play) para jugadores y como panel
 
 ## Páginas
 
-- [Qué es CourtBit](https://courtbit.com.mx/que-es/): descripción completa de la plataforma y sus productos.
-- [Reservas para clubes](https://courtbit.com.mx/clubes/): sistema de reservas $0/mes para clubes de pádel.
-- [Academias](https://courtbit.com.mx/academias/): gestión de alumnos y clases para entrenadores.
-- [Competencias / organizadores](https://courtbit.com.mx/competencias/): torneos, ligas y retas.
-- [Precios](https://courtbit.com.mx/pricing/): planes y costos.
-- [Descargar la app](https://courtbit.com.mx/apps/): enlaces a App Store y Google Play.
+- [Qué es CourtBit](https://www.courtbit.com.mx/que-es/): descripción completa de la plataforma y sus productos.
+- [Reservas para clubes](https://www.courtbit.com.mx/clubes/): sistema de reservas $0/mes para clubes de pádel.
+- [Academias](https://www.courtbit.com.mx/academias/): gestión de alumnos y clases para entrenadores.
+- [Competencias / organizadores](https://www.courtbit.com.mx/competencias/): torneos, ligas y retas.
+- [Precios](https://www.courtbit.com.mx/pricing/): planes y costos.
+- [Descargar la app](https://www.courtbit.com.mx/apps/): enlaces a App Store y Google Play.
 
 ## Guías y herramientas
 
-- [Cómo organizar un torneo de pádel (guía paso a paso)](https://courtbit.com.mx/como-organizar-torneo-padel/)
-- [Mejores prácticas para organizar un torneo de pádel](https://courtbit.com.mx/mejores-practicas-torneo-padel/)
-- [Qué es la liga americana de pádel individual y cómo organizarla](https://courtbit.com.mx/liga-americana-padel/)
-- [Generador de cuadro de torneo de pádel (gratis)](https://courtbit.com.mx/generador-cuadro-torneo-padel/)
-- [Generador de liga americana individual (gratis)](https://courtbit.com.mx/liga-padel-americana-individual/)
-- [Calculadora de costos para torneos](https://courtbit.com.mx/calculadora-torneo/)
-- [Calculadora de costos para ligas](https://courtbit.com.mx/calculadora-liga/)
+- [Cómo organizar un torneo de pádel (guía paso a paso)](https://www.courtbit.com.mx/como-organizar-torneo-padel/)
+- [Mejores prácticas para organizar un torneo de pádel](https://www.courtbit.com.mx/mejores-practicas-torneo-padel/)
+- [Qué es la liga americana de pádel individual y cómo organizarla](https://www.courtbit.com.mx/liga-americana-padel/)
+- [Generador de cuadro de torneo de pádel (gratis)](https://www.courtbit.com.mx/generador-cuadro-torneo-padel/)
+- [Generador de liga americana individual (gratis)](https://www.courtbit.com.mx/liga-padel-americana-individual/)
+- [Calculadora de costos para torneos](https://www.courtbit.com.mx/calculadora-torneo/)
+- [Calculadora de costos para ligas](https://www.courtbit.com.mx/calculadora-liga/)
 
 ## Apps
 
@@ -46,15 +46,15 @@ Disponible como app nativa (App Store y Google Play) para jugadores y como panel
 
 CourtBit's core pages are also available in English at the same paths under `/en/`:
 
-- [Home](https://courtbit.com.mx/en/)
-- [Bookings for clubs](https://courtbit.com.mx/en/clubes/)
-- [Academies](https://courtbit.com.mx/en/academias/)
-- [Competitions / organizers](https://courtbit.com.mx/en/competencias/)
-- [Pricing](https://courtbit.com.mx/en/pricing/)
-- [Legal: terms, privacy and refunds](https://courtbit.com.mx/en/legal/) (English translation for convenience; the Spanish version is the legally binding original)
+- [Home](https://www.courtbit.com.mx/en/)
+- [Bookings for clubs](https://www.courtbit.com.mx/en/clubes/)
+- [Academies](https://www.courtbit.com.mx/en/academias/)
+- [Competitions / organizers](https://www.courtbit.com.mx/en/competencias/)
+- [Pricing](https://www.courtbit.com.mx/en/pricing/)
+- [Legal: terms, privacy and refunds](https://www.courtbit.com.mx/en/legal/) (English translation for convenience; the Spanish version is the legally binding original)
 
 ## Optional
 
-- [Publicidad en la app (para negocios)](https://courtbit.com.mx/ads/)
-- [Programa de referidos para organizadores](https://courtbit.com.mx/referidos/)
-- [Legal: términos, privacidad y reembolsos](https://courtbit.com.mx/legal/)
+- [Publicidad en la app (para negocios)](https://www.courtbit.com.mx/ads/)
+- [Programa de referidos para organizadores](https://www.courtbit.com.mx/referidos/)
+- [Legal: términos, privacidad y reembolsos](https://www.courtbit.com.mx/legal/)

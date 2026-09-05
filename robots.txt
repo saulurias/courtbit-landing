@@ -1,5 +1,5 @@
-# CourtBit — https://courtbit.com.mx
-# Curated LLM summary: https://courtbit.com.mx/llms.txt
+# CourtBit — https://www.courtbit.com.mx
+# Curated LLM summary: https://www.courtbit.com.mx/llms.txt
 
 # Default: allow everything to all crawlers
 User-agent: *
@@ -55,4 +55,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://courtbit.com.mx/sitemap.xml
+Sitemap: https://www.courtbit.com.mx/sitemap.xml
