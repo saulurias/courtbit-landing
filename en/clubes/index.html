@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CourtBit Reservas for padel clubs — calendar, app and payments</title>
   <meta name="description" content="Booking software for padel clubs. Calendar, player app, payments direct to your Stripe or MercadoPago. Plans for your club; CourtBit only charges 4% to the player.">
-  <link rel="canonical" href="https://courtbit.com.mx/en/clubes/">
-  <link rel="alternate" hreflang="es" href="https://courtbit.com.mx/clubes/">
-  <link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/clubes/">
-  <link rel="alternate" hreflang="x-default" href="https://courtbit.com.mx/clubes/">
+  <link rel="canonical" href="https://www.courtbit.com.mx/en/clubes/">
+  <link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/clubes/">
+  <link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/clubes/">
+  <link rel="alternate" hreflang="x-default" href="https://www.courtbit.com.mx/clubes/">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- OG / Twitter -->
-  <meta property="og:url" content="https://courtbit.com.mx/en/clubes/">
+  <meta property="og:url" content="https://www.courtbit.com.mx/en/clubes/">
   <meta property="og:title" content="CourtBit Reservas — for your padel club">
   <meta property="og:description" content="Calendar, player app, payments direct to your Stripe or MercadoPago. CourtBit only charges 4% to the player, never the club.">
-  <meta property="og:image" content="https://courtbit.com.mx/Assets/marketing/og/og-clubes.jpg">
+  <meta property="og:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-clubes.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -33,7 +33,7 @@
     "name": "CourtBit Reservas",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web, iOS, Android",
-    "url": "https://courtbit.com.mx/en/clubes/"
+    "url": "https://www.courtbit.com.mx/en/clubes/"
   }
   </script>
 
@@ -123,6 +123,7 @@
       text-transform: uppercase;
       display: flex; align-items: center; gap: 10px;
     }
+    .e-logo { flex-shrink: 0; }
     .e-logo img { height: 90px; width: auto; display: block; }
     .e-nav-links {
       display: flex; gap: 28px;
@@ -132,6 +133,7 @@
       font-size: 0.9375rem;
       color: rgba(255,255,255,0.92);
       font-weight: 600;
+      white-space: nowrap;
       transition: color 150ms;
       display: inline-flex;
       align-items: center;
@@ -265,6 +267,23 @@
     /* ─── Mobile (chrome-only rules extracted from index.html's
        tangled @media blocks — page-specific siblings stay in each
        page's own <style> block) ─── */
+    /* Banda estrecha de escritorio: la nav tiene 6 enlaces y a <1080px no cabe
+       con el espaciado completo. Se aprieta en vez de desaparecer — abajo de
+       900px los enlaces ya se ocultan por completo. */
+    @media (min-width: 901px) and (max-width: 1080px) {
+      .e-nav-inner { gap: 12px; padding-left: 12px; padding-right: 12px; }
+      .e-logo img { height: 60px; }
+      .e-nav-links { gap: 12px; }
+      .e-nav-links a { font-size: 0.875rem; }
+      .e-nav-secondary { gap: 12px; }
+      .e-nav-secondary a { font-size: 0.8125rem; }
+      .e-nav-cta { padding: 9px 14px; font-size: 0.8125rem; }
+      .e-nav-cta svg { display: none; }
+    }
+    @media (min-width: 901px) and (max-width: 960px) {
+      .e-nav-links { gap: 10px; }
+      .e-nav-links a { font-size: 0.8125rem; }
+    }
     @media (max-width: 900px) {
       .e-nav-links { display: none; }
       .e-nav-secondary { display: none; }
@@ -647,6 +666,7 @@
       <a href="/en/academias/" class="">For academies</a>
       <a href="/en/competencias/" class="">For organizers</a>
       <a href="/torneos/">Tournaments</a>
+      <a href="/guias/">Guides</a>
       <a href="/en/pricing/" class="">Pricing</a>
     </div>
     <div class="e-nav-secondary">

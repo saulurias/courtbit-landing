@@ -2,187 +2,169 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://courtbit.com.mx/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/"/>
+    <loc>https://www.courtbit.com.mx/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/"/>
     <lastmod>2026-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/que-es/</loc>
+    <loc>https://www.courtbit.com.mx/liga-americana-padel/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/liga-americana-padel/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://courtbit.com.mx/liga-padel-americana-individual/</loc>
+    <loc>https://www.courtbit.com.mx/liga-padel-americana-individual/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/apps/</loc>
+    <loc>https://www.courtbit.com.mx/apps/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/torneo/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://courtbit.com.mx/legal/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/legal/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/legal/"/>
+    <loc>https://www.courtbit.com.mx/legal/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/legal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/legal/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/legal/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/legal/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/legal/"/>
+    <loc>https://www.courtbit.com.mx/en/legal/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/legal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/legal/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/"/>
+    <loc>https://www.courtbit.com.mx/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/"/>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/calculadora-liga/</loc>
+    <loc>https://www.courtbit.com.mx/calculadora-liga/</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/referidos/</loc>
+    <loc>https://www.courtbit.com.mx/referidos/</loc>
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/calculadora-torneo/</loc>
+    <loc>https://www.courtbit.com.mx/calculadora-torneo/</loc>
     <lastmod>2026-03-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/pricing/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/pricing/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/pricing/"/>
+    <loc>https://www.courtbit.com.mx/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/pricing/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/pricing/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/pricing/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/pricing/"/>
+    <loc>https://www.courtbit.com.mx/en/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/pricing/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/como-organizar-torneo-padel/</loc>
+    <loc>https://www.courtbit.com.mx/como-organizar-torneo-padel/</loc>
     <lastmod>2026-03-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/generador-cuadro-torneo-padel/</loc>
+    <loc>https://www.courtbit.com.mx/generador-cuadro-torneo-padel/</loc>
     <lastmod>2026-03-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/mejores-practicas-torneo-padel/</loc>
+    <loc>https://www.courtbit.com.mx/mejores-practicas-torneo-padel/</loc>
     <lastmod>2026-03-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/clubes/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/clubes/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/clubes/"/>
+    <loc>https://www.courtbit.com.mx/clubes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/clubes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/clubes/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/clubes/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/clubes/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/clubes/"/>
+    <loc>https://www.courtbit.com.mx/en/clubes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/clubes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/clubes/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/academias/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/academias/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/academias/"/>
+    <loc>https://www.courtbit.com.mx/academias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/academias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/academias/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/academias/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/academias/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/academias/"/>
+    <loc>https://www.courtbit.com.mx/en/academias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/academias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/academias/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/competencias/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/competencias/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/competencias/"/>
+    <loc>https://www.courtbit.com.mx/competencias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/competencias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/competencias/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/en/competencias/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://courtbit.com.mx/competencias/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/competencias/"/>
+    <loc>https://www.courtbit.com.mx/torneos/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.courtbit.com.mx/en/competencias/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/competencias/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/competencias/"/>
     <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/ads/</loc>
-    <lastmod>2026-06-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://courtbit.com.mx/ads-organizadores/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://courtbit.com.mx/guias/</loc>
+    <loc>https://www.courtbit.com.mx/guias/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courtbit.com.mx/guia-academia/</loc>
+    <loc>https://www.courtbit.com.mx/guia-academia/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

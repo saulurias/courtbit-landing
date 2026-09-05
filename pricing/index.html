@@ -7,23 +7,23 @@
     <meta name="description" content="Reservas y academias: 4% al pagador, nunca al club ni al instructor. Competencias en un solo plan de $1,499 MXN/mes + IVA con todas las funcionalidades.">
     <meta property="og:title" content="Precios — CourtBit. Planes para tu club de padel.">
     <meta property="og:description" content="4% al pagador en reservas y academias. Competencias en un solo plan de $1,499/mes + IVA, todo incluido.">
-    <meta property="og:image" content="https://courtbit.com.mx/Assets/marketing/og/og-pricing.png">
+    <meta property="og:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-pricing.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="CourtBit — planes claros para tu club de padel.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://courtbit.com.mx/pricing/">
+    <meta property="og:url" content="https://www.courtbit.com.mx/pricing/">
     <meta property="og:locale" content="es_MX">
     <meta property="og:site_name" content="CourtBit">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Precios — CourtBit. Planes para tu club de padel.">
     <meta name="twitter:description" content="4% al pagador en reservas y academias. Competencias en un solo plan, todo incluido.">
-    <meta name="twitter:image" content="https://courtbit.com.mx/Assets/marketing/og/og-pricing.png">
+    <meta name="twitter:image" content="https://www.courtbit.com.mx/Assets/marketing/og/og-pricing.png">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://courtbit.com.mx/pricing/">
-    <link rel="alternate" hreflang="es" href="https://courtbit.com.mx/pricing/">
-    <link rel="alternate" hreflang="en" href="https://courtbit.com.mx/en/pricing/">
-    <link rel="alternate" hreflang="x-default" href="https://courtbit.com.mx/pricing/">
+    <link rel="canonical" href="https://www.courtbit.com.mx/pricing/">
+    <link rel="alternate" hreflang="es" href="https://www.courtbit.com.mx/pricing/">
+    <link rel="alternate" hreflang="en" href="https://www.courtbit.com.mx/en/pricing/">
+    <link rel="alternate" hreflang="x-default" href="https://www.courtbit.com.mx/pricing/">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <link rel="icon" type="image/png" href="/Assets/courtbit-logo.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,6 +116,7 @@
       text-transform: uppercase;
       display: flex; align-items: center; gap: 10px;
     }
+    .e-logo { flex-shrink: 0; }
     .e-logo img { height: 90px; width: auto; display: block; }
     .e-nav-links {
       display: flex; gap: 28px;
@@ -125,6 +126,7 @@
       font-size: 0.9375rem;
       color: rgba(255,255,255,0.92);
       font-weight: 600;
+      white-space: nowrap;
       transition: color 150ms;
       display: inline-flex;
       align-items: center;
@@ -258,6 +260,23 @@
     /* ─── Mobile (chrome-only rules extracted from index.html's
        tangled @media blocks — page-specific siblings stay in each
        page's own <style> block) ─── */
+    /* Banda estrecha de escritorio: la nav tiene 6 enlaces y a <1080px no cabe
+       con el espaciado completo. Se aprieta en vez de desaparecer — abajo de
+       900px los enlaces ya se ocultan por completo. */
+    @media (min-width: 901px) and (max-width: 1080px) {
+      .e-nav-inner { gap: 12px; padding-left: 12px; padding-right: 12px; }
+      .e-logo img { height: 60px; }
+      .e-nav-links { gap: 12px; }
+      .e-nav-links a { font-size: 0.875rem; }
+      .e-nav-secondary { gap: 12px; }
+      .e-nav-secondary a { font-size: 0.8125rem; }
+      .e-nav-cta { padding: 9px 14px; font-size: 0.8125rem; }
+      .e-nav-cta svg { display: none; }
+    }
+    @media (min-width: 901px) and (max-width: 960px) {
+      .e-nav-links { gap: 10px; }
+      .e-nav-links a { font-size: 0.8125rem; }
+    }
     @media (max-width: 900px) {
       .e-nav-links { display: none; }
       .e-nav-secondary { display: none; }
@@ -1418,6 +1437,7 @@
       <a href="/academias/" class="">Para academias</a>
       <a href="/competencias/" class="">Para organizadores</a>
       <a href="/torneos/">Torneos</a>
+      <a href="/guias/">Guías</a>
       <a href="/pricing/" class="is-active">Precios</a>
     </div>
     <div class="e-nav-secondary">
